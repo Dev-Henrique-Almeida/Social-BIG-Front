@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme, GlobalStyles } from "@mui/material";
 import { cyan, red } from "@mui/material/colors";
 import { fontFamily } from "../styles/font";
 
@@ -21,13 +21,20 @@ export const DarkTheme = createTheme({
       paper: "#1e1f23",
       default: "#17181c",
     },
-
     text: {
       primary: "#ffffff",
     },
   },
-
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        ":root": {
+          "--scrollbar-bg": "#333",
+          "--scrollbar-thumb": "#888",
+          "--scrollbar-thumb-hover": "#555",
+        },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {

@@ -20,7 +20,7 @@ interface IChildrenProps {
 }
 
 interface IEventProps {
-  target: HTMLInputElement;
+  target: HTMLInputElement | HTMLTextAreaElement;
 }
 
 interface IUserData {

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { IAuthContextData, IChildrenProps, IUserData } from "../../@types";
 import { localStorageUtils } from "../../utils";
 
@@ -13,6 +13,7 @@ export const useAuthContext = () => {
 export const AuthProvider: React.FC<IChildrenProps> = ({ children }) => {
   const [user, setUser] = useState<IUserData | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [isVerifying, setIsVerifying] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorageUtils.getItem("user");
@@ -23,6 +24,7 @@ export const AuthProvider: React.FC<IChildrenProps> = ({ children }) => {
     if (storedToken) {
       setToken(storedToken);
     }
+    setIsVerifying(false);
   }, []);
 
   const handleSetUser = (newUser: IUserData | null) => {
@@ -42,6 +44,10 @@ export const AuthProvider: React.FC<IChildrenProps> = ({ children }) => {
       localStorageUtils.removeItem("token");
     }
   };
+
+  if (isVerifying) {
+    return null; // Não renderiza nada enquanto verifica a autenticação
+  }
 
   return (
     <AuthContext.Provider

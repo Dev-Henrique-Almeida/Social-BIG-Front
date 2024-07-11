@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme, GlobalStyles } from "@mui/material";
 import { cyan, red } from "@mui/material/colors";
 import { fontFamily } from "../styles/font";
 
@@ -26,6 +26,15 @@ export const LightTheme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        ":root": {
+          "--scrollbar-bg": "#e0e0e0",
+          "--scrollbar-thumb": "#888",
+          "--scrollbar-thumb-hover": "#555",
+        },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {

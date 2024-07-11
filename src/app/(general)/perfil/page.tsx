@@ -1,30 +1,50 @@
 "use client";
 import React from "react";
-import { Input, Typography } from "@mui/material";
-import { useAuthenticatedUser } from "@/app/shared/hooks/Auth";
-import { useRouter } from "next/navigation";
+import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
+import { Input, Typography, Box } from "@mui/material";
+import useHandleChange from "@/app/shared/hooks/handleChange/useHandleChange";
 
 export default function Perfil() {
-  const router = useRouter();
-  const auth = useAuthenticatedUser();
+  const { user } = useAuthContext();
 
-  if (!auth) {
-    router.push("/login");
+  const { formData, handleChange } = useHandleChange(user || {});
+
+  if (!user) {
     return null;
   }
 
-  const { user, token } = auth;
-
   return (
-    <div>
-      <Typography variant="h3">Perfil</Typography>
-
-      <Input value={user.id} />
-
-      <Typography variant="body1">Name: {user.name}</Typography>
-      <Typography variant="body1">Email: {user.email}</Typography>
-      <Typography variant="body1">Image: {user.image}</Typography>
-      <Typography variant="body1">Token: {token}</Typography>
-    </div>
+    <Box>
+      <Typography variant="h3" gutterBottom>
+        Perfil
+      </Typography>
+      <Box>
+        <Input
+          fullWidth
+          title="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+      </Box>
+      <Box>
+        <Input
+          fullWidth
+          title="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </Box>
+      <Box>
+        <Input
+          fullWidth
+          title="image"
+          name="image"
+          value={formData.image}
+          onChange={handleChange}
+        />
+      </Box>
+    </Box>
   );
 }

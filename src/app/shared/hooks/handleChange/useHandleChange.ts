@@ -1,23 +1,30 @@
 "use client";
 import { useState } from "react";
-import { IEventProps } from "../../@types";
+import { IEventProps, IUserData } from "../../@types";
 
-const useHandleChange = () => {
-  const [formData, setFormData] = useState({
+const useHandleChange = (initialData: Partial<IUserData> = {}) => {
+  const [formData, setFormData] = useState<IUserData>({
+    id: "",
     name: "",
     username: "",
     email: "",
     birthdate: "",
     password: "",
     confirmPassword: "",
+    image: "",
+    sex: "",
+    address: "",
+    phone: "",
+    occupation: "",
+    ...initialData,
   });
 
   const handleChange = ({ target }: IEventProps) => {
     const { name, value } = target;
-    setFormData((prev) => {
-      const newState = { ...prev, [name]: value };
-      return newState;
-    });
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return {

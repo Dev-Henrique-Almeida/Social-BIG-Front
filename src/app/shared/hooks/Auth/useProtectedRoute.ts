@@ -2,8 +2,8 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 
-export const useAuthenticatedUser = () => {
-  const { user, token } = useAuthContext();
+const useProtectedRoute = () => {
+  const { user } = useAuthContext();
   const router = useRouter();
 
   useEffect(() => {
@@ -11,10 +11,6 @@ export const useAuthenticatedUser = () => {
       router.push("/login");
     }
   }, [user, router]);
-
-  if (!user) {
-    return null;
-  }
-
-  return { user, token };
 };
+
+export default useProtectedRoute;
