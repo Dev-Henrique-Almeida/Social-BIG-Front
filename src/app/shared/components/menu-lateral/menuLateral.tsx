@@ -8,36 +8,58 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IChildrenProps } from "../../@types";
 import styles from "./menuLateral.module.scss";
 import { useDrawerContext } from "../../contexts";
 import { useResponsiveContent } from "../../hooks/Responsive/useResponsiveContent";
 import { NavBar } from "../navBar/navBar";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 import logo from "../../../assets/compass-logo.png";
-
 import logoPositivo from "../../../assets/compass-logo-positivo.png";
 
 export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();
   const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
   const marginLeft = useResponsiveContent();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
   const drawerWidth = mdDown ? "100%" : theme.spacing(44);
 
   const [selectedItem, setSelectedItem] = useState("Página Inicial");
 
+  const menuItems = [
+    { title: "Página Inicial", path: "/home" },
+    { title: "Meu Perfil", path: "/perfil" },
+    { title: "Marketplace", path: "/marketplace" },
+    { title: "Sair", path: "/" },
+  ];
+
   const handleItemClick = (_path: string, item: string) => {
     setSelectedItem(item);
     if (mdDown) {
       toggleDrawerOpen();
     }
+    if (item === "Sair") {
+      localStorage.clear();
+      router.push("/");
+    }
   };
 
+  useEffect(() => {
+    const currentPath = pathname;
+    const currentItem = menuItems.find((item) => item.path === currentPath);
+    if (currentItem) {
+      setSelectedItem(currentItem.title);
+    }
+  }, [pathname, menuItems]);
+
   const logoUrl = theme.palette.mode === "dark" ? logo : logoPositivo;
+
   return (
     <>
       <Drawer
@@ -58,12 +80,7 @@ export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
           <Box flex={1}>
             <List component="nav">
               <Card className={styles.menuItem}>
-                {[
-                  { title: "Página Inicial", path: "/home" },
-                  { title: "Meu Perfil", path: "/perfil" },
-                  { title: "Marketplace", path: "/marketplace" },
-                  { title: "Sair", path: "/" },
-                ].map((link) => (
+                {menuItems.map((link) => (
                   <Link
                     key={link.title}
                     className={`${styles.linkFull} ${

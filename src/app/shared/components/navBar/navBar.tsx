@@ -1,3 +1,4 @@
+"use client";
 import {
   AppBar,
   Box,
@@ -16,17 +17,36 @@ import { IChildrenProps } from "../../@types";
 import { useResponsiveContent } from "../../hooks";
 import { useDrawerContext, useThemeContext } from "../../contexts";
 import styles from "./navBar.module.scss";
+import { useAuthContext } from "../../contexts/Auth/AuthContext";
+import { useRouter } from "next/navigation";
 
 export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();
+  const { user } = useAuthContext();
+  const router = useRouter();
   const { toggleTheme } = useThemeContext();
   const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
   const marginLeft = useResponsiveContent();
+
+  const handleProfile = () => {
+    router.push("/perfil");
+  };
+
+  const getAvatarProps = () => {
+    if (user && user.image) {
+      return { src: user.image, alt: user.name };
+    }
+    return {
+      alt: user ? user.name : "Desconhecido",
+      src: user ? user.name : "",
+    };
+  };
 
   return (
     <AppBar
       sx={{
         height: theme.spacing(8),
+        paddingTop: theme.spacing(0.5),
         borderBottom:
           theme.palette.mode === "light"
             ? "1px solid #e0e0e0"
@@ -54,11 +74,15 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
             </IconButton>
           </Tooltip>
           <Typography variant="body1" sx={{ margin: "0 8px" }}>
-            {"Usuário"} {/* corrigir para pegar o nome do usuário logado */}
+            {user ? user.name : "Desconhecido"}
           </Typography>
           <Tooltip title="Minha conta">
-            <IconButton color="primary">
-              <Avatar />
+            <IconButton
+              onClick={handleProfile}
+              color="primary"
+              sx={{ marginRight: theme.spacing(2) }}
+            >
+              <Avatar {...getAvatarProps()} />
             </IconButton>
           </Tooltip>
         </Box>

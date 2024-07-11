@@ -1,11 +1,14 @@
 import Login from "./(general)/login/page";
 import { AppThemeProvider } from "./shared/contexts";
-import "./styles/globals.scss";
+import { AuthProvider } from "./shared/contexts/Auth/AuthContext";
+import "./shared/styles/globals.scss";
 
 export default function Home() {
   return (
     <AppThemeProvider>
-      <Login />
+      <AuthProvider>
+        <Login />
+      </AuthProvider>
     </AppThemeProvider>
   );
 }
