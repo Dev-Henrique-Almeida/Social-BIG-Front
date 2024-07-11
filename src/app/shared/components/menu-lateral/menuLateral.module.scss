@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
+.menuItem {
+  border-radius: 0;
+  display: flex;
+  width: 240px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #393a3e;
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+.linkFull {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  flex-direction: column;
+  margin: 0 auto;
+  color: #fff;
+  .MuiTypography-root {
+    font-family: "Montserrat", sans-serif;
+  }
+}
+
+.linkFull:hover {
+  color: var(--orange, #fe2e05);
+}
+
+.activeLink {
+  height: 50px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background: var(--orange, #fe2e05);
+  color: black;
+}
+
+.activeLink:hover {
+  color: white;
+}
+
+.boxLogo {
+  width: 100;
+  display: flex;
+  
+  align-items: center;
+  justify-content: center;
+}
