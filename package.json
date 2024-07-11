@@ -15,6 +15,7 @@
     "@mui/material": "^5.16.0",
     "axios": "^1.7.2",
     "next": "14.2.5",
+    "nookies": "^2.5.2",
     "react": "^18",
     "react-dom": "^18",
     "sass": "^1.77.7"

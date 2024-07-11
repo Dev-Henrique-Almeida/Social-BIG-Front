@@ -4,6 +4,7 @@ import useHandleChange from "../../shared/hooks/handleChange/useHandleChange";
 import { loginUser } from "../../shared/services";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
+import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
@@ -50,6 +51,7 @@ export default function Login() {
         <Button type="submit" variant="contained" color="primary">
           Entrar
         </Button>
+        <Link href="/register">Registrar-se</Link>
       </form>
     </div>
   );
