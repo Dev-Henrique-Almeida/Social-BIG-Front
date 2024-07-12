@@ -91,8 +91,8 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
 
       <Box
         sx={{
-          paddingTop: theme.spacing(8),
-          paddingRight: theme.spacing(4),
+          paddingTop: theme.spacing(10),
+          paddingRight: theme.spacing(3.3),
           maxWidth: "100%",
           overflowX: "hidden",
           wordBreak: "break-all",

@@ -3,14 +3,14 @@ import { Button, useTheme } from "@mui/material";
 import useHandleChange from "../../shared/hooks/handleChange/useHandleChange";
 import { loginUser } from "../../shared/services";
 import { useRouter } from "next/navigation";
-import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
 import Link from "next/link";
+import { useAuthContext } from "@/app/shared/contexts";
 
 export default function Login() {
+  const { setUser, setToken } = useAuthContext();
   const router = useRouter();
   const theme = useTheme();
   const { formData, handleChange } = useHandleChange();
-  const { setUser, setToken } = useAuthContext();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

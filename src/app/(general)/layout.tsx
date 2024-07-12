@@ -12,8 +12,8 @@ import useProtectedRoute from "../shared/hooks/Auth/useProtectedRoute";
 import { CssBaseline } from "@mui/material";
 
 function Layout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
   const { user } = useAuthContext();
+  const pathname = usePathname();
   const noMenuRoutes = ["/register", "/login"];
 
   const showMenuLateral = user && !noMenuRoutes.includes(pathname);
