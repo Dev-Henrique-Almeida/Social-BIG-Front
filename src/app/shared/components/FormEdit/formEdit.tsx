@@ -7,7 +7,7 @@ import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import InputField from "@/app/shared/components/InputField/inputField";
 import useHandleChange from "../../hooks/HandleChange/useHandleChange";
 import { updateUser } from "../../services/api/userApi";
-import FormatBirthdate from "../../utils/convertBirthdate";
+import FormatBirthdate from "../../utils/ConvertDates/convertBirthdate";
 import SelectField from "../SelectField/selectField";
 import { IFormEditProps } from "../../@types";
 
@@ -92,7 +92,7 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
           className={styles.inputField}
         />
         <InputField
-          type="text"
+          type="tel"
           value={formData.phone!}
           onChange={handleChange}
           name="phone"

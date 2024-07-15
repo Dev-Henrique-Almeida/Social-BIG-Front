@@ -51,6 +51,7 @@ interface IInputFieldProps {
   name: string;
   placeholder?: string;
   className?: string;
+  mask?: string;
 }
 
 export type {

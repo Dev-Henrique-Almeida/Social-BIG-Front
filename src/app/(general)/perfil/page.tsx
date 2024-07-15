@@ -4,8 +4,8 @@ import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
 import { Typography, Box, Button, Grid, Modal } from "@mui/material";
 import styles from "./perfil.module.scss";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
-import FormatDateToBRFull from "@/app/shared/utils/convertDate";
-import ConvertSex from "@/app/shared/utils/convertSex";
+import FormatDateToBRFull from "@/app/shared/utils/ConvertDates/convertDate";
+import ConvertSex from "@/app/shared/utils/ConvertSex/convertSex";
 import FormEdit from "@/app/shared/components/FormEdit/formEdit";
 import bannerImage from "../../assets/banner-perfil.jpg";
 
