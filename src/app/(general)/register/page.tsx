@@ -1,15 +1,21 @@
 "use client";
-import { Button, useTheme } from "@mui/material";
-import { createUser } from "../../shared/services";
+import React from "react";
+import { Button, Typography } from "@mui/material";
 import useHandleChange from "../../shared/hooks/HandleChange/useHandleChange";
-import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
+import { createUser } from "../../shared/services";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useAuthContext } from "@/app/shared/contexts";
+import styles from "./register.module.scss";
+import ChangeTheme from "@/app/shared/components/changeTheme/changeTheme";
+import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
+import InputField from "@/app/shared/components/inputField/inputField";
 
 export default function Register() {
-  const theme = useTheme();
-  const { formData, handleChange } = useHandleChange();
-  const { setUser, setToken } = useAuthContext();
   const router = useRouter();
+  const themeStyles = useThemeStyles();
+  const { setUser, setToken } = useAuthContext();
+  const { formData, handleChange } = useHandleChange();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,60 +39,92 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <h1 style={{ color: theme.palette.mode === "light" ? "black" : "white" }}>
-        Registro
-      </h1>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleChange}
+    <div
+      className={styles.registerContainer}
+      style={{ backgroundColor: themeStyles.backgroundDefault }}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className={styles.registerForm}
+        style={{ backgroundColor: themeStyles.backgroundPaper }}
+      >
+        <div className={styles.header}>
+          <h1
+            className={styles.registerTitle}
+            style={{ color: themeStyles.textColor }}
+          >
+            Registro
+          </h1>
+          <ChangeTheme />
+        </div>
+        <InputField
           type="text"
-          name="name"
           value={formData.name}
+          onChange={handleChange}
+          name="name"
           placeholder="Nome"
+          className={styles.inputField}
         />
-        <input
-          onChange={handleChange}
+        <InputField
           type="text"
-          name="username"
           value={formData.username}
+          onChange={handleChange}
+          name="username"
           placeholder="Username"
+          className={styles.inputField}
         />
-        <input
-          onChange={handleChange}
-          type="text"
-          name="email"
+        <InputField
+          type="email"
           value={formData.email}
+          onChange={handleChange}
+          name="email"
           placeholder="Email"
+          className={styles.inputField}
         />
-        <input
-          onChange={handleChange}
-          type="date" // Mudar para date
-          name="birthdate"
+        <InputField
+          type="date"
           value={formData.birthdate}
+          onChange={handleChange}
+          name="birthdate"
           placeholder="Data de Nascimento"
+          className={styles.inputField}
         />
-
-        <input
-          onChange={handleChange}
-          type="password" // Mudar para password
-          name="password"
-          value={formData.password}
-          placeholder="Senha"
-        />
-
-        <input
-          onChange={handleChange}
+        <InputField
           type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          placeholder="Confirmar Senha"
+          value={formData.password}
+          onChange={handleChange}
+          name="password"
+          placeholder="Senha"
+          className={styles.inputField}
         />
-
-        <Button type="submit" variant="contained" color="primary">
+        <InputField
+          type="password"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          name="confirmPassword"
+          placeholder="Confirmar Senha"
+          className={styles.inputField}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={styles.registerButton}
+        >
           Cadastrar
         </Button>
+        <div className={styles.loginContainer}>
+          <Typography
+            sx={{
+              color: themeStyles.textColor,
+            }}
+          >
+            Já possui uma conta?{" "}
+            <Link href="/login" className={styles.loginLink} color="primary">
+              Entre aqui
+            </Link>
+          </Typography>
+        </div>
       </form>
     </div>
   );
