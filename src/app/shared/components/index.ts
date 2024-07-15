@@ -1,2 +1,2 @@
-export * from "./menu-lateral/menuLateral";
+export * from "./menuLateral/menuLateral";
 export * from "./navBar/navBar";

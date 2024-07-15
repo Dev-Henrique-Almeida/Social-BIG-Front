@@ -45,7 +45,11 @@ export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
       toggleDrawerOpen();
     }
     if (item === "Sair") {
+      const theme = localStorage.getItem("theme");
       localStorage.clear();
+      if (theme) {
+        localStorage.setItem("theme", theme);
+      }
       router.push("/");
     }
   };

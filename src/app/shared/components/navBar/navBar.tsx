@@ -8,8 +8,7 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+
 import logoClosed from "../../../assets/close-menu.png";
 import logoOpen from "../../../assets/open-menu.png";
 import { IChildrenProps } from "../../@types";
@@ -18,6 +17,7 @@ import { useDrawerContext, useThemeContext } from "../../contexts";
 import styles from "./navBar.module.scss";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import { useRouter } from "next/navigation";
+import ChangeTheme from "../changeTheme/changeTheme";
 
 export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();
@@ -64,15 +64,7 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
             </IconButton>
           </Box>
           <Box className={styles.boxUser}>
-            <Tooltip title="Alterar tema">
-              <IconButton onClick={toggleTheme} color="primary">
-                {theme.palette.mode === "dark" ? (
-                  <Brightness7Icon />
-                ) : (
-                  <Brightness4Icon />
-                )}
-              </IconButton>
-            </Tooltip>
+            <ChangeTheme />
             <Typography variant="body1" sx={{ margin: "0 8px" }}>
               {user ? user.name : "Desconhecido"}
             </Typography>

@@ -38,6 +38,15 @@ interface IUserData {
   occupation?: string;
 }
 
+interface IInputFieldProps {
+  type: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name: string;
+  placeholder?: string;
+  className?: string;
+}
+
 export type {
   IThemeContexData,
   IDrawerContexData,
@@ -45,4 +54,5 @@ export type {
   IChildrenProps,
   IUserData,
   IAuthContextData,
+  IInputFieldProps,
 };

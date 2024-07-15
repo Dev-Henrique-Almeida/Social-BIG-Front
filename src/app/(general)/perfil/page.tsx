@@ -2,7 +2,7 @@
 import React from "react";
 import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
 import { Input, Typography, Box } from "@mui/material";
-import useHandleChange from "@/app/shared/hooks/handleChange/useHandleChange";
+import useHandleChange from "@/app/shared/hooks/HandleChange/useHandleChange";
 
 export default function Perfil() {
   const { user } = useAuthContext();

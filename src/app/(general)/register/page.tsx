@@ -1,7 +1,7 @@
 "use client";
 import { Button, useTheme } from "@mui/material";
 import { createUser } from "../../shared/services";
-import useHandleChange from "../../shared/hooks/handleChange/useHandleChange";
+import useHandleChange from "../../shared/hooks/HandleChange/useHandleChange";
 import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
 import { useRouter } from "next/navigation";
 

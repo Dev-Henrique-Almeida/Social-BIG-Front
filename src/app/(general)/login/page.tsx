@@ -1,15 +1,20 @@
 "use client";
-import { Button, useTheme } from "@mui/material";
-import useHandleChange from "../../shared/hooks/handleChange/useHandleChange";
+import React from "react";
+import { Button, Typography } from "@mui/material";
+import useHandleChange from "../../shared/hooks/HandleChange/useHandleChange";
 import { loginUser } from "../../shared/services";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuthContext } from "@/app/shared/contexts";
+import styles from "./login.module.scss";
+import ChangeTheme from "@/app/shared/components/changeTheme/changeTheme";
+import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
+import InputField from "@/app/shared/components/inputField/inputField";
 
-export default function Login() {
-  const { setUser, setToken } = useAuthContext();
+const Login = () => {
   const router = useRouter();
-  const theme = useTheme();
+  const themeStyles = useThemeStyles();
+  const { setUser, setToken } = useAuthContext();
   const { formData, handleChange } = useHandleChange();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -29,30 +34,67 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1 style={{ color: theme.palette.mode === "light" ? "black" : "white" }}>
-        Login
-      </h1>
-      <form onSubmit={handleSubmit}>
-        <input
+    <div
+      className={styles.loginContainer}
+      style={{ backgroundColor: themeStyles.backgroundDefault }}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className={styles.loginForm}
+        style={{ backgroundColor: themeStyles.backgroundPaper }}
+      >
+        <div className={styles.header}>
+          <h1
+            className={styles.loginTitle}
+            style={{ color: themeStyles.textColor }}
+          >
+            Login
+          </h1>
+          <ChangeTheme />
+        </div>
+        <InputField
           type="text"
           value={formData.username}
           onChange={handleChange}
           name="username"
           placeholder="Username"
-        ></input>
-        <input
+          className={styles.inputField}
+        />
+        <InputField
           type="password"
           value={formData.password}
           onChange={handleChange}
           name="password"
           placeholder="Senha"
-        ></input>
-        <Button type="submit" variant="contained" color="primary">
+          className={styles.inputField}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={styles.loginButton}
+        >
           Entrar
         </Button>
-        <Link href="/register">Registrar-se</Link>
+        <div className={styles.registerContainer}>
+          <Typography
+            sx={{
+              color: themeStyles.textColor,
+            }}
+          >
+            Não possui uma conta?{" "}
+            <Link
+              href="/register"
+              className={styles.registerLink}
+              color="primary"
+            >
+              Crie aqui
+            </Link>
+          </Typography>
+        </div>
       </form>
     </div>
   );
-}
+};
+
+export default Login;
