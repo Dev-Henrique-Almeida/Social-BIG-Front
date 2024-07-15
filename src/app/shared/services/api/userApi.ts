@@ -1,7 +1,11 @@
 import { IUserData } from "../../@types";
 import { api, configHeaders } from "./api";
 
-export const updateUser = async (user: IUserData, token: string) => {
+export const updateUser = async (
+  user: IUserData,
+  id: string,
+  token: string
+) => {
   try {
     const headersWithToken = {
       ...configHeaders,
@@ -12,9 +16,10 @@ export const updateUser = async (user: IUserData, token: string) => {
       },
     };
 
-    const response = await api.put(`/user`, user, headersWithToken);
+    const response = await api.put(`/users/${id}`, user, headersWithToken);
     return response.data;
   } catch (error) {
+    console.error("Erro na atualização do usuário:", error);
     throw error;
   }
 };

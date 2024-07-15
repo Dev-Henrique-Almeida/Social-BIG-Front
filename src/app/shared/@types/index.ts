@@ -23,6 +23,12 @@ interface IEventProps {
   target: HTMLInputElement | HTMLTextAreaElement;
 }
 
+interface IFormEditProps {
+  user: IUserData;
+  token: string;
+  onClose: () => void;
+}
+
 interface IUserData {
   id?: string;
   name: string;
@@ -32,7 +38,7 @@ interface IUserData {
   password: string;
   confirmPassword: string;
   image?: string;
-  sex?: string;
+  sex?: "Male" | "Female";
   address?: string;
   phone?: string;
   occupation?: string;
@@ -55,4 +61,5 @@ export type {
   IUserData,
   IAuthContextData,
   IInputFieldProps,
+  IFormEditProps,
 };

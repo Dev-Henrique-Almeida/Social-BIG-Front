@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuthContext } from "@/app/shared/contexts";
 import styles from "./login.module.scss";
-import ChangeTheme from "@/app/shared/components/changeTheme/changeTheme";
+import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
-import InputField from "@/app/shared/components/inputField/inputField";
+import InputField from "@/app/shared/components/InputField/inputField";
 
 const Login = () => {
   const router = useRouter();
@@ -62,7 +62,7 @@ const Login = () => {
         />
         <InputField
           type="password"
-          value={formData.password}
+          value={formData.password!}
           onChange={handleChange}
           name="password"
           placeholder="Senha"

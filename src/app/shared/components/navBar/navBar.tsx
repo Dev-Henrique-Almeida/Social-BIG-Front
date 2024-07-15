@@ -17,7 +17,7 @@ import { useDrawerContext, useThemeContext } from "../../contexts";
 import styles from "./navBar.module.scss";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import { useRouter } from "next/navigation";
-import ChangeTheme from "../changeTheme/changeTheme";
+import ChangeTheme from "../ChangeTheme/changeTheme";
 
 export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();

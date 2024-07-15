@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuthContext } from "@/app/shared/contexts";
 import styles from "./register.module.scss";
-import ChangeTheme from "@/app/shared/components/changeTheme/changeTheme";
+import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
-import InputField from "@/app/shared/components/inputField/inputField";
+import InputField from "@/app/shared/components/InputField/inputField";
 
 export default function Register() {
   const router = useRouter();
@@ -99,7 +99,7 @@ export default function Register() {
         />
         <InputField
           type="password"
-          value={formData.confirmPassword}
+          value={formData.confirmPassword!}
           onChange={handleChange}
           name="confirmPassword"
           placeholder="Confirmar Senha"
