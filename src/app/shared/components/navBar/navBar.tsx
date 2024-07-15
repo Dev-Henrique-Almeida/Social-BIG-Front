@@ -18,27 +18,18 @@ import styles from "./navBar.module.scss";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import { useRouter } from "next/navigation";
 import ChangeTheme from "../ChangeTheme/changeTheme";
+import useAvatarProps from "../../hooks/AvatarProps.ts/useAvatarProps";
 
 export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();
   const { user } = useAuthContext();
   const router = useRouter();
-  const { toggleTheme } = useThemeContext();
   const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
   const marginLeft = useResponsiveContent();
+  const getAvatarProps = useAvatarProps();
 
   const handleProfile = () => {
     router.push("/perfil");
-  };
-
-  const getAvatarProps = () => {
-    if (user && user.image) {
-      return { src: user.image, alt: user.name };
-    }
-    return {
-      alt: user ? user.name : "Desconhecido",
-      src: user ? user.name : "",
-    };
   };
 
   return (

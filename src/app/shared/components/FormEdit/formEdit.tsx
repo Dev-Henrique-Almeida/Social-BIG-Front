@@ -24,7 +24,7 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
       console.log(updatedUser);
       alert("Usuário atualizado com sucesso!");
       setUser(updatedUser);
-      onClose();
+      onClose!();
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error);
       alert(

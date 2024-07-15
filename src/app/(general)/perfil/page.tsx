@@ -1,16 +1,29 @@
 "use client";
 import React, { useState } from "react";
 import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
-import { Typography, Box, Button, Grid, Modal } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Button,
+  Grid,
+  Modal,
+  useTheme,
+  Avatar,
+} from "@mui/material";
 import styles from "./perfil.module.scss";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import FormatDateToBRFull from "@/app/shared/utils/ConvertDates/convertDate";
 import ConvertSex from "@/app/shared/utils/ConvertSex/convertSex";
 import FormEdit from "@/app/shared/components/FormEdit/formEdit";
-import bannerImage from "../../assets/banner-perfil.jpg";
+import bannerImage from "../../assets/banner-perfil.png";
+import bannerImageMobile from "../../assets/banner-perfil-mobile.png";
+import useAvatarProps from "@/app/shared/hooks/AvatarProps.ts/useAvatarProps";
 
 export default function Perfil() {
   const { user, token } = useAuthContext();
+  const theme = useTheme();
+  const mdDown = theme.breakpoints.down("md");
+  const getAvatarProps = useAvatarProps();
   const themeStyles = useThemeStyles();
   const [open, setOpen] = useState(false);
 
@@ -35,7 +48,9 @@ export default function Perfil() {
         <Box
           className={styles.cover}
           sx={{
-            backgroundImage: `url(${bannerImage.src})`,
+            backgroundImage: mdDown
+              ? `url(${bannerImage.src})`
+              : `url(${bannerImageMobile.src})`,
           }}
         ></Box>
         <Box
@@ -43,10 +58,9 @@ export default function Perfil() {
           sx={{ backgroundColor: themeStyles.backgroundPaper }}
         >
           <Box className={styles.imageBackground}>
-            <img
-              className={styles.userIcons}
-              src={user.image}
-              alt={user.name}
+            <Avatar
+              sx={{ width: theme.spacing(20), height: theme.spacing(20) }}
+              {...getAvatarProps()}
             />
           </Box>
           <Grid
@@ -121,10 +135,9 @@ export default function Perfil() {
               <Box className={styles.postHeader}>
                 <Box className={styles.postUser}>
                   <Box className={styles.userIconSmall}>
-                    <img
+                    <Avatar
                       className={styles.userIconSmall}
-                      src={user.image}
-                      alt={user.name}
+                      {...getAvatarProps()}
                     />
                   </Box>
                   <Typography variant="body1">{user.name}</Typography>

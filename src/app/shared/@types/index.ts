@@ -26,7 +26,7 @@ interface IEventProps {
 interface IFormEditProps {
   user: IUserData;
   token: string;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 interface IUserData {
@@ -42,6 +42,13 @@ interface IUserData {
   address?: string;
   phone?: string;
   occupation?: string;
+}
+
+interface IPostData {
+  authorId?: string;
+  text: string;
+  location?: string;
+  image?: string;
 }
 
 interface IInputFieldProps {
@@ -63,4 +70,5 @@ export type {
   IAuthContextData,
   IInputFieldProps,
   IFormEditProps,
+  IPostData,
 };
