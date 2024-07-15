@@ -14,9 +14,7 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <div className="loginContainer">
-          <AppThemeProvider>{children}</AppThemeProvider>
-        </div>
+        <div className="loginContainer">{children}</div>
       </body>
     </html>
   );
