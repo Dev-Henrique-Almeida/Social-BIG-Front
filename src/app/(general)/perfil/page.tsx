@@ -7,17 +7,14 @@ import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import FormatDateToBRFull from "@/app/shared/utils/convertDate";
 import ConvertSex from "@/app/shared/utils/convertSex";
 import FormEdit from "@/app/shared/components/FormEdit/formEdit";
+import bannerImage from "../../assets/banner-perfil.jpg";
 
 export default function Perfil() {
   const { user, token } = useAuthContext();
   const themeStyles = useThemeStyles();
   const [open, setOpen] = useState(false);
 
-  if (!user) {
-    return null;
-  }
-
-  if (!token) {
+  if (!user || !token) {
     return null;
   }
 
@@ -37,9 +34,14 @@ export default function Perfil() {
       >
         <Box
           className={styles.cover}
-          style={{ backgroundColor: themeStyles.backgroundPaper }}
+          sx={{
+            backgroundImage: `url(${bannerImage.src})`,
+          }}
         ></Box>
-        <Box className={styles.profileName}>
+        <Box
+          className={styles.profileName}
+          sx={{ backgroundColor: themeStyles.backgroundPaper }}
+        >
           <Box className={styles.imageBackground}>
             <img
               className={styles.userIcons}
@@ -74,62 +76,65 @@ export default function Perfil() {
         </Box>
       </Box>
       <Box className={styles.content}>
-        <Typography variant="h6" className={styles.subHeading}>
-          Sobre
-        </Typography>
-        <Box
-          className={styles.about}
-          style={{
-            backgroundColor: themeStyles.backgroundPaper,
-            border: themeStyles.borderColor,
-          }}
-        >
-          <Box className={styles.contactInfo}>
-            <Box className={styles.contactItem}>
-              <Typography>{ConvertSex(user.sex)}</Typography>
-            </Box>
-            <Box className={styles.contactItem}>
-              <Typography>{FormatDateToBRFull(user.birthdate)}</Typography>
-            </Box>
-            <Box className={styles.contactItem}>
-              <Typography>{user.address}</Typography>
-            </Box>
-            <Box className={styles.contactItem}>
-              <Typography>{user.email}</Typography>
-            </Box>
-            <Box className={styles.contactItem}>
-              <Typography>{user.phone}</Typography>
-            </Box>
-          </Box>
-        </Box>
-
-        <Box className={styles.posts}>
+        <Box className={styles.aboutContainer}>
           <Typography variant="h6" className={styles.subHeading}>
-            Posts
+            Sobre
           </Typography>
           <Box
-            className={styles.post}
+            className={styles.about}
             style={{
               backgroundColor: themeStyles.backgroundPaper,
               border: themeStyles.borderColor,
             }}
           >
-            <Box className={styles.postHeader}>
-              <Box className={styles.postUser}>
-                <Box className={styles.userIconSmall}>
-                  <img
-                    className={styles.userIconSmall}
-                    src={user.image}
-                    alt={user.name}
-                  />
-                </Box>
-                <Typography variant="body1">{user.name}</Typography>
+            <Box className={styles.contactInfo}>
+              <Box className={styles.contactItem}>
+                <Typography>{ConvertSex(user.sex)}</Typography>
               </Box>
-              <Typography variant="body2">48 minutos atrás</Typography>
+              <Box className={styles.contactItem}>
+                <Typography>{FormatDateToBRFull(user.birthdate)}</Typography>
+              </Box>
+              <Box className={styles.contactItem}>
+                <Typography>{user.address}</Typography>
+              </Box>
+              <Box className={styles.contactItem}>
+                <Typography>{user.email}</Typography>
+              </Box>
+              <Box className={styles.contactItem}>
+                <Typography>{user.phone}</Typography>
+              </Box>
             </Box>
-            <Typography variant="body2">
-              Vou abrir um canal no youtube
-            </Typography>
+          </Box>
+        </Box>
+        <Box className={styles.postsContainer}>
+          <Typography variant="h6" className={styles.subHeadingPost}>
+            Posts
+          </Typography>
+          <Box
+            className={styles.posts}
+            style={{
+              backgroundColor: themeStyles.backgroundPaper,
+              border: themeStyles.borderColor,
+            }}
+          >
+            <Box className={styles.post}>
+              <Box className={styles.postHeader}>
+                <Box className={styles.postUser}>
+                  <Box className={styles.userIconSmall}>
+                    <img
+                      className={styles.userIconSmall}
+                      src={user.image}
+                      alt={user.name}
+                    />
+                  </Box>
+                  <Typography variant="body1">{user.name}</Typography>
+                </Box>
+                <Typography variant="body2">48 minutos atrás</Typography>
+              </Box>
+              <Typography variant="body2">
+                Vou abrir um canal no youtube
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>
