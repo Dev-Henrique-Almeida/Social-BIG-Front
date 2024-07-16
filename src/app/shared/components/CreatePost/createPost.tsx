@@ -10,7 +10,7 @@ import { createPost } from "../../services/api/postApi";
 const CreatePost = ({ user, token }: IFormEditProps) => {
   const [postContent, setPostContent] = useState("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [, setSelectedImage] = useState<File | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [showLocationInput, setShowLocationInput] = useState(false);
   const [location, setLocation] = useState("");
   const getAvatarProps = useAvatarProps();
@@ -35,6 +35,9 @@ const CreatePost = ({ user, token }: IFormEditProps) => {
       setSelectedImage(null);
       setLocation("");
       setShowLocationInput(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (error) {
       console.error("Erro ao criar o post:", error);
     }
@@ -60,7 +63,7 @@ const CreatePost = ({ user, token }: IFormEditProps) => {
     setImagePreview(null);
     setSelectedImage(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // Reset the file input value
+      fileInputRef.current.value = "";
     }
   };
 
