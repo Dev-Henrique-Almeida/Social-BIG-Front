@@ -81,7 +81,7 @@ export default function Perfil() {
                 {user.name}
               </Typography>
               <Typography variant="h6" className={styles.title}>
-                {user.occupation}
+                {user.occupation || "(Não informado)"}
               </Typography>
             </Grid>
             <Grid item xs={12} md="auto">

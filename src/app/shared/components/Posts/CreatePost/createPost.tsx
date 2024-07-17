@@ -7,6 +7,7 @@ import { useState, useRef } from "react";
 import styles from "./CreatePost.module.scss";
 import useAvatarProps from "../../../hooks/AvatarProps/useAvatarProps";
 import useThemeStyles from "../../../hooks/ThemeStyles/useThemeStyles";
+import { useRouter } from "next/navigation";
 
 const CreatePost: React.FC<ICreatePostProps> = ({
   user,
@@ -14,8 +15,9 @@ const CreatePost: React.FC<ICreatePostProps> = ({
   onPostCreated,
 }) => {
   const [postContent, setPostContent] = useState("");
+  const router = useRouter();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [, setSelectedImage] = useState<File | null>(null);
   const [showLocationInput, setShowLocationInput] = useState(false);
   const [location, setLocation] = useState("");
   const getAvatarProps = useAvatarProps();
@@ -77,6 +79,10 @@ const CreatePost: React.FC<ICreatePostProps> = ({
     setShowLocationInput((prev) => !prev);
   };
 
+  const handlePerfil = () => {
+    router.push(`/perfil`);
+  };
+
   return (
     <div
       className={styles.container}
@@ -87,8 +93,10 @@ const CreatePost: React.FC<ICreatePostProps> = ({
     >
       <div className={styles.frame1}>
         <Avatar
+          onClick={handlePerfil}
           sx={{
             border: "1px solid #E9B425",
+            cursor: "pointer",
           }}
           className={styles.userIcon}
           {...getAvatarProps()}
