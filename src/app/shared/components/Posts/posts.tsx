@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Button } from "@mui/material";
 import { IPostsProps } from "../../@types";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import styles from "./posts.module.scss";
+import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const themeStyles = useThemeStyles();
@@ -39,10 +40,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
         >
           <div className={styles.frame1}>
             <div className={styles.userIcons}>
-              <Avatar
-                src={post.author.image}
-                alt={`${post.author.name}'s avatar`}
-              />
+              <Avatar {...useAvatarProps(post.author)()} />
             </div>
             <div className={styles.postHeader}>
               <div className={styles.postAuthor}>{post.author.name}</div>

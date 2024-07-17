@@ -1,15 +1,18 @@
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
+import { IAuthor, IUserData } from "../../@types";
 
-const useAvatarProps = () => {
+const useAvatarProps = (author?: IAuthor | IUserData) => {
   const { user } = useAuthContext();
 
   const getAvatarProps = () => {
-    if (user && user.image) {
-      return { src: user.image, alt: user.name };
+    const avatarUser = author || user;
+
+    if (avatarUser && avatarUser.image) {
+      return { src: avatarUser.image, alt: avatarUser.name };
     }
     return {
-      alt: user ? user.name : "Desconhecido",
-      src: user ? user.name : "",
+      alt: avatarUser ? avatarUser.name : "Desconhecido",
+      src: avatarUser ? avatarUser.name : "",
     };
   };
 
