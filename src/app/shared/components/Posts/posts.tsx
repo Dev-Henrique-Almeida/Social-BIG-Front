@@ -5,11 +5,14 @@ import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import styles from "./posts.module.scss";
 import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useAuthContext } from "../../contexts";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const themeStyles = useThemeStyles();
   const router = useRouter();
+  const { user } = useAuthContext();
+  const pathname = usePathname();
   const postsWithTimeElapsed = usePostsWithTimeElapsed(posts);
   const [visiblePostsCount, setVisiblePostsCount] = useState(posts.length);
 
@@ -29,8 +32,16 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
     setVisiblePostsCount(2);
   };
 
+  const isProfilePage = pathname !== "/home";
+
   const handlePickPerfil = (id: string) => {
-    router.push(`/perfil/${id}`);
+    if (user!.id === id) {
+      router.push(`/perfil/`);
+    } else {
+      if (!isProfilePage) {
+        router.push(`/perfil/${id}`);
+      }
+    }
   };
 
   return (
@@ -51,7 +62,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
                 {...useAvatarProps(post.author)()}
                 sx={{
                   border: "1px solid #E9B425",
-                  cursor: "pointer",
+                  cursor: isProfilePage ? "default" : "pointer",
                 }}
               />
             </div>

@@ -27,7 +27,6 @@ import { getByUser } from "@/app/shared/services";
 export default function Perfil() {
   const { user: userLogado, token } = useAuthContext();
   const theme = useTheme();
-  const router = useRouter();
   const mdDown = theme.breakpoints.down("md");
   const themeStyles = useThemeStyles();
   const { refreshPosts } = useRefreshPosts();
@@ -39,15 +38,11 @@ export default function Perfil() {
       const userId = pathname.split("/").pop() as string;
 
       if (userLogado && token) {
-        if (userLogado.id === userId) {
-          router.push("/perfil");
-        } else {
-          try {
-            const fetchedUser = await getByUser(userId, token);
-            setUser(fetchedUser);
-          } catch (error) {
-            console.error("Erro ao buscar usuário:", error);
-          }
+        try {
+          const fetchedUser = await getByUser(userId, token);
+          setUser(fetchedUser);
+        } catch (error) {
+          console.error("Erro ao buscar usuário:", error);
         }
       }
     };
