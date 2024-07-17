@@ -12,9 +12,9 @@ export const DarkTheme = createTheme({
       contrastText: "#fff",
     },
     secondary: {
-      main: cyan[500],
-      dark: cyan[400],
-      light: cyan[300],
+      main: red[900],
+      dark: red[900],
+      light: red[900],
       contrastText: "#fff",
     },
     background: {

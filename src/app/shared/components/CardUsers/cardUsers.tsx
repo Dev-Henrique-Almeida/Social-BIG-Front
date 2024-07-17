@@ -51,7 +51,9 @@ const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
         {users.map((user) => (
           <div className={styles.friendItem} key={user.id}>
             <Avatar
-              sx={{ border: themeStyles.borderColor }}
+              sx={{
+                border: "1px solid #E9B425",
+              }}
               src={user.image}
               alt={`${user.name}'s avatar`}
             />

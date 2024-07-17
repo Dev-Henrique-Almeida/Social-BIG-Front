@@ -20,7 +20,12 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({
         const fetchedPosts = userId
           ? await getAllPostsByUser(userId, token)
           : await getAllPosts(token);
-        setPosts(fetchedPosts);
+        // Ordenar posts do mais recente para o mais antigo
+        const sortedPosts = fetchedPosts.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        setPosts(sortedPosts);
       } catch (error) {
         console.error("Erro ao buscar posts:", error);
       }

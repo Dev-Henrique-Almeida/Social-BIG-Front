@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./layout.scss";
-import { AppThemeProvider } from "./shared/contexts";
 
 export const metadata: Metadata = {
-  title: "Aprendendo",
+  title: "Social BIG",
 };
 
 export default function RootLayout({

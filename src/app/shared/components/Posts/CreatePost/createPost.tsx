@@ -86,7 +86,13 @@ const CreatePost: React.FC<ICreatePostProps> = ({
       }}
     >
       <div className={styles.frame1}>
-        <Avatar className={styles.userIcon} {...getAvatarProps()} />
+        <Avatar
+          sx={{
+            border: "1px solid #E9B425",
+          }}
+          className={styles.userIcon}
+          {...getAvatarProps()}
+        />
         <div
           className={styles.inputContainer}
           style={{ backgroundColor: themeStyles.backgroundDefault }}

@@ -40,7 +40,12 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
         >
           <div className={styles.frame1}>
             <div className={styles.userIcons}>
-              <Avatar {...useAvatarProps(post.author)()} />
+              <Avatar
+                {...useAvatarProps(post.author)()}
+                sx={{
+                  border: "1px solid #E9B425",
+                }}
+              />
             </div>
             <div className={styles.postHeader}>
               <div className={styles.postAuthor}>{post.author.name}</div>
@@ -97,7 +102,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
         visiblePostsCount >= postsWithTimeElapsed.length &&
         visiblePostsCount > 2 && (
           <Button
-            color="primary"
+            color="secondary"
             variant="contained"
             onClick={handleShowLessPosts}
             className={styles.showMoreButton}

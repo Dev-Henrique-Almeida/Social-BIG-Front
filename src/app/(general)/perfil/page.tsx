@@ -62,7 +62,11 @@ export default function Perfil() {
         >
           <Box className={styles.imageBackground}>
             <Avatar
-              sx={{ width: theme.spacing(20), height: theme.spacing(20) }}
+              sx={{
+                width: theme.spacing(20),
+                height: theme.spacing(20),
+                border: "2px solid #E9B425",
+              }}
               {...getAvatarProps()}
             />
           </Box>
