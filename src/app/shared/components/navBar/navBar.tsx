@@ -1,4 +1,3 @@
-"use client";
 import {
   AppBar,
   Box,
@@ -13,12 +12,13 @@ import logoClosed from "../../../assets/close-menu.png";
 import logoOpen from "../../../assets/open-menu.png";
 import { IChildrenProps } from "../../@types";
 import { useResponsiveContent } from "../../hooks";
-import { useDrawerContext, useThemeContext } from "../../contexts";
+import { useDrawerContext } from "../../contexts";
 import styles from "./navBar.module.scss";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import { useRouter } from "next/navigation";
 import ChangeTheme from "../ChangeTheme/changeTheme";
 import useAvatarProps from "../../hooks/AvatarProps.ts/useAvatarProps";
+import useFirstAndLastName from "../../hooks/FirstAndLastName/useFirstAndLastName";
 
 export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();
@@ -57,7 +57,7 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
           <Box className={styles.boxUser}>
             <ChangeTheme />
             <Typography variant="body1" sx={{ margin: "0 8px" }}>
-              {user ? user.name : "Desconhecido"}
+              {user ? useFirstAndLastName(user.name) : "Desconhecido"}
             </Typography>
             <Tooltip title="Minha conta">
               <IconButton

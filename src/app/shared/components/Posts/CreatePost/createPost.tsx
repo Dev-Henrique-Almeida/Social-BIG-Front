@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import styles from "./CreatePost.module.scss";
 import { Avatar, IconButton } from "@mui/material";
 import { Image, LocationOn, Close } from "@mui/icons-material";
-import { ICreatePostProps, IPostCreateData } from "../../@types";
-import useAvatarProps from "../../hooks/AvatarProps.ts/useAvatarProps";
-import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
-import { createPost } from "../../services/api/postApi";
+import { ICreatePostProps, IPostCreateData } from "../../../@types";
+import useAvatarProps from "../../../hooks/AvatarProps.ts/useAvatarProps";
+import useThemeStyles from "../../../hooks/ThemeStyles/useThemeStyles";
+import { createPost } from "../../../services/api/postApi";
 
 const CreatePost: React.FC<ICreatePostProps> = ({
   user,

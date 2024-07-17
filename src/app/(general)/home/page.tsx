@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
-import CreatePost from "@/app/shared/components/CreatePost/createPost";
+import CreatePost from "@/app/shared/components/Posts/CreatePost/createPost";
 import CardUsers from "@/app/shared/components/CardUsers/cardUsers";
 import PostsContainer from "@/app/shared/components/Posts/PostContainer/postsContainer";
 import styles from "./home.module.scss";

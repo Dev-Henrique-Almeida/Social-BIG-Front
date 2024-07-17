@@ -3,9 +3,11 @@ import { Avatar } from "@mui/material";
 import styles from "./posts.module.scss";
 import { IPostsProps } from "../../@types";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
+import useTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 
 const Posts: React.FC<IPostsProps> = ({ posts }) => {
   const themeStyles = useThemeStyles();
+
   return (
     <div className={styles.posts}>
       {posts.map((post) => (
@@ -27,9 +29,10 @@ const Posts: React.FC<IPostsProps> = ({ posts }) => {
             <div className={styles.postHeader}>
               <div className={styles.postAuthor}>{post.author.name}</div>
               <div className={styles.postTimeLocation}>
-                {post.createdAt}{" "}
+                {useTimeElapsed(new Date(post.createdAt))}
                 {post.location && (
                   <>
+                    {" "}
                     em{" "}
                     <span className={styles.postLocation}>{post.location}</span>
                   </>
