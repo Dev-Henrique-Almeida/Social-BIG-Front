@@ -37,7 +37,9 @@ const InputField: React.FC<IInputFieldProps> = ({
 
   return (
     <FormControl fullWidth className={className} variant="outlined">
-      <InputLabel>{placeholder}</InputLabel>
+      <InputLabel shrink /* ={type === "date" || undefined} */>
+        {placeholder}
+      </InputLabel>
       <OutlinedInput
         type={type === "password" ? (showPassword ? "text" : "password") : type}
         value={value}
