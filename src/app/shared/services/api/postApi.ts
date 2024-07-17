@@ -51,3 +51,22 @@ export const getAllPostsByUser = async (
     throw error;
   }
 };
+
+export const deletePost = async (
+  id: string,
+  token: string
+): Promise<string> => {
+  try {
+    const response = await api.delete(`/posts/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data.message;
+  } catch (error) {
+    console.error("Erro ao deletar post dos posts:", error);
+    throw error;
+  }
+};
