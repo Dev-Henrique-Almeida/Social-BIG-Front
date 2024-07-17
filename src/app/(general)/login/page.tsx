@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import { useAuthContext } from "@/app/shared/contexts";
 import useHandleChange from "@/app/shared/hooks/HandleChange/useHandleChange";
