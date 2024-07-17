@@ -118,3 +118,15 @@
   line-height: 10px;
   color: #ffffff;
 }
+
+@media (max-width: 900px) {
+  .unsplash {
+    height: 300px;
+  }
+  .postTimeLocation {
+    font-size: 10px;
+  }
+  .postAuthor {
+    font-size: 13px;
+  }
+}
