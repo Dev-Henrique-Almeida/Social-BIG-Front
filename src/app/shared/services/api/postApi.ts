@@ -1,37 +1,29 @@
-import { IPostData } from "../../@types";
-import { api, configHeaders } from "./api";
+import { IPostCreateData, IPostData } from "../../@types";
+import { api } from "./api";
 
-export const createPost = async (post: IPostData, token: string) => {
+export const createPost = async (post: IPostCreateData, token: string) => {
   try {
-    const headersWithToken = {
-      ...configHeaders,
+    const response = await api.post("/posts", post, {
       headers: {
-        ...configHeaders.headers,
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    };
-
-    const response = await api.post(`/posts`, post, headersWithToken);
+    });
     return response.data;
   } catch (error) {
-    console.error("Erro na criação do post:", error);
+    console.error("Erro ao criar o post:", error);
     throw error;
   }
 };
 
-export const getAllPosts = async (token: string) => {
+export const getAllPosts = async (token: string): Promise<IPostData[]> => {
   try {
-    const headersWithToken = {
-      ...configHeaders,
+    const response = await api.get(`/posts`, {
       headers: {
-        ...configHeaders.headers,
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    };
-
-    const response = await api.get(`/posts`, headersWithToken);
+    });
     return response.data;
   } catch (error) {
     console.error("Erro na busca dos post:", error);
@@ -39,24 +31,23 @@ export const getAllPosts = async (token: string) => {
   }
 };
 
-export const getAllPostsByUser = async (id: string, token: string) => {
+export const getAllPostsByUser = async (
+  userId: string,
+  token: string
+): Promise<IPostData[]> => {
   try {
-    const headersWithToken = {
-      ...configHeaders,
+    const response = await api.get(`/posts`, {
       headers: {
-        ...configHeaders.headers,
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    };
-
-    const response = await api.get(`/posts`, headersWithToken);
+    });
     const filteredPosts = response.data.filter(
-      (post: { authorId: string }) => post.authorId === id
+      (post: { authorId: string }) => post.authorId === userId
     );
-    return { posts: filteredPosts, count: filteredPosts.length };
+    return filteredPosts;
   } catch (error) {
-    console.error("Erro na busca dos post:", error);
+    console.error("Erro na busca dos posts:", error);
     throw error;
   }
 };

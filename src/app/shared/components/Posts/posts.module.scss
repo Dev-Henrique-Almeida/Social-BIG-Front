@@ -1,0 +1,121 @@
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.post {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 24px;
+  gap: 16px;
+  width: 100%;
+
+  border-radius: 16px;
+}
+
+.frame1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.userIcons {
+  width: 32px;
+  height: 32px;
+}
+
+.userIcons img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.postHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.postAuthor {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.postTimeLocation {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #75767d;
+}
+
+.postLocation {
+  font-weight: 700;
+}
+
+.oQueVoceEstaPensando {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.unsplash {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+}
+
+.bottomFields {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.likeButton,
+.commentsButton,
+.shareButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.vector {
+  width: 16px;
+  height: 16px;
+}
+
+.curtiu,
+.comentarios,
+.compartilhar {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #a1a3a7;
+}
+
+.frame10 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  background: #a1a3a7;
+  border-radius: 16px;
+}
+
+.likesCount,
+.commentsCount {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 10px;
+  color: #ffffff;
+}

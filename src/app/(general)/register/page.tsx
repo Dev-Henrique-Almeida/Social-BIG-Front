@@ -10,6 +10,7 @@ import styles from "./register.module.scss";
 import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import InputField from "@/app/shared/components/InputField/inputField";
+import FormatBirthdate from "@/app/shared/utils/ConvertDates/convertBirthdate";
 
 export default function Register() {
   const router = useRouter();
@@ -83,7 +84,7 @@ export default function Register() {
         />
         <InputField
           type="date"
-          value={formData.birthdate}
+          value={FormatBirthdate(formData.birthdate)}
           onChange={handleChange}
           name="birthdate"
           placeholder="Data de Nascimento"

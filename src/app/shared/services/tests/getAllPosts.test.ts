@@ -1,8 +1,8 @@
 import MockAdapter from "axios-mock-adapter";
 import { api } from "../api/api";
-import { getAllPostsByUser } from "../api/postApi";
+import { getAllPosts } from "../api/postApi";
 
-describe("Testando a função getAllPostsByUser", () => {
+describe("Testando a função getAllPosts", () => {
   let mock: MockAdapter;
 
   beforeAll(() => {
@@ -17,50 +17,35 @@ describe("Testando a função getAllPostsByUser", () => {
     mock.restore();
   });
 
-  it("deve buscar todos os posts de um usuário específico com sucesso e retornar a quantidade", async () => {
+  it("deve buscar todos os posts com sucesso", async () => {
     const token = "test-token";
-    const userId = "1";
-    const posts = [
+    const users = [
       {
-        id: "1",
-        text: "Post do usuário 1",
+        id: 1,
+        text: "Testando 1",
         authorId: "1",
         author: {
           id: "1",
-          name: "Autor 1",
+          name: "Author 1",
           image: "https://example.com/avatar1.jpg",
         },
-        location: "loc1",
+        location: "a",
         likes: "0",
-        image: "img1",
+        image: "a",
         comments: [],
       },
       {
-        id: "2",
-        text: "Post do usuário 2",
+        id: 2,
+        text: "Testando 2",
         authorId: "2",
         author: {
           id: "2",
-          name: "Autor 2",
-          image: "https://example.com/avatar2.jpg",
-        },
-        location: "loc2",
-        likes: "0",
-        image: "img2",
-        comments: [],
-      },
-      {
-        id: "3",
-        text: "Outro post do usuário 1",
-        authorId: "1",
-        author: {
-          id: "1",
-          name: "Autor 1",
+          name: "Author 2",
           image: "https://example.com/avatar1.jpg",
         },
-        location: "loc3",
+        location: "b",
         likes: "0",
-        image: "img3",
+        image: "b",
         comments: [],
       },
     ];
@@ -72,22 +57,15 @@ describe("Testando a função getAllPostsByUser", () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .reply(200, posts);
+      .reply(200, users);
 
-    const result = await getAllPostsByUser(userId, token);
+    const result = await getAllPosts(token);
 
-    const expectedPosts = posts.filter((post) => post.authorId === userId);
-
-    console.log("Contagem de posts:", result.count);
-    expect(result).toEqual({
-      count: expectedPosts.length,
-      posts: expectedPosts,
-    });
+    expect(result).toEqual(users);
   });
 
   it("deve lidar com erros", async () => {
     const token = "test-token";
-    const userId = "1";
 
     mock
       .onGet("/posts", {
@@ -98,6 +76,6 @@ describe("Testando a função getAllPostsByUser", () => {
       })
       .reply(500);
 
-    await expect(getAllPostsByUser(userId, token)).rejects.toThrow();
+    await expect(getAllPosts(token)).rejects.toThrow();
   });
 });

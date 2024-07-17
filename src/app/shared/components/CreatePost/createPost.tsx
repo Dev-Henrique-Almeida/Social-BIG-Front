@@ -2,12 +2,16 @@ import React, { useState, useRef } from "react";
 import styles from "./CreatePost.module.scss";
 import { Avatar, IconButton } from "@mui/material";
 import { Image, LocationOn, Close } from "@mui/icons-material";
-import { IFormEditProps } from "../../@types";
+import { ICreatePostProps, IPostCreateData } from "../../@types";
 import useAvatarProps from "../../hooks/AvatarProps.ts/useAvatarProps";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import { createPost } from "../../services/api/postApi";
 
-const CreatePost = ({ user, token }: IFormEditProps) => {
+const CreatePost: React.FC<ICreatePostProps> = ({
+  user,
+  token,
+  onPostCreated,
+}) => {
   const [postContent, setPostContent] = useState("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -20,11 +24,11 @@ const CreatePost = ({ user, token }: IFormEditProps) => {
   const handlePost = async () => {
     if (postContent.trim() === "") return alert("O post não pode estar vazio!");
 
-    const post = {
+    const post: IPostCreateData = {
       text: postContent,
       location,
       image: imagePreview || "",
-      authorId: user.id,
+      authorId: user.id!,
     };
 
     try {
@@ -38,6 +42,7 @@ const CreatePost = ({ user, token }: IFormEditProps) => {
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
+      onPostCreated();
     } catch (error) {
       console.error("Erro ao criar o post:", error);
     }

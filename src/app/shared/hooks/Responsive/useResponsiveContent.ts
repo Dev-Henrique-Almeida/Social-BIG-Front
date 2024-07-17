@@ -5,5 +5,5 @@ export const useResponsiveContent = () => {
   const theme = useTheme();
   const { isDrawerOpen } = useDrawerContext();
 
-  return isDrawerOpen ? theme.spacing(46) : theme.spacing(1);
+  return isDrawerOpen ? theme.spacing(47) : theme.spacing(3);
 };

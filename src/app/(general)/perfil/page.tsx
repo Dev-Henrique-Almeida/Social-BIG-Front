@@ -109,13 +109,13 @@ export default function Perfil() {
                 <Typography>{FormatDateToBRFull(user.birthdate)}</Typography>
               </Box>
               <Box className={styles.contactItem}>
-                <Typography>{user.address}</Typography>
+                <Typography>{user.address || "(Não informado)"}</Typography>
               </Box>
               <Box className={styles.contactItem}>
                 <Typography>{user.email}</Typography>
               </Box>
               <Box className={styles.contactItem}>
-                <Typography>{user.phone}</Typography>
+                <Typography>{user.phone || "(Não informado)"}</Typography>
               </Box>
             </Box>
           </Box>

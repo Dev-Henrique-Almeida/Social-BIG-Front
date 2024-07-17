@@ -50,10 +50,48 @@ interface ICardUsersProps {
 }
 
 interface IPostData {
-  authorId?: string;
+  id: string;
+  text: string;
+  authorId: string;
+  author: IAuthor;
+  location?: string;
+  likes: string;
+  image?: string;
+  comments: IComment[];
+  createdAt: string;
+}
+
+interface IPostsProps {
+  posts: IPostData[];
+}
+
+interface IPostCreateData {
   text: string;
   location?: string;
   image?: string;
+  authorId: string;
+}
+
+interface IAuthor {
+  id: string;
+  name: string;
+  image: string;
+}
+
+interface IComment {
+  id: string;
+  text: string;
+  author: IAuthor;
+}
+
+interface ICreatePostProps extends IFormEditProps {
+  onPostCreated: () => void;
+}
+
+interface IPostsContainerProps {
+  token: string;
+  userId?: string;
+  refreshPosts: boolean;
 }
 
 interface IInputFieldProps {
@@ -71,10 +109,16 @@ export type {
   IDrawerContexData,
   IEventProps,
   IChildrenProps,
+  IPostData,
   IUserData,
+  IAuthor,
+  IComment,
+  IPostsProps,
   IAuthContextData,
   IInputFieldProps,
+  IPostCreateData,
   IFormEditProps,
+  IPostsContainerProps,
   ICardUsersProps,
-  IPostData,
+  ICreatePostProps,
 };

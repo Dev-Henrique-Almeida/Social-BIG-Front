@@ -17,7 +17,7 @@ describe("Testando a função getAllPostsByUser", () => {
     mock.restore();
   });
 
-  it("deve buscar todos os posts de um usuário específico com sucesso e retornar a quantidade", async () => {
+  it("deve buscar todos os posts de um usuário específico com sucesso", async () => {
     const token = "test-token";
     const userId = "1";
     const posts = [
@@ -62,15 +62,11 @@ describe("Testando a função getAllPostsByUser", () => {
       })
       .reply(200, posts);
 
-    const result = await getAllPostsByUser(userId, token);
+    const result = await getAllPostsByUser(token, userId);
 
     const expectedPosts = posts.filter((post) => post.authorId === userId);
 
-    console.log("Contagem de posts: ", result.count);
-    expect(result).toEqual({
-      count: expectedPosts.length,
-      posts: expectedPosts,
-    });
+    expect(result).toEqual(expectedPosts);
   });
 
   it("deve lidar com erros", async () => {
@@ -86,6 +82,6 @@ describe("Testando a função getAllPostsByUser", () => {
       })
       .reply(500);
 
-    await expect(getAllPostsByUser(userId, token)).rejects.toThrow();
+    await expect(getAllPostsByUser(token, userId)).rejects.toThrow();
   });
 });

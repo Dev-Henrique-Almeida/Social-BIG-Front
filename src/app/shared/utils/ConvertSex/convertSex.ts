@@ -4,7 +4,7 @@ const ConvertSex = (sex: "Male" | "Female" | undefined): string => {
   } else if (sex === "Female") {
     return "Feminino";
   } else {
-    return "Não especificado";
+    return "(Não informado)";
   }
 };
 
