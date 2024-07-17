@@ -1,15 +1,15 @@
 "use client";
-import React from "react";
-import { Button, Typography } from "@mui/material";
-import useHandleChange from "../../shared/hooks/HandleChange/useHandleChange";
-import { loginUser } from "../../shared/services";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { useAuthContext } from "@/app/shared/contexts";
-import styles from "./login.module.scss";
-import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
+
+import { useRouter } from "next/router";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
+import { useAuthContext } from "@/app/shared/contexts";
+import useHandleChange from "@/app/shared/hooks/HandleChange/useHandleChange";
+import { loginUser } from "@/app/shared/services";
+import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
 import InputField from "@/app/shared/components/InputField/inputField";
+import { Button, Typography } from "@mui/material";
+import Link from "next/link";
+import styles from "./login.module.scss";
 
 const Login = () => {
   const router = useRouter();

@@ -1,25 +1,25 @@
 "use client";
-import React, { useState } from "react";
-import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
+import { useState } from "react";
 import {
-  Typography,
+  Avatar,
   Box,
   Button,
   Grid,
   Modal,
+  Typography,
   useTheme,
-  Avatar,
 } from "@mui/material";
-import styles from "./perfil.module.scss";
+import { useAuthContext } from "@/app/shared/contexts";
+import PostsContainer from "@/app/shared/components/Posts/PostContainer/postsContainer";
+import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
+import useRefreshPosts from "@/app/shared/hooks/RefreshPosts/useRefreshPosts";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import FormatDateToBRFull from "@/app/shared/utils/ConvertDates/convertDate";
 import ConvertSex from "@/app/shared/utils/ConvertSex/convertSex";
-import FormEdit from "@/app/shared/components/FormEdit/formEdit";
 import bannerImage from "../../assets/banner-perfil.png";
 import bannerImageMobile from "../../assets/banner-perfil-mobile.png";
-import useAvatarProps from "@/app/shared/hooks/AvatarProps.ts/useAvatarProps";
-import PostsContainer from "@/app/shared/components/Posts/PostContainer/postsContainer";
-import useRefreshPosts from "@/app/shared/hooks/RefreshPosts/useRefreshPosts";
+import styles from "./perfil.module.scss";
+import FormEdit from "@/app/shared/components/FormEdit/formEdit";
 
 export default function Perfil() {
   const { user, token } = useAuthContext();

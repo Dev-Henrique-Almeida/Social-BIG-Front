@@ -7,18 +7,17 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-
-import logoClosed from "../../../assets/close-menu.png";
-import logoOpen from "../../../assets/open-menu.png";
 import { IChildrenProps } from "../../@types";
 import { useResponsiveContent } from "../../hooks";
 import { useDrawerContext } from "../../contexts";
-import styles from "./navBar.module.scss";
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import { useRouter } from "next/navigation";
 import ChangeTheme from "../ChangeTheme/changeTheme";
-import useAvatarProps from "../../hooks/AvatarProps.ts/useAvatarProps";
+import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
 import useFirstAndLastName from "../../hooks/FirstAndLastName/useFirstAndLastName";
+import logoClosed from "../../../assets/close-menu.png";
+import logoOpen from "../../../assets/open-menu.png";
+import styles from "./navBar.module.scss";
 
 export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();

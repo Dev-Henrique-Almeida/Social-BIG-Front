@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Avatar, Button } from "@mui/material";
-import styles from "./posts.module.scss";
 import { IPostsProps } from "../../@types";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
+import styles from "./posts.module.scss";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const themeStyles = useThemeStyles();
@@ -95,16 +95,18 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
           Ver Mais
         </Button>
       )}
-      {isButton && visiblePostsCount > 2 && (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleShowLessPosts}
-          className={styles.showMoreButton}
-        >
-          Ver Menos
-        </Button>
-      )}
+      {isButton &&
+        visiblePostsCount >= postsWithTimeElapsed.length &&
+        visiblePostsCount > 2 && (
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleShowLessPosts}
+            className={styles.showMoreButton}
+          >
+            Ver Menos
+          </Button>
+        )}
     </div>
   );
 };

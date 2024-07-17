@@ -1,8 +1,8 @@
 import React from "react";
 import { IconButton, Tooltip, useTheme } from "@mui/material";
+import { useThemeContext } from "../../contexts";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { useThemeContext } from "../../contexts";
 
 export default function ChangeTheme() {
   const theme = useTheme();

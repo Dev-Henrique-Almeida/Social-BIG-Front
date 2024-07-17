@@ -1,13 +1,12 @@
 "use client";
-
-import React, { useState, useRef } from "react";
-import styles from "./CreatePost.module.scss";
 import { Avatar, IconButton } from "@mui/material";
 import { Image, LocationOn, Close } from "@mui/icons-material";
 import { ICreatePostProps, IPostCreateData } from "../../../@types";
-import useAvatarProps from "../../../hooks/AvatarProps.ts/useAvatarProps";
-import useThemeStyles from "../../../hooks/ThemeStyles/useThemeStyles";
 import { createPost } from "../../../services/api/postApi";
+import { useState, useRef } from "react";
+import styles from "./CreatePost.module.scss";
+import useAvatarProps from "../../../hooks/AvatarProps/useAvatarProps";
+import useThemeStyles from "../../../hooks/ThemeStyles/useThemeStyles";
 
 const CreatePost: React.FC<ICreatePostProps> = ({
   user,

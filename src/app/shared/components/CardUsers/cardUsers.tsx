@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import styles from "./cardUsers.module.scss";
-import { Avatar } from "@mui/material";
-import { getOthersUsers } from "../../services/api/userApi";
-import { IUserData, IFormEditProps } from "../../@types";
-import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
+import { useEffect, useState } from "react";
+import { IFormEditProps, IUserData } from "../../@types";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import { getOthersUsers } from "../../services";
+import { Avatar } from "@mui/material";
+import styles from "./cardUsers.module.scss";
+import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 
 const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
   const [users, setUsers] = useState<IUserData[]>([]);

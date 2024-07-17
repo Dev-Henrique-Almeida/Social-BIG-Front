@@ -1,15 +1,15 @@
 "use client";
-import React from "react";
 import { Button } from "@mui/material";
 import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
+import { IFormEditProps } from "../../@types";
+import { updateUser } from "../../services";
+import React from "react";
 import styles from "./formEdit.module.scss";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import InputField from "@/app/shared/components/InputField/inputField";
 import useHandleChange from "../../hooks/HandleChange/useHandleChange";
-import { updateUser } from "../../services/api/userApi";
 import FormatBirthdate from "../../utils/ConvertDates/convertBirthdate";
 import SelectField from "../SelectField/selectField";
-import { IFormEditProps } from "../../@types";
 
 export default function FormEdit({ user, token, onClose }: IFormEditProps) {
   const themeStyles = useThemeStyles();

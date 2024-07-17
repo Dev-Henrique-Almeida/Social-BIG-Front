@@ -1,16 +1,16 @@
 "use client";
-import React from "react";
+
 import { Button, Typography } from "@mui/material";
-import useHandleChange from "../../shared/hooks/HandleChange/useHandleChange";
-import { createUser } from "../../shared/services";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { useAuthContext } from "@/app/shared/contexts";
-import styles from "./register.module.scss";
+import { createUser } from "@/app/shared/services";
 import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
-import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import InputField from "@/app/shared/components/InputField/inputField";
+import useHandleChange from "@/app/shared/hooks/HandleChange/useHandleChange";
+import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import FormatBirthdate from "@/app/shared/utils/ConvertDates/convertBirthdate";
+import Link from "next/link";
+import styles from "./register.module.scss";
 
 export default function Register() {
   const router = useRouter();

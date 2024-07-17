@@ -10,13 +10,12 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { IChildrenProps } from "../../@types";
-import styles from "./menuLateral.module.scss";
 import { useDrawerContext } from "../../contexts";
 import { useResponsiveContent } from "../../hooks/Responsive/useResponsiveContent";
-import { NavBar } from "../navBar/navBar";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-
+import { NavBar } from "../NavBarCustom/navBar";
+import styles from "./menuLateral.module.scss";
+import Link from "next/link";
 import logo from "../../../assets/compass-logo.png";
 import logoPositivo from "../../../assets/compass-logo-positivo.png";
 
