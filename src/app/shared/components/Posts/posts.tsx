@@ -1,16 +1,34 @@
-import React from "react";
-import { Avatar } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Avatar, Button } from "@mui/material";
 import styles from "./posts.module.scss";
 import { IPostsProps } from "../../@types";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
-import useTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
+import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 
-const Posts: React.FC<IPostsProps> = ({ posts }) => {
+const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const themeStyles = useThemeStyles();
+  const postsWithTimeElapsed = usePostsWithTimeElapsed(posts);
+  const [visiblePostsCount, setVisiblePostsCount] = useState(posts.length);
+
+  useEffect(() => {
+    if (isButton) {
+      setVisiblePostsCount(2);
+    } else {
+      setVisiblePostsCount(posts.length);
+    }
+  }, [isButton, posts.length]);
+
+  const handleShowMorePosts = () => {
+    setVisiblePostsCount((prevCount) => prevCount + 2);
+  };
+
+  const handleShowLessPosts = () => {
+    setVisiblePostsCount(2);
+  };
 
   return (
     <div className={styles.posts}>
-      {posts.map((post) => (
+      {postsWithTimeElapsed.slice(0, visiblePostsCount).map((post) => (
         <div
           className={styles.post}
           style={{
@@ -29,7 +47,7 @@ const Posts: React.FC<IPostsProps> = ({ posts }) => {
             <div className={styles.postHeader}>
               <div className={styles.postAuthor}>{post.author.name}</div>
               <div className={styles.postTimeLocation}>
-                {useTimeElapsed(new Date(post.createdAt))}
+                {post.timeElapsed}
                 {post.location && (
                   <>
                     {" "}
@@ -67,6 +85,26 @@ const Posts: React.FC<IPostsProps> = ({ posts }) => {
           </div>
         </div>
       ))}
+      {isButton && visiblePostsCount < postsWithTimeElapsed.length && (
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleShowMorePosts}
+          className={styles.showMoreButton}
+        >
+          Ver Mais
+        </Button>
+      )}
+      {isButton && visiblePostsCount > 2 && (
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleShowLessPosts}
+          className={styles.showMoreButton}
+        >
+          Ver Menos
+        </Button>
+      )}
     </div>
   );
 };

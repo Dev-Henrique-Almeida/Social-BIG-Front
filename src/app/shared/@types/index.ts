@@ -63,6 +63,11 @@ interface IPostData {
 
 interface IPostsProps {
   posts: IPostData[];
+  isButton?: boolean;
+}
+
+interface IPostDataWithTimeElapsed extends IPostData {
+  timeElapsed: string;
 }
 
 interface IPostCreateData {
@@ -92,6 +97,7 @@ interface IPostsContainerProps {
   token: string;
   userId?: string;
   refreshPosts: boolean;
+  isButton?: boolean;
 }
 
 interface IInputFieldProps {
@@ -120,5 +126,6 @@ export type {
   IFormEditProps,
   IPostsContainerProps,
   ICardUsersProps,
+  IPostDataWithTimeElapsed,
   ICreatePostProps,
 };

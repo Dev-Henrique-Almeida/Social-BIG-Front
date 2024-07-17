@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import styles from "./cardUsers.module.scss";
 import { Avatar } from "@mui/material";

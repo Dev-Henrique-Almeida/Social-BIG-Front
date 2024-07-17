@@ -10,6 +10,7 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({
   token,
   userId,
   refreshPosts,
+  isButton = false,
 }) => {
   const [posts, setPosts] = useState<IPostData[]>([]);
 
@@ -28,7 +29,7 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({
     fetchPosts();
   }, [refreshPosts, userId, token]);
 
-  return <Posts posts={posts} />;
+  return <Posts posts={posts} isButton={isButton} />;
 };
 
 export default PostsContainer;

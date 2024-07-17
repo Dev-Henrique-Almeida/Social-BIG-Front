@@ -1,6 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import { api } from "../api/api";
 import { getAllPostsByUser } from "../api/postApi";
+import { IPostData } from "../../@types";
 
 describe("Testando a função getAllPostsByUser", () => {
   let mock: MockAdapter;
@@ -20,7 +21,7 @@ describe("Testando a função getAllPostsByUser", () => {
   it("deve buscar todos os posts de um usuário específico com sucesso", async () => {
     const token = "test-token";
     const userId = "1";
-    const posts = [
+    const posts: IPostData[] = [
       {
         id: "1",
         text: "Post do usuário 1",
@@ -30,6 +31,9 @@ describe("Testando a função getAllPostsByUser", () => {
           name: "Autor 1",
           image: "https://example.com/avatar1.jpg",
         },
+        likes: "",
+        comments: [],
+        createdAt: "",
       },
       {
         id: "2",
@@ -40,6 +44,9 @@ describe("Testando a função getAllPostsByUser", () => {
           name: "Autor 2",
           image: "https://example.com/avatar2.jpg",
         },
+        likes: "",
+        comments: [],
+        createdAt: "",
       },
       {
         id: "3",
@@ -50,19 +57,15 @@ describe("Testando a função getAllPostsByUser", () => {
           name: "Autor 1",
           image: "https://example.com/avatar1.jpg",
         },
+        likes: "",
+        comments: [],
+        createdAt: "",
       },
     ];
 
-    mock
-      .onGet("/posts", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .reply(200, posts);
+    mock.onGet("/posts").reply(200, posts);
 
-    const result = await getAllPostsByUser(token, userId);
+    const result = await getAllPostsByUser(userId, token);
 
     const expectedPosts = posts.filter((post) => post.authorId === userId);
 
@@ -73,15 +76,8 @@ describe("Testando a função getAllPostsByUser", () => {
     const token = "test-token";
     const userId = "1";
 
-    mock
-      .onGet("/posts", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .reply(500);
+    mock.onGet("/posts").reply(500);
 
-    await expect(getAllPostsByUser(token, userId)).rejects.toThrow();
+    await expect(getAllPostsByUser(userId, token)).rejects.toThrow();
   });
 });

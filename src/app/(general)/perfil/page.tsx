@@ -18,6 +18,8 @@ import FormEdit from "@/app/shared/components/FormEdit/formEdit";
 import bannerImage from "../../assets/banner-perfil.png";
 import bannerImageMobile from "../../assets/banner-perfil-mobile.png";
 import useAvatarProps from "@/app/shared/hooks/AvatarProps.ts/useAvatarProps";
+import PostsContainer from "@/app/shared/components/Posts/PostContainer/postsContainer";
+import useRefreshPosts from "@/app/shared/hooks/RefreshPosts/useRefreshPosts";
 
 export default function Perfil() {
   const { user, token } = useAuthContext();
@@ -26,6 +28,7 @@ export default function Perfil() {
   const getAvatarProps = useAvatarProps();
   const themeStyles = useThemeStyles();
   const [open, setOpen] = useState(false);
+  const { refreshPosts } = useRefreshPosts();
 
   if (!user || !token) {
     return null;
@@ -124,30 +127,13 @@ export default function Perfil() {
           <Typography variant="h6" className={styles.subHeadingPost}>
             Posts
           </Typography>
-          <Box
-            className={styles.posts}
-            style={{
-              backgroundColor: themeStyles.backgroundPaper,
-              border: themeStyles.borderColor,
-            }}
-          >
-            <Box className={styles.post}>
-              <Box className={styles.postHeader}>
-                <Box className={styles.postUser}>
-                  <Box className={styles.userIconSmall}>
-                    <Avatar
-                      className={styles.userIconSmall}
-                      {...getAvatarProps()}
-                    />
-                  </Box>
-                  <Typography variant="body1">{user.name}</Typography>
-                </Box>
-                <Typography variant="body2">48 minutos atrás</Typography>
-              </Box>
-              <Typography variant="body2">
-                Vou abrir um canal no youtube
-              </Typography>
-            </Box>
+          <Box className={styles.posts}>
+            <PostsContainer
+              userId={user.id}
+              token={token}
+              isButton={true}
+              refreshPosts={refreshPosts}
+            />
           </Box>
         </Box>
       </Box>

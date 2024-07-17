@@ -47,17 +47,22 @@
   justify-content: space-between;
   align-items: center;
   margin-left: 50px;
+  flex-wrap: wrap; /* Adicionado para permitir quebra de linha */
 }
 
 .name {
   margin: 10px 0;
   margin-left: 10px;
   font-weight: bold;
+  word-wrap: break-word; /* Adicionado para permitir quebra de linha */
+  word-break: break-word; /* Adicionado para permitir quebra de linha */
 }
 
 .title {
   margin-left: 10px;
   margin-bottom: 10px;
+  word-wrap: break-word; /* Adicionado para permitir quebra de linha */
+  word-break: break-word; /* Adicionado para permitir quebra de linha */
 }
 
 .editButton {
@@ -72,6 +77,7 @@
   padding: 12px;
   display: flex;
   gap: 32px;
+  flex-wrap: wrap; /* Adicionado para permitir quebra de linha */
 }
 
 .aboutContainer {
@@ -87,7 +93,6 @@
   padding: 10px;
   margin-left: -10px;
   gap: 32px;
-
   height: fit-content;
 }
 
@@ -216,5 +221,22 @@
 
   .posts {
     margin-right: 0px;
+  }
+}
+
+@media (max-width: 500px) {
+  .name {
+    font-size: 16px;
+  }
+  .title {
+    font-size: 16px;
+  }
+}
+@media (max-width: 300px) {
+  .name {
+    font-size: 12px;
+  }
+  .title {
+    font-size: 12px;
   }
 }

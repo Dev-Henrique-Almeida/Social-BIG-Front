@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef } from "react";
 import styles from "./CreatePost.module.scss";
 import { Avatar, IconButton } from "@mui/material";
