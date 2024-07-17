@@ -5,9 +5,11 @@ import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import styles from "./posts.module.scss";
 import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
+import { useRouter } from "next/navigation";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const themeStyles = useThemeStyles();
+  const router = useRouter();
   const postsWithTimeElapsed = usePostsWithTimeElapsed(posts);
   const [visiblePostsCount, setVisiblePostsCount] = useState(posts.length);
 
@@ -27,6 +29,10 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
     setVisiblePostsCount(2);
   };
 
+  const handlePickPerfil = (id: string) => {
+    router.push(`/perfil/${id}`);
+  };
+
   return (
     <div className={styles.posts}>
       {postsWithTimeElapsed.slice(0, visiblePostsCount).map((post) => (
@@ -41,9 +47,11 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
           <div className={styles.frame1}>
             <div className={styles.userIcons}>
               <Avatar
+                onClick={() => handlePickPerfil(post.author.id)}
                 {...useAvatarProps(post.author)()}
                 sx={{
                   border: "1px solid #E9B425",
+                  cursor: "pointer",
                 }}
               />
             </div>

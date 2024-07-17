@@ -58,6 +58,8 @@ export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
     const currentItem = menuItems.find((item) => item.path === currentPath);
     if (currentItem) {
       setSelectedItem(currentItem.title);
+    } else if (currentPath.startsWith("/perfil")) {
+      setSelectedItem("Meu Perfil");
     }
   }, [pathname, menuItems]);
 

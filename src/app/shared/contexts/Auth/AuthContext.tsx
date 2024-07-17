@@ -46,7 +46,7 @@ export const AuthProvider: React.FC<IChildrenProps> = ({ children }) => {
   };
 
   if (isVerifying) {
-    return null; // Não renderiza nada enquanto verifica a autenticação
+    return null;
   }
 
   return (

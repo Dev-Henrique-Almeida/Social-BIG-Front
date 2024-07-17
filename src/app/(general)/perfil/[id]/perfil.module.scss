@@ -1,0 +1,247 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.coverProfile {
+  width: 100.3%;
+  margin-left: 0.5%;
+
+  border-radius: 20px;
+  position: relative;
+}
+
+.cover {
+  height: 300px;
+  border-radius: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.profileName {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  margin-top: -50px;
+}
+
+.imageBackground {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-self: self-start;
+  margin-left: 120px;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-top: -90px;
+  margin-bottom: 10px;
+}
+
+.nameContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 50px;
+  flex-wrap: wrap; /* Adicionado para permitir quebra de linha */
+}
+
+.name {
+  margin: 10px 0;
+  margin-left: 10px;
+  font-weight: bold;
+  word-wrap: break-word; /* Adicionado para permitir quebra de linha */
+  word-break: break-word; /* Adicionado para permitir quebra de linha */
+}
+
+.title {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  word-wrap: break-word; /* Adicionado para permitir quebra de linha */
+  word-break: break-word; /* Adicionado para permitir quebra de linha */
+}
+
+.editButton {
+  margin-top: 10px;
+  margin-right: 90px;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.content {
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap; /* Adicionado para permitir quebra de linha */
+}
+
+.aboutContainer {
+  width: 368px;
+}
+
+.postsContainer {
+  flex: 1;
+}
+
+.about {
+  border-radius: 20px;
+  padding: 10px;
+  margin-left: -10px;
+  gap: 32px;
+  height: fit-content;
+}
+
+.posts {
+  border-radius: 20px;
+  margin-bottom: 20px;
+  margin-right: -20px;
+}
+
+.subHeading {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.subHeadingPost {
+  margin-bottom: 10px;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.contactInfo {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.contactItem {
+  margin-bottom: 5px;
+}
+
+.post {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.postUser {
+  display: flex;
+  align-items: center;
+}
+
+.userIconSmall {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: grey;
+  margin-right: 10px;
+}
+
+.modalBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  height: 95%;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .cover {
+    height: 200px;
+  }
+  .coverProfile {
+    width: 97.5%;
+  }
+
+  .name {
+    font-size: 25px;
+    margin-left: -65px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-left: -65px;
+  }
+
+  .imageBackground {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    margin-top: -75px;
+    margin-bottom: 20px;
+  }
+
+  .nameContainer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .editButton {
+    margin-bottom: 20px;
+    margin-right: 0;
+    margin-left: -65px;
+  }
+
+  .content {
+    padding: 10px;
+    flex-direction: column;
+  }
+
+  .aboutContainer {
+    width: 100%;
+  }
+
+  .modalBox {
+    width: 90%;
+    height: auto;
+    max-height: 80%;
+  }
+  .about {
+    margin-left: 0px;
+  }
+
+  .subHeadingPost {
+    margin-left: 0px;
+  }
+
+  .posts {
+    margin-right: 0px;
+  }
+}
+
+@media (max-width: 500px) {
+  .name {
+    font-size: 16px;
+  }
+  .title {
+    font-size: 16px;
+  }
+}
+@media (max-width: 300px) {
+  .name {
+    font-size: 12px;
+  }
+  .title {
+    font-size: 12px;
+  }
+}

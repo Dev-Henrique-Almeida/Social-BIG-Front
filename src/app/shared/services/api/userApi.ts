@@ -24,6 +24,25 @@ export const updateUser = async (
   }
 };
 
+export const getByUser = async (id: string, token: string) => {
+  try {
+    const headersWithToken = {
+      ...configHeaders,
+      headers: {
+        ...configHeaders.headers,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await api.get(`/users/${id}`, headersWithToken);
+    return response.data;
+  } catch (error) {
+    console.error("Erro na busca do usuário:", error);
+    throw error;
+  }
+};
+
 export const getAllUsers = async (token: string) => {
   try {
     const headersWithToken = {
