@@ -44,6 +44,11 @@ interface IUserData {
   occupation?: string;
 }
 
+interface ICardUsersProps {
+  id: string;
+  token: string;
+}
+
 interface IPostData {
   authorId?: string;
   text: string;
@@ -70,5 +75,6 @@ export type {
   IAuthContextData,
   IInputFieldProps,
   IFormEditProps,
+  ICardUsersProps,
   IPostData,
 };

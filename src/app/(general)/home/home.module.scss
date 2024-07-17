@@ -1,0 +1,27 @@
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.createPost {
+  flex: 3;
+}
+
+.cardUsers {
+  flex: 1;
+  max-width: 300px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .mainContainer {
+    flex-direction: column;
+  }
+  .cardUsers {
+    max-width: 100%;
+  }
+}

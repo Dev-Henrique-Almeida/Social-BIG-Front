@@ -41,3 +41,24 @@ export const getAllUsers = async (token: string) => {
     throw error;
   }
 };
+
+export const getOthersUsers = async (token: string, id: string) => {
+  try {
+    const headersWithToken = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await api.get("/users", {
+      headers: headersWithToken,
+    });
+
+    const filteredUsers = response.data.filter(
+      (user: { id: string }) => user.id !== id
+    );
+    return filteredUsers;
+  } catch (error) {
+    console.error("Erro na busca de todos os usuários:", error);
+    throw error;
+  }
+};
