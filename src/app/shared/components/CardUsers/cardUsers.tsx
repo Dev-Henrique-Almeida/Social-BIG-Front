@@ -6,11 +6,13 @@ import { getOthersUsers } from "../../services";
 import { Avatar } from "@mui/material";
 import styles from "./cardUsers.module.scss";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
+import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
 
 const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
   const [users, setUsers] = useState<IUserData[]>([]);
   const themeStyles = useThemeStyles();
   const [isOpen, setIsOpen] = useState(false);
+  const { isProfilePage, handlePickPerfil } = useProfileNavigation();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -51,8 +53,10 @@ const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
         {users.map((user) => (
           <div className={styles.friendItem} key={user.id}>
             <Avatar
+              onClick={() => handlePickPerfil(user.id!)}
               sx={{
                 border: "1px solid #E9B425",
+                cursor: isProfilePage ? "default" : "pointer",
               }}
               src={user.image}
               alt={`${user.name}'s avatar`}

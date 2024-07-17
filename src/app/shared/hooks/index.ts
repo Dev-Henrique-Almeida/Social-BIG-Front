@@ -6,3 +6,4 @@ export * from "./AvatarProps/useAvatarProps";
 export * from "./FirstAndLastName/useFirstAndLastName";
 export * from "./RefreshPosts/useRefreshPosts";
 export * from "./TimeElapsed/useTimeElapsed";
+export * from "./ProfileNavigation/useProfileNavigation";

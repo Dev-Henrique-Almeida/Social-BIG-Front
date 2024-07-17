@@ -5,16 +5,14 @@ import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import styles from "./posts.module.scss";
 import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
-import { useRouter, usePathname } from "next/navigation";
-import { useAuthContext } from "../../contexts";
+import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const themeStyles = useThemeStyles();
-  const router = useRouter();
-  const { user } = useAuthContext();
-  const pathname = usePathname();
+
   const postsWithTimeElapsed = usePostsWithTimeElapsed(posts);
   const [visiblePostsCount, setVisiblePostsCount] = useState(posts.length);
+  const { isProfilePage, handlePickPerfil } = useProfileNavigation();
 
   useEffect(() => {
     if (isButton) {
@@ -30,18 +28,6 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
 
   const handleShowLessPosts = () => {
     setVisiblePostsCount(2);
-  };
-
-  const isProfilePage = pathname !== "/home";
-
-  const handlePickPerfil = (id: string) => {
-    if (user!.id === id) {
-      router.push(`/perfil/`);
-    } else {
-      if (!isProfilePage) {
-        router.push(`/perfil/${id}`);
-      }
-    }
   };
 
   return (
