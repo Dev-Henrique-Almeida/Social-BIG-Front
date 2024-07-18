@@ -7,8 +7,9 @@ import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import styles from "./posts.module.scss";
 import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
 import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
-import { deletePost } from "../../services/api/postApi";
+import { deletePost, likePost } from "../../services/api/postApi";
 import { useAuthContext } from "@/app/shared/contexts";
+import { localStorageUtils } from "../../utils";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const { user, token } = useAuthContext();
@@ -18,6 +19,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const [postIdToDelete, setPostIdToDelete] = useState<string | null>(null);
   const postsWithTimeElapsed = usePostsWithTimeElapsed(posts);
   const [filteredPosts, setFilteredPosts] = useState(postsWithTimeElapsed);
+  const [likedPosts, setLikedPosts] = useState<string[]>([]);
   const themeStyles = useThemeStyles();
 
   useEffect(() => {
@@ -30,6 +32,17 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
 
   useEffect(() => {
     setFilteredPosts(postsWithTimeElapsed);
+  }, [postsWithTimeElapsed]);
+
+  useEffect(() => {
+    // Recuperando os likes do localStorage ao montar o componente
+    const savedLikes = JSON.parse(
+      localStorageUtils.getItem("likedPosts") || "[]"
+    );
+    const initialLikedPosts = postsWithTimeElapsed
+      .filter((post) => savedLikes.includes(post.id))
+      .map((post) => post.id);
+    setLikedPosts(initialLikedPosts);
   }, [postsWithTimeElapsed]);
 
   const handleShowMorePosts = () => {
@@ -65,6 +78,38 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
         console.error(error);
       } finally {
         handleMenuClose();
+      }
+    }
+  };
+
+  const handleLikePost = async (postId: string) => {
+    if (token && user?.id) {
+      try {
+        const updatedPost = await likePost(postId, token, user.id);
+        setFilteredPosts(
+          filteredPosts.map((post) =>
+            post.id === postId
+              ? {
+                  ...post,
+                  likes: updatedPost.likes,
+                  likedByCurrentUser: updatedPost.likedByCurrentUser,
+                }
+              : post
+          )
+        );
+        let updatedLikedPosts;
+        if (likedPosts.includes(postId)) {
+          updatedLikedPosts = likedPosts.filter((id) => id !== postId);
+        } else {
+          updatedLikedPosts = [...likedPosts, postId];
+        }
+        setLikedPosts(updatedLikedPosts);
+        localStorageUtils.setItem(
+          "likedPosts",
+          JSON.stringify(updatedLikedPosts)
+        );
+      } catch (error) {
+        console.error(`Erro ao dar like no post:`, error);
       }
     }
   };
@@ -142,11 +187,28 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
             ></div>
           )}
           <div className={styles.bottomFields}>
-            <div className={styles.likeButton}>
+            <div
+              className={`${styles.likeButton} ${
+                likedPosts.includes(post.id) ? styles.liked : ""
+              }`}
+              onClick={() =>
+                post.author.id !== user?.id && handleLikePost(post.id)
+              }
+            >
               <div className={styles.vector}></div>
-              <div className={styles.curtiu}>Curtiu</div>
-              <div className={styles.frame10}>
-                <div className={styles.likesCount}>{post.likes}</div>
+              <div
+                className={`${styles.curtiu} ${
+                  likedPosts.includes(post.id) ? styles.likedText : ""
+                }`}
+              >
+                {likedPosts.includes(post.id) ? "Curtiu" : "Curtir"}
+              </div>
+              <div
+                className={`${styles.frame10} ${
+                  likedPosts.includes(post.id) ? styles.likedCounter : ""
+                }`}
+              >
+                <div className={`${styles.likesCount}`}>{post.likes}</div>
               </div>
             </div>
             <div className={styles.commentsButton}>

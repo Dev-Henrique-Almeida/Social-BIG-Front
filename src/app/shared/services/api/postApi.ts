@@ -55,22 +55,23 @@ export const getAllPostsByUser = async (
 export const likePost = async (
   id: string,
   token: string,
-  action: "like" | "unlike"
+  userId: string
 ): Promise<IPostData> => {
   try {
-    const response = await api.patch(`/posts/${action}/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await api.patch(
+      `/posts/like/${id}`,
+      { userId },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {
-    console.error(
-      `Erro ao ${action === "like" ? "dar like" : "tirar like"} no post:`,
-      error
-    );
+    console.error(`Erro ao dar like no post:`, error);
     throw error;
   }
 };

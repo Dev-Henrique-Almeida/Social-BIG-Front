@@ -59,6 +59,7 @@ interface IPostData {
   image?: string;
   comments: IComment[];
   createdAt: string;
+  likedByCurrentUser?: string;
 }
 
 interface IPostsProps {
