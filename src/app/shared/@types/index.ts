@@ -55,11 +55,11 @@ interface IPostData {
   authorId: string;
   author: IAuthor;
   location?: string;
-  likes: string;
+  likes: number;
   image?: string;
   comments: IComment[];
   createdAt: string;
-  likedByCurrentUser?: string;
+  likedByCurrentUser?: boolean;
 }
 
 interface IPostsProps {
@@ -86,7 +86,7 @@ interface IAuthor {
 
 interface IComment {
   id: string;
-  text: string;
+  content: string;
   author: IAuthor;
 }
 
@@ -111,6 +111,12 @@ interface IInputFieldProps {
   mask?: string;
 }
 
+interface ICommentData {
+  content: string;
+  authorId: string;
+  postId: string;
+}
+
 export type {
   IThemeContexData,
   IDrawerContexData,
@@ -120,6 +126,7 @@ export type {
   IUserData,
   IAuthor,
   IComment,
+  ICommentData,
   IPostsProps,
   IAuthContextData,
   IInputFieldProps,

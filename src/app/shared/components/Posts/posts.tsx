@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Divider,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { IPostsProps } from "../../@types";
+import { IPostsProps, ICommentData, IComment } from "../../@types";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import styles from "./posts.module.scss";
@@ -10,6 +17,7 @@ import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNaviga
 import { deletePost, likePost } from "../../services/api/postApi";
 import { useAuthContext } from "@/app/shared/contexts";
 import { cookieUtils } from "../../utils/CookieStorage/cookiesStorage";
+import CommentInput from "../CommentInput/commentInput";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const { user, token } = useAuthContext();
@@ -20,6 +28,9 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const postsWithTimeElapsed = usePostsWithTimeElapsed(posts);
   const [filteredPosts, setFilteredPosts] = useState(postsWithTimeElapsed);
   const [likedPosts, setLikedPosts] = useState<string[]>([]);
+  const [visibleCommentsCount, setVisibleCommentsCount] = useState<{
+    [postId: string]: number;
+  }>({});
   const themeStyles = useThemeStyles();
 
   useEffect(() => {
@@ -109,6 +120,45 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
         console.error(`Erro ao dar like no post:`, error);
       }
     }
+  };
+
+  const handleCommentAdded = (comment: ICommentData) => {
+    const newComment: IComment = {
+      id: new Date().toISOString(), // Você pode usar um id único gerado de outra forma
+      content: comment.content,
+      author: {
+        id: comment.authorId,
+        name: user?.name || "Anônimo",
+        image: user?.image || "",
+      },
+    };
+
+    setFilteredPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === comment.postId
+          ? { ...post, comments: [...post.comments, newComment] }
+          : post
+      )
+    );
+
+    setVisibleCommentsCount((prev) => ({
+      ...prev,
+      [comment.postId]: (prev[comment.postId] || 2) + 1,
+    }));
+  };
+
+  const handleShowMoreComments = (postId: string) => {
+    setVisibleCommentsCount((prev) => ({
+      ...prev,
+      [postId]: (prev[postId] || 2) + 2,
+    }));
+  };
+
+  const handleShowLessComments = (postId: string) => {
+    setVisibleCommentsCount((prev) => ({
+      ...prev,
+      [postId]: 2,
+    }));
   };
 
   return (
@@ -218,6 +268,11 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
                   className={`${styles.frame10} ${
                     likedPosts.includes(post.id) ? styles.likedCounter : ""
                   }`}
+                  style={{
+                    backgroundColor: likedPosts.includes(post.id)
+                      ? "#d32f2f"
+                      : themeStyles.backgroundDefault,
+                  }}
                 >
                   <div className={`${styles.likesCount}`}>{post.likes}</div>
                 </div>
@@ -225,12 +280,70 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
               <div className={styles.commentsButton}>
                 <div className={styles.vector}></div>
                 <div className={styles.comentarios}>Comentários</div>
-                <div className={styles.frame10}>
+                <div
+                  className={styles.frame10}
+                  style={{
+                    backgroundColor: themeStyles.backgroundDefault,
+                  }}
+                >
                   <div className={styles.commentsCount}>
                     {post.comments.length}
                   </div>
                 </div>
               </div>
+            </div>
+            <CommentInput
+              postId={post.id}
+              onCommentAdded={handleCommentAdded}
+            />
+            <div className={styles.commentsSection}>
+              {post.comments
+                .slice(0, visibleCommentsCount[post.id] || 2)
+                .map((comment) => (
+                  <div className={styles.comment} key={comment.id}>
+                    <Avatar
+                      sx={{
+                        width: "32px",
+                        height: "32px",
+                        border: "1px solid #d32f2f",
+                        cursor: isProfilePage ? "default" : "pointer",
+                      }}
+                      {...useAvatarProps(comment.author)()}
+                      onClick={() => handlePickPerfil(comment.author.id)}
+                    />
+                    <div className={styles.commentContent}>
+                      <div className={styles.commentAuthor}>
+                        {comment.author.name}
+                      </div>
+                      <div className={styles.commentText}>
+                        {comment.content}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              {post.comments.length > (visibleCommentsCount[post.id] || 2) && (
+                <div>
+                  <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
+                  <button
+                    className={styles.showMoreCommentsButton}
+                    onClick={() => handleShowMoreComments(post.id)}
+                  >
+                    Ver todos os comentários
+                  </button>
+                </div>
+              )}
+              {visibleCommentsCount[post.id] >= post.comments.length && (
+                <div>
+                  <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
+
+                  <button
+                    className={styles.showMoreCommentsButton}
+                    onClick={() => handleShowLessComments(post.id)}
+                  >
+                    Ver menos comentários
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         ))

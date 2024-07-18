@@ -1,15 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Grid,
-  Modal,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Avatar, Box, Grid, Typography, useTheme } from "@mui/material";
 import { useAuthContext } from "@/app/shared/contexts";
 import PostsContainer from "@/app/shared/components/Posts/PostContainer/postsContainer";
 import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
@@ -20,7 +12,7 @@ import ConvertSex from "@/app/shared/utils/ConvertSex/convertSex";
 import bannerImage from "../../../assets/banner-perfil.png";
 import bannerImageMobile from "../../../assets/banner-perfil-mobile.png";
 import styles from "./perfil.module.scss";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { IUserData } from "@/app/shared/@types";
 import { getByUser } from "@/app/shared/services";
 
@@ -79,7 +71,7 @@ export default function Perfil() {
               sx={{
                 width: theme.spacing(20),
                 height: theme.spacing(20),
-                border: "2px solid #E9B425",
+                border: "2px solid #d32f2f",
               }}
               {...avatarProps} // Usando as propriedades do avatar do usuário buscado
             />
