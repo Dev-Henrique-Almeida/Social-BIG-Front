@@ -7,6 +7,7 @@ import { Avatar } from "@mui/material";
 import styles from "./cardUsers.module.scss";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
+import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
 
 const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
   const [users, setUsers] = useState<IUserData[]>([]);
@@ -50,18 +51,17 @@ const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
         </div>
       </div>
       <div className={`${styles.friendList} ${isOpen ? styles.open : ""}`}>
-        {users.map((user) => (
-          <div className={styles.friendItem} key={user.id}>
+        {users.map((friend) => (
+          <div className={styles.friendItem} key={friend.id}>
             <Avatar
-              onClick={() => handlePickPerfil(user.id!)}
+              onClick={() => handlePickPerfil(friend.id!)}
               sx={{
                 border: "1px solid #E9B425",
                 cursor: isProfilePage ? "default" : "pointer",
               }}
-              src={user.image}
-              alt={`${user.name}'s avatar`}
+              {...useAvatarProps(friend)()}
             />
-            <div className={styles.friendName}>{user.name}</div>
+            <div className={styles.friendName}>{friend.name}</div>
           </div>
         ))}
       </div>
