@@ -65,7 +65,7 @@ export default function Perfil() {
               sx={{
                 width: theme.spacing(20),
                 height: theme.spacing(20),
-                border: "2px solid #E9B425",
+                border: "2px solid #d32f2f",
               }}
               {...getAvatarProps()}
             />

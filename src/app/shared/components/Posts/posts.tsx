@@ -9,7 +9,7 @@ import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
 import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
 import { deletePost, likePost } from "../../services/api/postApi";
 import { useAuthContext } from "@/app/shared/contexts";
-import { cookieUtils } from "../../utils/LocalStorageUtils/cookiesStorage";
+import { cookieUtils } from "../../utils/CookieStorage/cookiesStorage";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const { user, token } = useAuthContext();
@@ -113,113 +113,128 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
 
   return (
     <div className={styles.posts}>
-      {filteredPosts.slice(0, visiblePostsCount).map((post) => (
+      {filteredPosts.length === 0 ? (
         <div
-          className={styles.post}
+          className={styles.noPostsMessage}
           style={{
             backgroundColor: themeStyles.backgroundPaper,
             border: themeStyles.borderColor,
-            position: "relative",
           }}
-          key={post.id}
         >
-          {post.author.id === user?.id && (
-            <div className={styles.postOptions}>
-              <IconButton
-                aria-label="more"
-                aria-controls="long-menu"
-                aria-haspopup="true"
-                onClick={(e) => handleMenuOpen(e, post.id)}
-                style={{ borderRadius: "50%", padding: "4px" }}
-              >
-                <MoreHorizIcon />
-              </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-                PaperProps={{
-                  style: {
-                    boxShadow: "none",
-                    border: themeStyles.borderColor,
-                  },
-                }}
-              >
-                <MenuItem onClick={handleDeletePost}>Excluir</MenuItem>
-                <MenuItem onClick={handleMenuClose}>Cancelar</MenuItem>
-              </Menu>
-            </div>
-          )}
-          <div className={styles.frame1}>
-            <div className={styles.userIcons}>
-              <Avatar
-                onClick={() => handlePickPerfil(post.author.id)}
-                {...useAvatarProps(post.author)()}
-                sx={{
-                  border: "1px solid #d32f2f",
-                  cursor: isProfilePage ? "default" : "pointer",
-                }}
-              />
-            </div>
-            <div className={styles.postHeader}>
-              <div className={styles.postAuthor}>{post.author.name}</div>
-              <div className={styles.postTimeLocation}>
-                {post.timeElapsed}
-                {post.location && (
-                  <>
-                    {" "}
-                    em{" "}
-                    <span className={styles.postLocation}>{post.location}</span>
-                  </>
-                )}
+          Nenhum post disponível no momento. Que tal criar um novo post ou
+          voltar mais tarde?
+        </div>
+      ) : (
+        filteredPosts.slice(0, visiblePostsCount).map((post) => (
+          <div
+            className={styles.post}
+            style={{
+              backgroundColor: themeStyles.backgroundPaper,
+              border: themeStyles.borderColor,
+              position: "relative",
+            }}
+            key={post.id}
+          >
+            {post.author.id === user?.id && (
+              <div className={styles.postOptions}>
+                <IconButton
+                  aria-label="more"
+                  aria-controls="long-menu"
+                  aria-haspopup="true"
+                  onClick={(e) => handleMenuOpen(e, post.id)}
+                  style={{ borderRadius: "50%", padding: "4px" }}
+                >
+                  <MoreHorizIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                  PaperProps={{
+                    style: {
+                      boxShadow: "none",
+                      border: themeStyles.borderColor,
+                    },
+                  }}
+                >
+                  <MenuItem onClick={handleDeletePost}>Excluir</MenuItem>
+                  <MenuItem onClick={handleMenuClose}>Cancelar</MenuItem>
+                </Menu>
+              </div>
+            )}
+            <div className={styles.frame1}>
+              <div className={styles.userIcons}>
+                <Avatar
+                  onClick={() => handlePickPerfil(post.author.id)}
+                  {...useAvatarProps(post.author)()}
+                  sx={{
+                    border: "1px solid #d32f2f",
+                    cursor: isProfilePage ? "default" : "pointer",
+                  }}
+                />
+              </div>
+              <div className={styles.postHeader}>
+                <div className={styles.postAuthor}>{post.author.name}</div>
+                <div className={styles.postTimeLocation}>
+                  {post.timeElapsed}
+                  {post.location && (
+                    <>
+                      {" "}
+                      em{" "}
+                      <span className={styles.postLocation}>
+                        {post.location}
+                      </span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.oQueVoceEstaPensando}>{post.text}</div>
-          {post.image && (
-            <div
-              className={styles.unsplash}
-              style={{ backgroundImage: `url(${post.image})` }}
-            ></div>
-          )}
-          <div className={styles.bottomFields}>
-            <div
-              className={`${styles.likeButton} ${
-                likedPosts.includes(post.id) ? styles.liked : ""
-              }`}
-              onClick={() =>
-                post.author.id !== user?.id && handleLikePost(post.id)
-              }
-            >
-              <div className={styles.vector}></div>
+            <div className={styles.oQueVoceEstaPensando}>{post.text}</div>
+            {post.image && (
               <div
-                className={`${styles.curtiu} ${
-                  likedPosts.includes(post.id) ? styles.likedText : ""
-                }`}
-              >
-                {likedPosts.includes(post.id) ? "Curtiu" : "Curtir"}
-              </div>
+                className={styles.unsplash}
+                style={{ backgroundImage: `url(${post.image})` }}
+              ></div>
+            )}
+            <div className={styles.bottomFields}>
               <div
-                className={`${styles.frame10} ${
-                  likedPosts.includes(post.id) ? styles.likedCounter : ""
+                className={`${styles.likeButton} ${
+                  likedPosts.includes(post.id) ? styles.liked : ""
                 }`}
+                onClick={() =>
+                  post.author.id !== user?.id && handleLikePost(post.id)
+                }
               >
-                <div className={`${styles.likesCount}`}>{post.likes}</div>
+                <div className={styles.vector}></div>
+                <div
+                  className={`${styles.curtiu} ${
+                    likedPosts.includes(post.id) ? styles.likedText : ""
+                  }`}
+                >
+                  {likedPosts.includes(post.id) ? "Curtiu" : "Curtir"}
+                </div>
+                <div
+                  className={`${styles.frame10} ${
+                    likedPosts.includes(post.id) ? styles.likedCounter : ""
+                  }`}
+                >
+                  <div className={`${styles.likesCount}`}>{post.likes}</div>
+                </div>
               </div>
-            </div>
-            <div className={styles.commentsButton}>
-              <div className={styles.vector}></div>
-              <div className={styles.comentarios}>Comentários</div>
-              <div className={styles.frame10}>
-                <div className={styles.commentsCount}>
-                  {post.comments.length}
+              <div className={styles.commentsButton}>
+                <div className={styles.vector}></div>
+                <div className={styles.comentarios}>Comentários</div>
+                <div className={styles.frame10}>
+                  <div className={styles.commentsCount}>
+                    {post.comments.length}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
       {isButton && visiblePostsCount < filteredPosts.length && (
         <Button
           color="primary"

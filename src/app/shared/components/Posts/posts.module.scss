@@ -6,6 +6,17 @@
   padding-bottom: 20px;
 }
 
+.noPostsMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #a1a3a7;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+}
+
 .post {
   box-sizing: border-box;
   display: flex;
@@ -15,6 +26,9 @@
   gap: 16px;
   width: 100%;
   border-radius: 16px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
@@ -49,15 +63,16 @@
 }
 
 .postAuthor {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
   line-height: 21px;
 }
 
 .postTimeLocation {
-  font-weight: 500;
+  font-weight: 400;
   font-size: 12px;
   line-height: 18px;
+  color: #757575;
 }
 
 .postLocation {
@@ -110,7 +125,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 15px;
-  color: #a1a3a7;
+  color: #757575;
 }
 
 .frame10 {
@@ -118,7 +133,7 @@
   align-items: center;
   justify-content: center;
   padding: 2px 6px;
-  background: #a1a3a7;
+  background: #e0e0e0;
   border-radius: 50%;
 }
 
@@ -137,6 +152,12 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  color: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.showMoreButton:hover {
+  background-color: #1565c0;
 }
 
 .likedText {
