@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import {
-  Avatar,
-  Button,
-  Divider,
-  IconButton,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { IPostsProps, ICommentData, IComment } from "../../@types";
+import {
+  IPostsProps,
+  IPostDataWithTimeElapsed,
+  IComment,
+  ICommentData,
+} from "../../@types";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import styles from "./posts.module.scss";
@@ -18,19 +16,26 @@ import { deletePost, likePost } from "../../services/api/postApi";
 import { useAuthContext } from "@/app/shared/contexts";
 import { cookieUtils } from "../../utils/CookieStorage/cookiesStorage";
 import CommentInput from "../CommentInput/commentInput";
+import useCommentManagement from "../../hooks/CommentManagement/useCommentManagement";
+import CommentsList from "../CommentsList/commentsList";
+import ShowMoreButton from "../ShowMoreButton/showMoreButton";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const { user, token } = useAuthContext();
-  const [visiblePostsCount, setVisiblePostsCount] = useState(posts.length);
   const { isProfilePage, handlePickPerfil } = useProfileNavigation();
+  const {
+    visibleCommentsCount,
+    handleShowMoreComments,
+    handleShowLessComments,
+  } = useCommentManagement();
+  const [visiblePostsCount, setVisiblePostsCount] = useState(posts.length);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [postIdToDelete, setPostIdToDelete] = useState<string | null>(null);
   const postsWithTimeElapsed = usePostsWithTimeElapsed(posts);
-  const [filteredPosts, setFilteredPosts] = useState(postsWithTimeElapsed);
+  const [filteredPosts, setFilteredPosts] =
+    useState<IPostDataWithTimeElapsed[]>(postsWithTimeElapsed);
   const [likedPosts, setLikedPosts] = useState<string[]>([]);
-  const [visibleCommentsCount, setVisibleCommentsCount] = useState<{
-    [postId: string]: number;
-  }>({});
+
   const themeStyles = useThemeStyles();
 
   useEffect(() => {
@@ -42,12 +47,14 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   }, [isButton, posts.length]);
 
   useEffect(() => {
-    setFilteredPosts(postsWithTimeElapsed);
+    const sortedPosts = postsWithTimeElapsed.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+    setFilteredPosts(sortedPosts);
   }, [postsWithTimeElapsed]);
 
   useEffect(() => {
     if (user?.id) {
-      // Recuperando os likes dos cookies ao montar o componente
       const savedLikes = cookieUtils.getLikedPostsByUser(user.id);
       const initialLikedPosts = postsWithTimeElapsed
         .filter((post) => savedLikes.includes(post.id))
@@ -122,43 +129,27 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
     }
   };
 
-  const handleCommentAdded = (comment: ICommentData) => {
+  const handleCommentAddedToPost = (
+    postId: string,
+    newCommentData: ICommentData
+  ) => {
     const newComment: IComment = {
-      id: new Date().toISOString(), // Você pode usar um id único gerado de outra forma
-      content: comment.content,
+      ...newCommentData,
+      id: new Date().toISOString(),
       author: {
-        id: comment.authorId,
-        name: user?.name || "Anônimo",
+        id: newCommentData.authorId,
+        name: user?.name || "",
         image: user?.image || "",
       },
     };
 
     setFilteredPosts((prevPosts) =>
       prevPosts.map((post) =>
-        post.id === comment.postId
-          ? { ...post, comments: [...post.comments, newComment] }
+        post.id === postId
+          ? { ...post, comments: [newComment, ...post.comments] }
           : post
       )
     );
-
-    setVisibleCommentsCount((prev) => ({
-      ...prev,
-      [comment.postId]: (prev[comment.postId] || 2) + 1,
-    }));
-  };
-
-  const handleShowMoreComments = (postId: string) => {
-    setVisibleCommentsCount((prev) => ({
-      ...prev,
-      [postId]: (prev[postId] || 2) + 2,
-    }));
-  };
-
-  const handleShowLessComments = (postId: string) => {
-    setVisibleCommentsCount((prev) => ({
-      ...prev,
-      [postId]: 2,
-    }));
   };
 
   return (
@@ -294,81 +285,27 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
             </div>
             <CommentInput
               postId={post.id}
-              onCommentAdded={handleCommentAdded}
+              onCommentAdded={(comment) =>
+                handleCommentAddedToPost(post.id, comment)
+              }
             />
-            <div className={styles.commentsSection}>
-              {post.comments
-                .slice(0, visibleCommentsCount[post.id] || 2)
-                .map((comment) => (
-                  <div className={styles.comment} key={comment.id}>
-                    <Avatar
-                      sx={{
-                        width: "32px",
-                        height: "32px",
-                        border: "1px solid #d32f2f",
-                        cursor: isProfilePage ? "default" : "pointer",
-                      }}
-                      {...useAvatarProps(comment.author)()}
-                      onClick={() => handlePickPerfil(comment.author.id)}
-                    />
-                    <div className={styles.commentContent}>
-                      <div className={styles.commentAuthor}>
-                        {comment.author.name}
-                      </div>
-                      <div className={styles.commentText}>
-                        {comment.content}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              {post.comments.length > (visibleCommentsCount[post.id] || 2) && (
-                <div>
-                  <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
-                  <button
-                    className={styles.showMoreCommentsButton}
-                    onClick={() => handleShowMoreComments(post.id)}
-                  >
-                    Ver todos os comentários
-                  </button>
-                </div>
-              )}
-              {visibleCommentsCount[post.id] >= post.comments.length && (
-                <div>
-                  <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
-
-                  <button
-                    className={styles.showMoreCommentsButton}
-                    onClick={() => handleShowLessComments(post.id)}
-                  >
-                    Ver menos comentários
-                  </button>
-                </div>
-              )}
-            </div>
+            <CommentsList
+              comments={post.comments}
+              visibleCommentsCount={visibleCommentsCount[post.id] || 2}
+              postId={post.id}
+              onShowMoreComments={handleShowMoreComments}
+              onShowLessComments={handleShowLessComments}
+            />
           </div>
         ))
       )}
       {isButton && visiblePostsCount < filteredPosts.length && (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleShowMorePosts}
-          className={styles.showMoreButton}
-        >
-          Ver Mais
-        </Button>
+        <ShowMoreButton isShowMore={true} onClick={handleShowMorePosts} />
       )}
       {isButton &&
         visiblePostsCount >= filteredPosts.length &&
         visiblePostsCount > 2 && (
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={handleShowLessPosts}
-            className={styles.showMoreButton}
-          >
-            Ver Menos
-          </Button>
+          <ShowMoreButton isShowMore={false} onClick={handleShowLessPosts} />
         )}
     </div>
   );

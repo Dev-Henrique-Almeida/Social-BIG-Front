@@ -4,15 +4,10 @@ import { useAuthContext } from "@/app/shared/contexts";
 import { createComment } from "../../services/api/commentApi";
 import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
 import styles from "./commentInput.module.scss";
-import { ICommentData } from "../../@types";
+import { ICommentInputProps, ICommentData } from "../../@types";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 
-interface CommentInputProps {
-  postId: string;
-  onCommentAdded: (comment: ICommentData) => void;
-}
-
-const CommentInput: React.FC<CommentInputProps> = ({
+const CommentInput: React.FC<ICommentInputProps> = ({
   postId,
   onCommentAdded,
 }) => {
@@ -27,18 +22,25 @@ const CommentInput: React.FC<CommentInputProps> = ({
   const handleCommentSubmit = async () => {
     if (commentText.trim() === "") return;
 
-    const newComment = {
+    const newComment: ICommentData = {
       content: commentText,
       authorId: user?.id || "",
       postId,
+      createdAt: new Date().toISOString(),
     };
 
     try {
       const createdComment = await createComment(newComment, token || "");
-      onCommentAdded(createdComment);
+      onCommentAdded({ ...createdComment, author: user! });
       setCommentText("");
     } catch (error) {
       console.error("Erro ao criar comentário:", error);
+    }
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleCommentSubmit();
     }
   };
 
@@ -58,6 +60,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
         placeholder="Tem algo a dizer?"
         value={commentText}
         onChange={handleCommentChange}
+        onKeyPress={handleKeyPress}
       />
       <button onClick={handleCommentSubmit} className={styles.button}>
         Comentar

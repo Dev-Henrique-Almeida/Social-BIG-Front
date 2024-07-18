@@ -9,3 +9,5 @@ export * from "./FormEdit/formEdit";
 export * from "./Posts/CreatePost/createPost";
 export * from "./Posts/PostContainer/postsContainer";
 export * from "./Posts/posts";
+export * from "./ShowMoreButton/showMoreButton";
+export * from "./CommentsList/commentsList";

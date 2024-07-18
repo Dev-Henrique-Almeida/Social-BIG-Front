@@ -88,6 +88,20 @@ interface IComment {
   id: string;
   content: string;
   author: IAuthor;
+  createdAt?: string;
+}
+
+interface ICommentsListProps {
+  comments: IComment[];
+  visibleCommentsCount: number;
+  postId: string;
+  onShowMoreComments: (postId: string) => void;
+  onShowLessComments: (postId: string) => void;
+}
+
+interface ICommentInputProps {
+  postId: string;
+  onCommentAdded: (comment: ICommentData) => void;
 }
 
 interface ICreatePostProps extends IFormEditProps {
@@ -115,6 +129,7 @@ interface ICommentData {
   content: string;
   authorId: string;
   postId: string;
+  createdAt?: string;
 }
 
 export type {
@@ -134,6 +149,8 @@ export type {
   IFormEditProps,
   IPostsContainerProps,
   ICardUsersProps,
+  ICommentInputProps,
+  ICommentsListProps,
   IPostDataWithTimeElapsed,
   ICreatePostProps,
 };
