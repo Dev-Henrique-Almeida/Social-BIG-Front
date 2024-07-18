@@ -15,6 +15,7 @@
   gap: 16px;
   width: 100%;
   border-radius: 16px;
+  position: relative;
 }
 
 .frame1 {
@@ -39,6 +40,12 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.postOptions {
+  position: absolute;
+  top: 16px;
+  right: 16px;
 }
 
 .postAuthor {
@@ -119,13 +126,11 @@
   font-weight: 400;
   font-size: 8px;
   line-height: 10px;
-  color: #ffffff;
 }
 
 .showMoreButton {
   margin: 16px auto;
   padding: 8px 16px;
-  color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;

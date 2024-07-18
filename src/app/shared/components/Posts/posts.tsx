@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IPostsProps } from "../../@types";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import styles from "./posts.module.scss";
 import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
 import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
+import { deletePost } from "../../services/api/postApi";
+import { useAuthContext } from "@/app/shared/contexts";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
-  const themeStyles = useThemeStyles();
-
-  const postsWithTimeElapsed = usePostsWithTimeElapsed(posts);
+  const { user, token } = useAuthContext();
   const [visiblePostsCount, setVisiblePostsCount] = useState(posts.length);
   const { isProfilePage, handlePickPerfil } = useProfileNavigation();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [postIdToDelete, setPostIdToDelete] = useState<string | null>(null);
+  const postsWithTimeElapsed = usePostsWithTimeElapsed(posts);
+  const [filteredPosts, setFilteredPosts] = useState(postsWithTimeElapsed);
+  const themeStyles = useThemeStyles();
 
   useEffect(() => {
     if (isButton) {
@@ -22,6 +28,10 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
     }
   }, [isButton, posts.length]);
 
+  useEffect(() => {
+    setFilteredPosts(postsWithTimeElapsed);
+  }, [postsWithTimeElapsed]);
+
   const handleShowMorePosts = () => {
     setVisiblePostsCount((prevCount) => prevCount + 2);
   };
@@ -30,17 +40,75 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
     setVisiblePostsCount(2);
   };
 
+  const handleMenuOpen = (
+    event: React.MouseEvent<HTMLElement>,
+    postId: string
+  ) => {
+    setAnchorEl(event.currentTarget);
+    setPostIdToDelete(postId);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setPostIdToDelete(null);
+  };
+
+  const handleDeletePost = async () => {
+    if (postIdToDelete && token) {
+      try {
+        const message = await deletePost(postIdToDelete, token);
+        console.log(message);
+        setFilteredPosts(
+          filteredPosts.filter((post) => post.id !== postIdToDelete)
+        );
+      } catch (error) {
+        console.error(error);
+      } finally {
+        handleMenuClose();
+      }
+    }
+  };
+
   return (
     <div className={styles.posts}>
-      {postsWithTimeElapsed.slice(0, visiblePostsCount).map((post) => (
+      {filteredPosts.slice(0, visiblePostsCount).map((post) => (
         <div
           className={styles.post}
           style={{
             backgroundColor: themeStyles.backgroundPaper,
             border: themeStyles.borderColor,
+            position: "relative",
           }}
           key={post.id}
         >
+          {post.author.id === user?.id && (
+            <div className={styles.postOptions}>
+              <IconButton
+                aria-label="more"
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                onClick={(e) => handleMenuOpen(e, post.id)}
+                style={{ borderRadius: "50%", padding: "4px" }}
+              >
+                <MoreHorizIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                PaperProps={{
+                  style: {
+                    boxShadow: "none",
+                    border: themeStyles.borderColor,
+                  },
+                }}
+              >
+                <MenuItem onClick={handleDeletePost}>Excluir</MenuItem>
+                <MenuItem onClick={handleMenuClose}>Cancelar</MenuItem>
+              </Menu>
+            </div>
+          )}
           <div className={styles.frame1}>
             <div className={styles.userIcons}>
               <Avatar
@@ -93,7 +161,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
           </div>
         </div>
       ))}
-      {isButton && visiblePostsCount < postsWithTimeElapsed.length && (
+      {isButton && visiblePostsCount < filteredPosts.length && (
         <Button
           color="primary"
           variant="contained"
@@ -104,7 +172,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
         </Button>
       )}
       {isButton &&
-        visiblePostsCount >= postsWithTimeElapsed.length &&
+        visiblePostsCount >= filteredPosts.length &&
         visiblePostsCount > 2 && (
           <Button
             color="secondary"
