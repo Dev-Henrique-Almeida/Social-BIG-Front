@@ -95,7 +95,7 @@ const CreatePost: React.FC<ICreatePostProps> = ({
         <Avatar
           onClick={handlePerfil}
           sx={{
-            border: "1px solid #E9B425",
+            border: "1px solid #d32f2f",
             cursor: "pointer",
           }}
           className={styles.userIcon}

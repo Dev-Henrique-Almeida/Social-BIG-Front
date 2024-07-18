@@ -18,4 +18,15 @@ export const localStorageUtils = {
       localStorage.removeItem(key);
     }
   },
+
+  getLikedPostsByUser: (userId: string): string[] => {
+    const likes = JSON.parse(localStorage.getItem("likedPosts") || "{}");
+    return likes[userId] || [];
+  },
+
+  setLikedPostsByUser: (userId: string, likedPosts: string[]): void => {
+    const likes = JSON.parse(localStorage.getItem("likedPosts") || "{}");
+    likes[userId] = likedPosts;
+    localStorage.setItem("likedPosts", JSON.stringify(likes));
+  },
 };

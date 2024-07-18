@@ -9,7 +9,7 @@ import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
 import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
 import { deletePost, likePost } from "../../services/api/postApi";
 import { useAuthContext } from "@/app/shared/contexts";
-import { localStorageUtils } from "../../utils";
+import { cookieUtils } from "../../utils/LocalStorageUtils/cookiesStorage";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const { user, token } = useAuthContext();
@@ -35,15 +35,15 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   }, [postsWithTimeElapsed]);
 
   useEffect(() => {
-    // Recuperando os likes do localStorage ao montar o componente
-    const savedLikes = JSON.parse(
-      localStorageUtils.getItem("likedPosts") || "[]"
-    );
-    const initialLikedPosts = postsWithTimeElapsed
-      .filter((post) => savedLikes.includes(post.id))
-      .map((post) => post.id);
-    setLikedPosts(initialLikedPosts);
-  }, [postsWithTimeElapsed]);
+    if (user?.id) {
+      // Recuperando os likes dos cookies ao montar o componente
+      const savedLikes = cookieUtils.getLikedPostsByUser(user.id);
+      const initialLikedPosts = postsWithTimeElapsed
+        .filter((post) => savedLikes.includes(post.id))
+        .map((post) => post.id);
+      setLikedPosts(initialLikedPosts);
+    }
+  }, [postsWithTimeElapsed, user?.id]);
 
   const handleShowMorePosts = () => {
     setVisiblePostsCount((prevCount) => prevCount + 2);
@@ -104,10 +104,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
           updatedLikedPosts = [...likedPosts, postId];
         }
         setLikedPosts(updatedLikedPosts);
-        localStorageUtils.setItem(
-          "likedPosts",
-          JSON.stringify(updatedLikedPosts)
-        );
+        cookieUtils.setLikedPostsByUser(user.id, updatedLikedPosts);
       } catch (error) {
         console.error(`Erro ao dar like no post:`, error);
       }
@@ -160,7 +157,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
                 onClick={() => handlePickPerfil(post.author.id)}
                 {...useAvatarProps(post.author)()}
                 sx={{
-                  border: "1px solid #E9B425",
+                  border: "1px solid #d32f2f",
                   cursor: isProfilePage ? "default" : "pointer",
                 }}
               />

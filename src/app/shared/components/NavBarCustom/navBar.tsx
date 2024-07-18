@@ -64,7 +64,12 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
                 color="primary"
                 sx={{ marginRight: theme.spacing(2) }}
               >
-                <Avatar {...getAvatarProps()} />
+                <Avatar
+                  sx={{
+                    border: "1px solid #d32f2f",
+                  }}
+                  {...getAvatarProps()}
+                />
               </IconButton>
             </Tooltip>
           </Box>
