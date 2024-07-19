@@ -1,9 +1,10 @@
 import React from "react";
 import { Avatar, Divider } from "@mui/material";
-import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
-import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
-import { ICommentsListProps, IComment } from "../../@types";
+import useAvatarProps from "../../../hooks/AvatarProps/useAvatarProps";
+import useProfileNavigation from "../../../hooks/ProfileNavigation/useProfileNavigation";
+import { ICommentsListProps, IComment } from "../../../@types";
 import styles from "./commentList.module.scss";
+import useCommentsWithTimeElapsed from "@/app/shared/hooks/TimeElapsedComments/useCommentsWithTimeElapsed";
 
 const CommentsList: React.FC<ICommentsListProps> = ({
   comments,
@@ -14,12 +15,16 @@ const CommentsList: React.FC<ICommentsListProps> = ({
 }) => {
   const { handlePickPerfil } = useProfileNavigation();
 
-  const sortedComments = [...comments].sort((a: IComment, b: IComment) => {
-    return (
-      new Date(b.createdAt || "").getTime() -
-      new Date(a.createdAt || "").getTime()
-    );
-  });
+  const commentsWithTimeElapsed = useCommentsWithTimeElapsed(comments);
+
+  const sortedComments = [...commentsWithTimeElapsed].sort(
+    (a: IComment, b: IComment) => {
+      return (
+        new Date(b.createdAt || "").getTime() -
+        new Date(a.createdAt || "").getTime()
+      );
+    }
+  );
 
   return (
     <div className={styles.commentsSection}>
@@ -35,7 +40,10 @@ const CommentsList: React.FC<ICommentsListProps> = ({
             onClick={() => handlePickPerfil(comment.author.id)}
           />
           <div className={styles.commentContent}>
-            <div className={styles.commentAuthor}>{comment.author.name}</div>
+            <div className={styles.commentAuthor}>
+              {comment.author.name} •{" "}
+              <span className={styles.commentTime}>{comment.timeElapsed}</span>
+            </div>
             <div className={styles.commentText}>{comment.content}</div>
           </div>
         </div>

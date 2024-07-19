@@ -15,9 +15,9 @@ import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNaviga
 import { deletePost, likePost } from "../../services/api/postApi";
 import { useAuthContext } from "@/app/shared/contexts";
 import { cookieUtils } from "../../utils/CookieStorage/cookiesStorage";
-import CommentInput from "../CommentInput/commentInput";
+import CommentInput from "./CommentInput/commentInput";
 import useCommentManagement from "../../hooks/CommentManagement/useCommentManagement";
-import CommentsList from "../CommentsList/commentsList";
+import CommentsList from "./CommentsList/commentsList";
 import ShowMoreButton from "../ShowMoreButton/showMoreButton";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {

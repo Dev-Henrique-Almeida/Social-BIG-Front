@@ -89,6 +89,7 @@ interface IComment {
   content: string;
   author: IAuthor;
   createdAt?: string;
+  timeElapsed?: string;
 }
 
 interface ICommentsListProps {

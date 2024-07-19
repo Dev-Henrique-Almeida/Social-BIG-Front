@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import { useAuthContext } from "@/app/shared/contexts";
-import { createComment } from "../../services/api/commentApi";
-import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
+import { createComment } from "../../../services/api/commentApi";
+import useAvatarProps from "../../../hooks/AvatarProps/useAvatarProps";
 import styles from "./commentInput.module.scss";
-import { ICommentInputProps, ICommentData } from "../../@types";
-import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
+import { ICommentInputProps, ICommentData } from "../../../@types";
+import useThemeStyles from "../../../hooks/ThemeStyles/useThemeStyles";
 
 const CommentInput: React.FC<ICommentInputProps> = ({
   postId,
