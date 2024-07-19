@@ -35,6 +35,7 @@ const CommentsList: React.FC<ICommentsListProps> = ({
               width: "32px",
               height: "32px",
               border: "1px solid #d32f2f",
+              cursor: "pointer",
             }}
             {...useAvatarProps(comment.author)()}
             onClick={() => handlePickPerfil(comment.author.id)}
