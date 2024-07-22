@@ -30,7 +30,7 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({
     };
 
     fetchPosts();
-  }, [refreshPosts, userId, token]);
+  }, [refreshPosts]); /* , userId, token */
 
   return <Posts posts={posts} isButton={isButton} />;
 };

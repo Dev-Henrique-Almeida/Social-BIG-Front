@@ -45,13 +45,15 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
       >
         <Box className={styles.boxMain}>
           <Box sx={{ marginLeft: marginLeft }}>
-            <IconButton onClick={toggleDrawerOpen}>
-              <img
-                style={{ width: theme.spacing(5), height: theme.spacing(5) }}
-                src={isDrawerOpen ? logoClosed.src : logoOpen.src}
-                alt={isDrawerOpen ? "Fechar menu" : "Abrir menu"}
-              />
-            </IconButton>
+            <Tooltip title={isDrawerOpen ? "Fechar Menu" : "Abrir Menu"}>
+              <IconButton onClick={toggleDrawerOpen}>
+                <img
+                  style={{ width: theme.spacing(5), height: theme.spacing(5) }}
+                  src={isDrawerOpen ? logoClosed.src : logoOpen.src}
+                  alt={isDrawerOpen ? "Fechar menu" : "Abrir menu"}
+                />
+              </IconButton>
+            </Tooltip>
           </Box>
           <Box className={styles.boxUser}>
             <ChangeTheme />

@@ -27,15 +27,11 @@ const CommentsList: React.FC<ICommentsListProps> = ({
 
   return (
     <div className={styles.commentsSection}>
+      {sortedComments.length > 0 && <p>Todos os comentários</p>}
       {sortedComments.slice(0, visibleCommentsCount).map((comment) => (
         <div className={styles.comment} key={comment.id}>
           <Avatar
-            sx={{
-              width: "32px",
-              height: "32px",
-              border: "1px solid #d32f2f",
-              cursor: "pointer",
-            }}
+            className={styles.avatarStyle}
             {...useAvatarProps(comment.author)()}
             onClick={() => handlePickPerfil(comment.author.id)}
           />

@@ -13,6 +13,7 @@ import { DarkTheme, LightTheme } from "../../themes";
 import { Box, ThemeProvider } from "@mui/material";
 import { CssBaseline } from "@mui/material";
 import { keyframes } from "@emotion/react";
+import { localStorageUtils } from "../../utils";
 
 const ThemeContext = createContext({} as IThemeContexData);
 
@@ -56,7 +57,7 @@ export const AppThemeProvider: React.FC<IChildrenProps> = ({ children }) => {
     setTimeout(() => {
       setThemeName((prevTheme) => {
         const newTheme = prevTheme === "light" ? "dark" : "light";
-        localStorage.setItem("theme", newTheme);
+        localStorageUtils.setItem("theme", newTheme);
         return newTheme;
       });
       setIsTransitioning(false);

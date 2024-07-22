@@ -116,6 +116,12 @@ interface IPostsContainerProps {
   isButton?: boolean;
 }
 
+interface IPostOptionsProps {
+  post: IPostDataWithTimeElapsed;
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
 interface IInputFieldProps {
   type: string;
   value: string;
@@ -150,6 +156,7 @@ export type {
   IFormEditProps,
   IPostsContainerProps,
   ICardUsersProps,
+  IPostOptionsProps,
   ICommentInputProps,
   ICommentsListProps,
   IPostDataWithTimeElapsed,

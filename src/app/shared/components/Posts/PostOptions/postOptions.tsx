@@ -1,15 +1,9 @@
 import React from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { IPostDataWithTimeElapsed } from "@/app/shared/@types";
+import { IPostOptionsProps } from "@/app/shared/@types";
 
-interface PostOptionsProps {
-  post: IPostDataWithTimeElapsed;
-  onEdit: () => void;
-  onDelete: () => void;
-}
-
-const PostOptions: React.FC<PostOptionsProps> = ({
+const PostOptions: React.FC<IPostOptionsProps> = ({
   /*  post, */
   onEdit,
   onDelete,

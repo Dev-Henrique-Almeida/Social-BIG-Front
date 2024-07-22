@@ -121,20 +121,20 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
         />
         <div className={styles.buttonContainer}>
           <Button
-            onClick={onClose}
-            variant="outlined"
-            color="primary"
-            className={styles.formEditButton}
-          >
-            Cancelar
-          </Button>
-          <Button
             type="submit"
             variant="contained"
             color="primary"
             className={styles.formEditButton}
           >
             Salvar
+          </Button>
+          <Button
+            onClick={onClose}
+            variant="outlined"
+            color="primary"
+            className={styles.formEditButton}
+          >
+            Cancelar
           </Button>
         </div>
       </form>
