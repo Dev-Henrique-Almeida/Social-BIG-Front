@@ -34,7 +34,7 @@ export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
   const menuItems = [
     { title: "Página Inicial", path: "/home" },
     { title: "Meu Perfil", path: "/perfil" },
-    { title: "Marketplace", path: "/marketplace" },
+    /*   { title: "Marketplace", path: "/marketplace" }, */
     { title: "Sair", path: "/" },
   ];
 

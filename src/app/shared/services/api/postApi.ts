@@ -1,5 +1,5 @@
 import { IPostCreateData, IPostData } from "../../@types";
-import { api } from "./api";
+import { api, configHeaders } from "./api";
 
 export const createPost = async (post: IPostCreateData, token: string) => {
   try {
@@ -91,6 +91,29 @@ export const deletePost = async (
     return response.data.message;
   } catch (error) {
     console.error("Erro ao deletar post dos posts:", error);
+    throw error;
+  }
+};
+
+export const updatePost = async (
+  post: IPostData,
+  id: string,
+  token: string
+) => {
+  try {
+    const headersWithToken = {
+      ...configHeaders,
+      headers: {
+        ...configHeaders.headers,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await api.put(`/posts/${id}`, post, headersWithToken);
+    return response.data;
+  } catch (error) {
+    console.error("Erro na atualização do post:", error);
     throw error;
   }
 };
