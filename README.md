@@ -100,13 +100,13 @@ Para instalar e executar este projeto localmente, siga os passos abaixo:
 1. Clone o repositório:
 
    ```
-   git clone https://github.com/Dev-Henrique-Almeida/Recriando-Social-Compass.git
+   git clone https://github.com/Dev-Henrique-Almeida/Social-BIG-Front.git
    ```
 
 2. Navegue até o diretório do projeto:
 
    ```
-   cd Recriando-Social-Compass
+   cd Social-BIG-Front
    ```
 
 3. Instale as dependências:
