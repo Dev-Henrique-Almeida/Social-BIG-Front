@@ -57,7 +57,6 @@ const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
               onClick={() => handlePickPerfil(friend.id!)}
               className={styles.avatarStyle}
               sx={{
-                border: "1px solid #d32f2f",
                 cursor: isProfilePage ? "default" : "pointer",
               }}
               {...useAvatarProps(friend)()}
