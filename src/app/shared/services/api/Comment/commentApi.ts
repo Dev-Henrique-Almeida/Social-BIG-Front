@@ -18,3 +18,5 @@ export const createComment = async (comment: ICommentData, token: string) => {
     throw error;
   }
 };
+
+/* Atualizar e deletar */

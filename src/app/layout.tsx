@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./layout.scss";
 
 export const metadata: Metadata = {
-  title: "Social BIG",
+  title: "SOCIAL BIG",
 };
 
 export default function RootLayout({

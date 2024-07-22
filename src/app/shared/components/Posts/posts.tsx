@@ -14,7 +14,6 @@ import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import { cookieUtils } from "@/app/shared/utils/CookieStorage/cookiesStorage";
 import styles from "./posts.module.scss";
-
 import ShowMoreButton from "../ShowMoreButton/showMoreButton";
 import PostOptions from "./PostOptions/postOptions";
 import EditPostForm from "./EditPostForm/editPostForm";
@@ -23,6 +22,7 @@ import PostContent from "./PostContent/postContent";
 import PostFooter from "./PostFooter/postFooter";
 import CommentInput from "./CommentInput/commentInput";
 import CommentsList from "./CommentsList/commentsList";
+import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const { user, token } = useAuthContext();
@@ -32,6 +32,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
     useState<IPostDataWithTimeElapsed[]>(postsWithTimeElapsed);
   const [visiblePostsCount, setVisiblePostsCount] = useState(posts.length);
   const [likedPosts, setLikedPosts] = useState<string[]>([]);
+  const { handlePickPerfil } = useProfileNavigation();
   const [postIdToEdit, setPostIdToEdit] = useState<string | null>(null);
   const [visibleCommentsCountMap, setVisibleCommentsCountMap] = useState<{
     [key: string]: number;
@@ -195,7 +196,12 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
               />
             ) : (
               <>
-                <PostHeader post={post} onProfileClick={(authorId) => {}} />
+                <PostHeader
+                  post={post}
+                  onProfileClick={(authorId) => {
+                    handlePickPerfil(authorId);
+                  }}
+                />
                 <PostContent post={post} />
                 <PostFooter
                   post={post}

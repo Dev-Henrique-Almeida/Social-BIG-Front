@@ -12,7 +12,7 @@ const useHandleChange = (initialData: Partial<IUserData> = {}) => {
     password: "",
     confirmPassword: "",
     image: "",
-    sex: "",
+    sex: "Male" || "Female",
     address: "",
     phone: "",
     occupation: "",

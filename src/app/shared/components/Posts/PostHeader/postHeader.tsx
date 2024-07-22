@@ -17,6 +17,10 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post, onProfileClick }) => {
         <Avatar
           onClick={() => onProfileClick(post.author.id)}
           {...useAvatarProps(post.author)()}
+          sx={{
+            cursor: "pointer",
+            border: "1px solid #d32f2f",
+          }}
         />
       </div>
       <div className={styles.postHeader}>

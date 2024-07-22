@@ -1,6 +1,6 @@
-import { createTheme, GlobalStyles } from "@mui/material";
-import { cyan, red } from "@mui/material/colors";
-import { fontFamily } from "../styles/font";
+import { createTheme } from "@mui/material";
+import { red } from "@mui/material/colors";
+import { fontFamily } from "../../styles/font";
 
 export const DarkTheme = createTheme({
   palette: {
