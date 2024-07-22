@@ -91,8 +91,7 @@ Este projeto utiliza as seguintes dependências principais:
 
 ## Backend
 
-Para que o projeto funcione corretamente, é necessário rodar o backend desenvolvido usando Node.js e Prisma. O código fonte do backend e detalhes do projeto, pode ser encontrado no repositório [link-do-repo](https://github.com/Dev-Henrique-Almeida/Social-BIG-Back
-).
+Para que o projeto funcione corretamente, é necessário rodar o backend desenvolvido usando Node.js e Prisma. O código fonte do backend e detalhes do projeto, pode ser encontrado no repositório [link-do-repo](https://github.com/Dev-Henrique-Almeida/Social-BIG-Back).
 
 ## Instalação
 
@@ -113,8 +112,6 @@ Para instalar e executar este projeto localmente, siga os passos abaixo:
 3. Instale as dependências:
 
    ```
-   npm install
-   # ou
    yarn
    ```
 
