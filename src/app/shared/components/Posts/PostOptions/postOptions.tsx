@@ -2,6 +2,7 @@ import React from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IPostOptionsProps } from "@/app/shared/@types";
+import styles from "./postOptions.module.scss";
 
 const PostOptions: React.FC<IPostOptionsProps> = ({
   /*  post, */
@@ -25,7 +26,7 @@ const PostOptions: React.FC<IPostOptionsProps> = ({
         aria-controls="long-menu"
         aria-haspopup="true"
         onClick={handleMenuOpen}
-        style={{ borderRadius: "50%", padding: "4px" }}
+        className={styles.iconStyle}
       >
         <MoreHorizIcon />
       </IconButton>

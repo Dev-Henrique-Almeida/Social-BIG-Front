@@ -32,11 +32,10 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
   };
 
   return (
-    <Box sx={{ height: "100vh", overflow: "auto" }}>
+    <Box className={styles.boxMaster}>
       <AppBar
+        className={styles.nav}
         sx={{
-          height: theme.spacing(8),
-          paddingTop: theme.spacing(0.5),
           borderBottom:
             theme.palette.mode === "light"
               ? "1px solid #e0e0e0"
@@ -57,7 +56,11 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
           </Box>
           <Box className={styles.boxUser}>
             <ChangeTheme />
-            <Typography variant="body1" sx={{ margin: "0 8px" }}>
+            <Typography
+              variant="body1"
+              className={styles.typoName}
+              sx={{ margin: "0 8px" }}
+            >
               {user ? useFirstAndLastName(user.name) : "Desconhecido"}
             </Typography>
             <Tooltip title="Minha conta">
@@ -66,12 +69,7 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
                 color="primary"
                 sx={{ marginRight: theme.spacing(2) }}
               >
-                <Avatar
-                  sx={{
-                    border: "1px solid #d32f2f",
-                  }}
-                  {...getAvatarProps()}
-                />
+                <Avatar className={styles.avatarStyle} {...getAvatarProps()} />
               </IconButton>
             </Tooltip>
           </Box>
@@ -79,12 +77,8 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
       </AppBar>
 
       <Box
+        className={styles.boxContent}
         sx={{
-          paddingTop: theme.spacing(10),
-          paddingRight: theme.spacing(3.3),
-          maxWidth: "100%",
-          overflowX: "hidden",
-          wordBreak: "break-all",
           color: theme.palette.mode === "light" ? "#000" : "#fff",
         }}
       >

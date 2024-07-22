@@ -1,3 +1,13 @@
+.boxMaster {
+  height: 100vh;
+  overflow: auto;
+}
+
+.nav {
+  height: 70px;
+  padding-top: 4px;
+}
+
 .boxMain {
   display: flex;
   align-items: center;
@@ -7,6 +17,22 @@
 .boxUser {
   display: flex;
   align-items: center;
+}
+
+.boxContent {
+  padding-top: 90px;
+  padding-right: 16.5px;
+  max-width: 100%;
+  overflow-x: hidden;
+  word-break: break-all;
+}
+
+.typoName {
+  margin: 0 8px;
+}
+
+.avatarStyle {
+  border: 1px solid #d32f2f;
 }
 
 .logo {

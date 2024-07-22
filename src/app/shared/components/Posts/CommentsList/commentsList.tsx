@@ -70,7 +70,7 @@ const CommentsList: React.FC<ICommentsListProps> = ({
         visibleCommentsCount >= comments.length &&
         comments.length > 0 && (
           <div>
-            <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
+            <Divider className={styles.divider} />
             <button
               className={styles.showMoreCommentsButton}
               onClick={() => onShowLessComments(postId)}
