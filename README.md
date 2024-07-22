@@ -89,6 +89,10 @@ Este projeto utiliza as seguintes dependências principais:
 - eslint: Ferramenta de linting para identificar e corrigir problemas no código JavaScript/TypeScript.
 - jest: Framework de teste para JavaScript.
 
+## Backend
+
+Para que o projeto funcione corretamente, é necessário rodar o backend desenvolvido usando Node.js e Prisma. O código fonte do backend e detalhes do projeto, pode ser encontrado no repositório [link-do-repo](https://github.com/Dev-Henrique-Almeida/Social-Big).
+
 ## Instalação
 
 Para instalar e executar este projeto localmente, siga os passos abaixo:
