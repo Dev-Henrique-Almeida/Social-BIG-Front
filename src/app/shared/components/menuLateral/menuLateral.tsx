@@ -16,8 +16,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { NavBar } from "../NavBarCustom/navBar";
 import styles from "./menuLateral.module.scss";
 import Link from "next/link";
-import logo from "../../../assets/compass-logo.png";
-import logoPositivo from "../../../assets/compass-logo-positivo.png";
+import logoPositivo from "../../../assets/logo.png";
+import logo from "../../../assets/logo-dark.png";
+/* import logo from "../../../assets/compass-logo.png";
+import logoPositivo from "../../../assets/compass-logo-positivo.png"; */
 
 export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();
@@ -78,7 +80,10 @@ export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
         }}
       >
         <Box height="100%" display="flex" flexDirection="column">
-          <Box className={styles.boxLogo}>
+          <Box
+            className={styles.boxLogo}
+            sx={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(3) }}
+          >
             <img src={logoUrl.src} alt="Logo" width={theme.spacing(30)} />
           </Box>
 
