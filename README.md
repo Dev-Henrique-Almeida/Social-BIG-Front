@@ -1,4 +1,4 @@
-# SOCIAL BIG
+# SOCIAL BIG - FRONT
 
 Este é um projeto desenvolvido utilizando Next.js, React e TypeScript, com a ideia de criar uma rede social, onde é possível criar, comentar e curtir posts, criar sua conta, logar na mesma, dentre outras opções.
 
