@@ -49,6 +49,17 @@ const CommentsList: React.FC<ICommentsListProps> = ({
           </div>
         </div>
       ))}
+      {comments.length === 0 && (
+        <div>
+          <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
+          <button
+            className={styles.showMoreCommentsButton}
+            style={{ cursor: "default" }}
+          >
+            Não há comentários
+          </button>
+        </div>
+      )}
       {comments.length > visibleCommentsCount && (
         <div>
           <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
@@ -60,7 +71,8 @@ const CommentsList: React.FC<ICommentsListProps> = ({
           </button>
         </div>
       )}
-      {visibleCommentsCount >= comments.length && (
+
+      {visibleCommentsCount >= comments.length && comments.length > 0 && (
         <div>
           <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
           <button

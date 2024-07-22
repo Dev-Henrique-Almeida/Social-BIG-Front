@@ -96,7 +96,7 @@ export const deletePost = async (
 };
 
 export const updatePost = async (
-  post: IPostData,
+  post: IPostCreateData,
   id: string,
   token: string
 ) => {
