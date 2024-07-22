@@ -1,10 +1,10 @@
 import React from "react";
 import { Avatar, Divider } from "@mui/material";
-import useAvatarProps from "../../../hooks/AvatarProps/useAvatarProps";
-import useProfileNavigation from "../../../hooks/ProfileNavigation/useProfileNavigation";
-import { ICommentsListProps, IComment } from "../../../@types";
 import styles from "./commentList.module.scss";
 import useCommentsWithTimeElapsed from "@/app/shared/hooks/TimeElapsedComments/useCommentsWithTimeElapsed";
+import useProfileNavigation from "@/app/shared/hooks/ProfileNavigation/useProfileNavigation";
+import { IComment, ICommentsListProps } from "@/app/shared/@types";
+import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
 
 const CommentsList: React.FC<ICommentsListProps> = ({
   comments,
@@ -14,7 +14,6 @@ const CommentsList: React.FC<ICommentsListProps> = ({
   onShowLessComments,
 }) => {
   const { handlePickPerfil } = useProfileNavigation();
-
   const commentsWithTimeElapsed = useCommentsWithTimeElapsed(comments);
 
   const sortedComments = [...commentsWithTimeElapsed].sort(
@@ -67,22 +66,23 @@ const CommentsList: React.FC<ICommentsListProps> = ({
             className={styles.showMoreCommentsButton}
             onClick={() => onShowMoreComments(postId)}
           >
-            Ver todos os comentários
+            Ver mais comentários
           </button>
         </div>
       )}
-
-      {visibleCommentsCount >= comments.length && comments.length > 0 && (
-        <div>
-          <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
-          <button
-            className={styles.showMoreCommentsButton}
-            onClick={() => onShowLessComments(postId)}
-          >
-            Ver menos comentários
-          </button>
-        </div>
-      )}
+      {visibleCommentsCount > 2 &&
+        visibleCommentsCount >= comments.length &&
+        comments.length > 0 && (
+          <div>
+            <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />
+            <button
+              className={styles.showMoreCommentsButton}
+              onClick={() => onShowLessComments(postId)}
+            >
+              Ver menos comentários
+            </button>
+          </div>
+        )}
     </div>
   );
 };

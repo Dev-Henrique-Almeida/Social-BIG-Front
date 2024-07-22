@@ -1,0 +1,58 @@
+.frame1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.userIcons {
+  width: 32px;
+  height: 32px;
+}
+
+.userIcons img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.postHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.postAuthor {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.postTimeLocation {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #757575;
+}
+
+.postLocation {
+  font-weight: 700;
+}
+
+.oQueVoceEstaPensando {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+@media (max-width: 900px) {
+  .unsplash {
+    height: 300px;
+  }
+  .postTimeLocation {
+    font-size: 10px;
+  }
+  .postAuthor {
+    font-size: 13px;
+  }
+}

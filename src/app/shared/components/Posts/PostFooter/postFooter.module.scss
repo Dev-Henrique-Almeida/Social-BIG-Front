@@ -1,0 +1,59 @@
+.bottomFields {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.likeButton,
+.commentsButton,
+.shareButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.vector {
+  width: 16px;
+  height: 16px;
+}
+
+.frame10 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  background: #e0e0e0;
+  border-radius: 50%;
+}
+
+.likesCount,
+.commentsCount {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 10px;
+}
+
+.commentsSection {
+  width: 100%;
+}
+
+.curtiu,
+.comentarios,
+.compartilhar {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 15px;
+  color: #757575;
+}
+
+.likedText {
+  color: #d32f2f;
+}
+
+.likedCounter {
+  background-color: #d32f2f;
+  color: #ffffff;
+}

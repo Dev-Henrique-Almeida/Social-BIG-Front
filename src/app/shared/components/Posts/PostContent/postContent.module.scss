@@ -56,6 +56,12 @@
   gap: 4px;
 }
 
+.postOptions {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
 .postAuthor {
   font-weight: 500;
   font-size: 14px;
@@ -215,12 +221,6 @@
   font-size: 12px;
   line-height: 21px;
   margin-bottom: -8px;
-}
-
-.postOptions {
-  position: absolute;
-  top: 16px;
-  right: 16px;
 }
 
 .input {
