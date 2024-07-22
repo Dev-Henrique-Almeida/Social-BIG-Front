@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { IPostData, IPostsContainerProps } from "@/app/shared/@types";
-import {
-  getAllPosts,
-  getAllPostsByUser,
-} from "@/app/shared/services/api/postApi";
+
 import Posts from "../posts";
+import { getAllPosts, getAllPostsByUser } from "@/app/shared/services";
 
 const PostsContainer: React.FC<IPostsContainerProps> = ({
   token,
