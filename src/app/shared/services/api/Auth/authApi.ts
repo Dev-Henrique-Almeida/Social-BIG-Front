@@ -1,5 +1,5 @@
-import { IUserData } from "../../@types";
-import { api, configHeaders } from "./api";
+import { IUserData } from "../../../@types";
+import { api, configHeaders } from "../api";
 
 export const createUser = async (userData: IUserData) => {
   try {

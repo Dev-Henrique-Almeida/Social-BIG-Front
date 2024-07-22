@@ -1,6 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import { api } from "../../api/api";
-import { getAllPostsByUser } from "../../api/postApi";
+import { getAllPostsByUser } from "../../api/Post/postApi";
 import { IPostData } from "../../../@types";
 
 describe("Testando a função getAllPostsByUser", () => {
@@ -31,7 +31,7 @@ describe("Testando a função getAllPostsByUser", () => {
           name: "Autor 1",
           image: "https://example.com/avatar1.jpg",
         },
-        likes: "",
+        likes: 0,
         comments: [],
         createdAt: "",
       },
@@ -44,7 +44,7 @@ describe("Testando a função getAllPostsByUser", () => {
           name: "Autor 2",
           image: "https://example.com/avatar2.jpg",
         },
-        likes: "",
+        likes: 0,
         comments: [],
         createdAt: "",
       },
@@ -57,7 +57,7 @@ describe("Testando a função getAllPostsByUser", () => {
           name: "Autor 1",
           image: "https://example.com/avatar1.jpg",
         },
-        likes: "",
+        likes: 0,
         comments: [],
         createdAt: "",
       },

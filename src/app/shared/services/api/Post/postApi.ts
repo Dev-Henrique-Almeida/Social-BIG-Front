@@ -1,5 +1,5 @@
-import { IPostCreateData, IPostData } from "../../@types";
-import { api, configHeaders } from "./api";
+import { IPostCreateData, IPostData } from "../../../@types";
+import { api, configHeaders } from "../api";
 
 export const createPost = async (post: IPostCreateData, token: string) => {
   try {

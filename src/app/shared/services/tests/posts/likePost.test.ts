@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import { api } from "../../api/api";
 import { IPostData } from "../../../@types";
-import { likePost } from "../../api/postApi";
+import { likePost } from "../../api/Post/postApi";
 
 describe("likePost", () => {
   let mock: MockAdapter;

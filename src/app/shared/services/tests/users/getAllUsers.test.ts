@@ -1,6 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import { api } from "../../api/api";
-import { getAllUsers } from "../../api/userApi";
+import { getAllUsers } from "../../api/User/userApi";
 
 describe("Testando a função getAllUsers", () => {
   let mock: MockAdapter;

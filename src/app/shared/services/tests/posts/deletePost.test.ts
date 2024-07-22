@@ -1,6 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import { api } from "../../api/api";
-import { deletePost } from "../../api/postApi";
+import { deletePost } from "../../api/Post/postApi";
 
 describe("Testando a função deletePost", () => {
   let mock: MockAdapter;

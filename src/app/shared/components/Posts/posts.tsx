@@ -5,7 +5,11 @@ import {
   ICommentData,
 } from "../../@types";
 import { useAuthContext } from "@/app/shared/contexts";
-import { deletePost, likePost, updatePost } from "../../services/api/postApi";
+import {
+  deletePost,
+  likePost,
+  updatePost,
+} from "../../services/api/Post/postApi";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import usePostsWithTimeElapsed from "../../hooks/TimeElapsed/useTimeElapsed";
 import { cookieUtils } from "@/app/shared/utils/CookieStorage/cookiesStorage";

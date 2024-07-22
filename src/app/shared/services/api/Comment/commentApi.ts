@@ -1,5 +1,5 @@
-import { ICommentData } from "../../@types";
-import { api } from "./api";
+import { ICommentData } from "@/app/shared/@types";
+import { api } from "../api";
 
 export const createComment = async (comment: ICommentData, token: string) => {
   try {

@@ -4,8 +4,8 @@ import { useAuthContext } from "@/app/shared/contexts";
 import styles from "./commentInput.module.scss";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import { ICommentData, ICommentInputProps } from "@/app/shared/@types";
-import { createComment } from "@/app/shared/services/api/commentApi";
 import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
+import { createComment } from "@/app/shared/services/api/Comment/commentApi";
 
 const CommentInput: React.FC<ICommentInputProps> = ({
   postId,
