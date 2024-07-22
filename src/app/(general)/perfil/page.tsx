@@ -61,14 +61,7 @@ export default function Perfil() {
           sx={{ backgroundColor: themeStyles.backgroundPaper }}
         >
           <Box className={styles.imageBackground}>
-            <Avatar
-              sx={{
-                width: theme.spacing(20),
-                height: theme.spacing(20),
-                border: "2px solid #d32f2f",
-              }}
-              {...getAvatarProps()}
-            />
+            <Avatar className={styles.avatarStyle} {...getAvatarProps()} />
           </Box>
           <Grid
             container
