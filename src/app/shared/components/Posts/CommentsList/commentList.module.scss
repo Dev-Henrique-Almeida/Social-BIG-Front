@@ -11,6 +11,7 @@
 .commentContent {
   margin-left: 8px;
 }
+
 .avatarStyle {
   width: 32px;
   height: 32px;
@@ -53,6 +54,42 @@
   color: #d32f2f;
   font-size: 16px;
   font-weight: bold;
-
   cursor: pointer;
+}
+
+.likeButton {
+  padding: 4px;
+  &.liked {
+    color: #d32f2f;
+  }
+
+  .MuiSvgIcon-root {
+    font-size: 18px; // Ajuste o tamanho do ícone aqui
+  }
+}
+
+.commentActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.likeCountFrame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+
+  &.liked {
+    background: #d32f2f;
+  }
+
+  &.unliked {
+    background: transparent;
+  }
 }

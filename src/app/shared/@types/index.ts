@@ -90,6 +90,7 @@ interface IComment {
   author: IAuthor;
   createdAt?: string;
   timeElapsed?: string;
+  likeCount?: number;
 }
 
 interface ICommentsListProps {
@@ -137,6 +138,7 @@ interface ICommentData {
   authorId: string;
   postId: string;
   createdAt?: string;
+  parentCommentId?: string;
 }
 
 export type {
