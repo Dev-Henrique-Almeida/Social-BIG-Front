@@ -10,6 +10,7 @@ import { useAuthContext } from "@/app/shared/contexts";
 import { likeComment } from "@/app/shared/services/api/Comment/commentApi";
 import { cookieUtils } from "@/app/shared/utils/CookieStorage/cookiesStorage";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
+import { v4 as uuidv4 } from "uuid";
 
 const CommentsList: React.FC<ICommentsListProps> = ({
   comments,
@@ -26,22 +27,20 @@ const CommentsList: React.FC<ICommentsListProps> = ({
   const [likedComments, setLikedComments] = useState<string[]>([]);
 
   useEffect(() => {
-    setLocalComments(commentsWithTimeElapsed);
+    setLocalComments(
+      commentsWithTimeElapsed.map((comment) => ({
+        ...comment,
+        id: comment.id || uuidv4(), // Garantir que cada comentário tenha um ID único
+      }))
+    );
   }, [commentsWithTimeElapsed]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (user?.id) {
       const savedLikes = cookieUtils.getLikedPostsByUser(user.id);
       setLikedComments(savedLikes);
     }
   }, [user?.id]);
-
-  const sortedComments = [...localComments].sort((a: IComment, b: IComment) => {
-    return (
-      new Date(b.createdAt || "").getTime() -
-      new Date(a.createdAt || "").getTime()
-    );
-  });
 
   const handleLikeComment = async (commentId: string) => {
     if (!user || !token) return;
@@ -69,6 +68,13 @@ const CommentsList: React.FC<ICommentsListProps> = ({
       console.error("Erro ao curtir o comentário:", error);
     }
   };
+ */
+  const sortedComments = [...localComments].sort((a: IComment, b: IComment) => {
+    return (
+      new Date(b.createdAt || "").getTime() -
+      new Date(a.createdAt || "").getTime()
+    );
+  });
 
   return (
     <div className={styles.commentsSection}>
@@ -96,7 +102,7 @@ const CommentsList: React.FC<ICommentsListProps> = ({
               )}
             </div>
             <div className={styles.commentText}>{comment.content}</div>
-            <div className={styles.commentActions}>
+            {/*  <div className={styles.commentActions}>
               <IconButton
                 className={`${styles.likeButton} ${
                   likedComments.includes(comment.id) ? styles.liked : ""
@@ -115,14 +121,16 @@ const CommentsList: React.FC<ICommentsListProps> = ({
                   backgroundColor: likedComments.includes(comment.id)
                     ? undefined
                     : themeStyles.backgroundDefault,
-                  color: themeStyles.textColor,
+                  color: likedComments.includes(comment.id)
+                    ? "#ffffff"
+                    : themeStyles.textColor,
                 }}
               >
                 <span className={styles.likeCount}>
                   {comment.likeCount || 0}
-                </span>
+                </span> 
               </div>
-            </div>
+            </div>*/}
           </div>
         </div>
       ))}
