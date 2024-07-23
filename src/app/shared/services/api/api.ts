@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 
-const kBaseUrl = "http://localhost:3001";
+const kBaseUrl = "https://social-big-back.vercel.app/";
 export const api = axios.create({
   baseURL: kBaseUrl,
 });
