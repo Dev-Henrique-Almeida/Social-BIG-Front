@@ -46,7 +46,7 @@ export const AppThemeProvider: React.FC<IChildrenProps> = ({ children }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") as "dark" | "light";
+    const storedTheme = localStorageUtils.getItem("theme") as "dark" | "light";
     if (storedTheme) {
       setThemeName(storedTheme);
     }

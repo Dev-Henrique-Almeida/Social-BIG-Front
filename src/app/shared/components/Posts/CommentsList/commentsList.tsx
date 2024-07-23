@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, Divider, IconButton } from "@mui/material";
-import { ThumbUp } from "@mui/icons-material";
+import { Avatar, Divider } from "@mui/material";
 import styles from "./commentList.module.scss";
 import useCommentsWithTimeElapsed from "@/app/shared/hooks/TimeElapsedComments/useCommentsWithTimeElapsed";
 import useProfileNavigation from "@/app/shared/hooks/ProfileNavigation/useProfileNavigation";
 import { IComment, ICommentsListProps } from "@/app/shared/@types";
 import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
-import { useAuthContext } from "@/app/shared/contexts";
-import { likeComment } from "@/app/shared/services/api/Comment/commentApi";
-import { cookieUtils } from "@/app/shared/utils/CookieStorage/cookiesStorage";
-import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import { v4 as uuidv4 } from "uuid";
 
 const CommentsList: React.FC<ICommentsListProps> = ({
@@ -21,54 +16,17 @@ const CommentsList: React.FC<ICommentsListProps> = ({
 }) => {
   const { handlePickPerfil } = useProfileNavigation();
   const commentsWithTimeElapsed = useCommentsWithTimeElapsed(comments);
-  const { user, token } = useAuthContext();
-  const themeStyles = useThemeStyles();
   const [localComments, setLocalComments] = useState<IComment[]>([]);
-  const [likedComments, setLikedComments] = useState<string[]>([]);
 
   useEffect(() => {
     setLocalComments(
       commentsWithTimeElapsed.map((comment) => ({
         ...comment,
-        id: comment.id || uuidv4(), // Garantir que cada comentário tenha um ID único
+        id: comment.id || uuidv4(),
       }))
     );
   }, [commentsWithTimeElapsed]);
 
-  /* useEffect(() => {
-    if (user?.id) {
-      const savedLikes = cookieUtils.getLikedPostsByUser(user.id);
-      setLikedComments(savedLikes);
-    }
-  }, [user?.id]);
-
-  const handleLikeComment = async (commentId: string) => {
-    if (!user || !token) return;
-
-    try {
-      await likeComment(commentId, user.id!, token);
-      const updatedLikedComments = likedComments.includes(commentId)
-        ? likedComments.filter((id) => id !== commentId)
-        : [...likedComments, commentId];
-      setLikedComments(updatedLikedComments);
-      cookieUtils.setLikedPostsByUser(user.id!, updatedLikedComments);
-      setLocalComments((prevComments) =>
-        prevComments.map((comment) =>
-          comment.id === commentId
-            ? {
-                ...comment,
-                likeCount: likedComments.includes(commentId)
-                  ? (comment.likeCount || 0) - 1
-                  : (comment.likeCount || 0) + 1,
-              }
-            : comment
-        )
-      );
-    } catch (error) {
-      console.error("Erro ao curtir o comentário:", error);
-    }
-  };
- */
   const sortedComments = [...localComments].sort((a: IComment, b: IComment) => {
     return (
       new Date(b.createdAt || "").getTime() -
@@ -102,35 +60,6 @@ const CommentsList: React.FC<ICommentsListProps> = ({
               )}
             </div>
             <div className={styles.commentText}>{comment.content}</div>
-            {/*  <div className={styles.commentActions}>
-              <IconButton
-                className={`${styles.likeButton} ${
-                  likedComments.includes(comment.id) ? styles.liked : ""
-                }`}
-                onClick={() => handleLikeComment(comment.id)}
-              >
-                <ThumbUp fontSize="small" />
-              </IconButton>
-              <div
-                className={`${styles.likeCountFrame} ${
-                  likedComments.includes(comment.id)
-                    ? styles.liked
-                    : styles.unliked
-                }`}
-                style={{
-                  backgroundColor: likedComments.includes(comment.id)
-                    ? undefined
-                    : themeStyles.backgroundDefault,
-                  color: likedComments.includes(comment.id)
-                    ? "#ffffff"
-                    : themeStyles.textColor,
-                }}
-              >
-                <span className={styles.likeCount}>
-                  {comment.likeCount || 0}
-                </span> 
-              </div>
-            </div>*/}
           </div>
         </div>
       ))}

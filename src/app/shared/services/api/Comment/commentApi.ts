@@ -19,7 +19,7 @@ export const createComment = async (comment: ICommentData, token: string) => {
   }
 };
 
-export const likeComment = async (
+/* export const likeComment = async (
   commentId: string,
   userId: string,
   token: string
@@ -58,4 +58,4 @@ export const replyToComment = async (comment: ICommentData, token: string) => {
     );
     throw error;
   }
-};
+}; */

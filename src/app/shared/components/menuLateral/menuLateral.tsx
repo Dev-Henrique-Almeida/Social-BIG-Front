@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { IChildrenProps } from "../../@types";
-import { useDrawerContext } from "../../contexts";
+import { useDrawerContext, useThemeContext } from "../../contexts";
 import { useResponsiveContent } from "../../hooks/Responsive/useResponsiveContent";
 import { usePathname, useRouter } from "next/navigation";
 import { NavBar } from "../NavBarCustom/navBar";
@@ -18,8 +18,7 @@ import styles from "./menuLateral.module.scss";
 import Link from "next/link";
 import logoPositivo from "../../../assets/logo.png";
 import logo from "../../../assets/logo-dark.png";
-/* import logo from "../../../assets/compass-logo.png";
-import logoPositivo from "../../../assets/compass-logo-positivo.png"; */
+import { localStorageUtils } from "../../utils";
 
 export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();
@@ -27,6 +26,7 @@ export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
   const marginLeft = useResponsiveContent();
   const router = useRouter();
   const pathname = usePathname();
+  const { themeName } = useThemeContext();
 
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
   const drawerWidth = mdDown ? "100%" : theme.spacing(44);
@@ -36,7 +36,6 @@ export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
   const menuItems = [
     { title: "Página Inicial", path: "/home" },
     { title: "Meu Perfil", path: "/perfil" },
-    /*   { title: "Marketplace", path: "/marketplace" }, */
     { title: "Sair", path: "/" },
   ];
 
@@ -46,10 +45,10 @@ export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
       toggleDrawerOpen();
     }
     if (item === "Sair") {
-      const theme = localStorage.getItem("theme");
+      const currentTheme = localStorageUtils.getItem("theme");
       localStorage.clear();
-      if (theme) {
-        localStorage.setItem("theme", theme);
+      if (currentTheme) {
+        localStorageUtils.setItem("theme", currentTheme);
       }
       router.push("/");
     }
@@ -65,7 +64,7 @@ export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
     }
   }, [pathname, menuItems]);
 
-  const logoUrl = theme.palette.mode === "dark" ? logo : logoPositivo;
+  const logoUrl = themeName === "dark" ? logo : logoPositivo;
 
   return (
     <>
