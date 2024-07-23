@@ -1,13 +1,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
-import { useAuthContext } from "@/app/shared/contexts";
+import useThemeStyles from "../../shared/hooks/ThemeStyles/useThemeStyles";
+import { useAuthContext } from "../../shared/contexts";
 import { loginUser } from "@/app/shared/services";
 import { Button, Typography } from "@mui/material";
 import Link from "next/link";
 import styles from "./login.module.scss";
-import useHandleChange from "@/app/shared/hooks/HandleChange/useHandleChange";
+import useHandleChange from "../../shared/hooks/HandleChange/useHandleChange";
+import ChangeTheme from "../../shared/components/ChangeTheme/changeTheme";
+import InputField from "../../shared/components/InputField/inputField";
 
 const Login = () => {
   const router = useRouter();
