@@ -4,8 +4,6 @@ import { useRouter } from "next/navigation";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import { useAuthContext } from "@/app/shared/contexts";
 import { loginUser } from "@/app/shared/services";
-import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
-import InputField from "@/app/shared/components/InputField/inputField";
 import { Button, Typography } from "@mui/material";
 import Link from "next/link";
 import styles from "./login.module.scss";
