@@ -23,14 +23,28 @@ const usePostsWithTimeElapsed = (
         } else {
           const hours = Math.floor(minutes / 60);
           const remainingMinutes = minutes % 60;
-          if (remainingMinutes === 0) {
-            return `${hours} ${hours === 1 ? "hora" : "horas"} atrás`;
+          if (hours < 24) {
+            if (remainingMinutes === 0) {
+              return `${hours} ${hours === 1 ? "hora" : "horas"} atrás`;
+            } else {
+              return `${hours} ${
+                hours === 1 ? "hora" : "horas"
+              } e ${remainingMinutes} ${
+                remainingMinutes === 1 ? "minuto" : "minutos"
+              } atrás`;
+            }
           } else {
-            return `${hours} ${
-              hours === 1 ? "hora" : "horas"
-            } e ${remainingMinutes} ${
-              remainingMinutes === 1 ? "minuto" : "minutos"
-            } atrás`;
+            const days = Math.floor(hours / 24);
+            const remainingHours = hours % 24;
+            if (remainingHours === 0) {
+              return `${days} ${days === 1 ? "dia" : "dias"} atrás`;
+            } else {
+              return `${days} ${
+                days === 1 ? "dia" : "dias"
+              } e ${remainingHours} ${
+                remainingHours === 1 ? "hora" : "horas"
+              } atrás`;
+            }
           }
         }
       }
