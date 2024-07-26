@@ -33,7 +33,16 @@ const useCommentsWithTimeElapsed = (comments: IComment[]): IComment[] => {
             }
           } else {
             const days = Math.floor(hours / 24);
-            return `${days} ${days === 1 ? "dia" : "dias"} atrás`;
+            const remainingHours = hours % 24;
+            if (remainingHours === 0) {
+              return `${days} ${days === 1 ? "dia" : "dias"} atrás`;
+            } else {
+              return `${days} ${
+                days === 1 ? "dia" : "dias"
+              } e ${remainingHours} ${
+                remainingHours === 1 ? "hora" : "horas"
+              } atrás`;
+            }
           }
         }
       }
