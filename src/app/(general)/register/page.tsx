@@ -11,18 +11,26 @@ import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import FormatBirthdate from "@/app/shared/utils/ConvertDates/convertBirthdate";
 import Link from "next/link";
 import styles from "./register.module.scss";
+import useAgeCalculator from "@/app/shared/hooks/AgeCalculator/useAgeCalculator";
 
 export default function Register() {
   const router = useRouter();
   const themeStyles = useThemeStyles();
   const { setUser, setToken } = useAuthContext();
   const { formData, handleChange } = useHandleChange();
+  const { calculateAge } = useAgeCalculator();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       console.error("As senhas não coincidem");
       alert("As senhas não coincidem");
+      return;
+    }
+    const age = calculateAge(formData.birthdate);
+    if (age < 18) {
+      console.error("Usuário deve ter pelo menos 18 anos");
+      alert("Você deve ter pelo menos 18 anos para se cadastrar");
       return;
     }
 
@@ -35,7 +43,7 @@ export default function Register() {
       router.push("/home");
     } catch (error) {
       console.error("Erro ao criar usuário:", error);
-      alert("Erro ao criar usuário. Verifique o console para mais detalhes.");
+      alert("Erro ao criar usuário. Verifique os dados e tente novamente.");
     }
   };
 

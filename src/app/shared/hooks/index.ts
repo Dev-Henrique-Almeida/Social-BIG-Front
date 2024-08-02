@@ -9,3 +9,4 @@ export * from "./TimeElapsed/useTimeElapsed";
 export * from "./TimeElapsedComments/useCommentsWithTimeElapsed";
 export * from "./CommentManagement/useCommentManagement";
 export * from "./ProfileNavigation/useProfileNavigation";
+export * from "./AgeCalculator/useAgeCalculator";
