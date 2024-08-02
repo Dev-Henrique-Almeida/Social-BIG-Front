@@ -16,11 +16,8 @@ export default function Home() {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 900);
     };
-
     window.addEventListener("resize", handleResize);
-
     handleResize();
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };

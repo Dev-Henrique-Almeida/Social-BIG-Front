@@ -107,13 +107,17 @@
   margin-left: auto;
   width: 101px;
   height: 56px;
-  background: linear-gradient(180deg, #ad2d14 0%, #f42e07 100%);
-  border: 1px solid #fe2e05;
+  background: #d32f2f;
+  border: 1px solid #d32f2f;
   border-radius: 46px;
   flex: none;
   order: 1;
   flex-grow: 0;
   cursor: pointer;
+  &:hover {
+    background: #9e0404;
+    border: 1px solid #9e0404;
+  }
 }
 
 .buttonLabel {
