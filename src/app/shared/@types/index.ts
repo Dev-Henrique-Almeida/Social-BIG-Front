@@ -90,6 +90,14 @@ interface IPostCreateData {
   authorId: string;
 }
 
+interface IMarketCreateData {
+  name: string;
+  description: string;
+  image?: string;
+  price: number;
+  sellerId: string;
+}
+
 interface IAuthor {
   id: string;
   name: string;
@@ -176,4 +184,5 @@ export type {
   IPostDataWithTimeElapsed,
   ICreatePostProps,
   IMarketData,
+  IMarketCreateData,
 };
