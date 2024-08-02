@@ -62,6 +62,18 @@ interface IPostData {
   likedByCurrentUser?: boolean;
 }
 
+interface IMarketData {
+  id: string;
+  sellerId?: string;
+  buyerId?: string;
+  price: number;
+  image?: string;
+  vendido?: boolean;
+  name: string;
+  description: string;
+  createdAt?: string;
+}
+
 interface IPostsProps {
   posts: IPostData[];
   isButton?: boolean;
@@ -163,4 +175,5 @@ export type {
   ICommentsListProps,
   IPostDataWithTimeElapsed,
   ICreatePostProps,
+  IMarketData,
 };
