@@ -30,6 +30,7 @@ const Login = () => {
       router.push("/home");
     } catch (error) {
       console.error("Erro ao logar:", error);
+      alert("Credenciais inválidas. Por favor, verifique e tente novamente.");
     }
   };
 
