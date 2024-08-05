@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Modal, Box, Backdrop } from "@mui/material";
+import { Modal, Box } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { IMarketData } from "@/app/shared/@types";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import FormCreateCard from "../FormCreateCard/formCreateCard";
@@ -17,6 +18,7 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
   const themeStyles = useThemeStyles();
   const { formatCurrency } = useCurrency();
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const handleAddButtonClick = () => {
     setOpen(true);
@@ -24,6 +26,10 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCardClick = (id: string) => {
+    router.push(`/marketplace/${id}`);
   };
 
   const truncateDescription = (description: string) => {
@@ -58,6 +64,7 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
               background: themeStyles.backgroundPaper,
               color: themeStyles.textColor,
             }}
+            onClick={() => handleCardClick(card.id)}
           >
             <img
               src={card.image || themeStyles.cardImage.src}
