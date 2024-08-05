@@ -1,6 +1,5 @@
 import React from "react";
 import { Avatar } from "@mui/material";
-
 import styles from "./postHeader.module.scss";
 import { IPostDataWithTimeElapsed } from "@/app/shared/@types";
 import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";

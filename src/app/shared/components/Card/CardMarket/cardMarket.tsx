@@ -56,35 +56,41 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
         </Box>
       </Modal>
       <div className={styles.cardContainer}>
-        {market.map((card) => (
-          <div
-            key={card.id}
-            className={styles.card}
-            style={{
-              background: themeStyles.backgroundPaper,
-              color: themeStyles.textColor,
-            }}
-            onClick={() => handleCardClick(card.id)}
-          >
-            <img
-              src={card.image || themeStyles.cardImage.src}
-              alt={card.name}
-              className={styles.cardImage}
-            />
-            <h1 className={styles.cardTitle}>{card.name}</h1>
-            <p className={styles.cardDescription}>
-              {truncateDescription(card.description)}
-            </p>
-            <p className={styles.cardPrice}>{formatCurrency(card.price)}</p>
-            <p
-              className={`${styles.cardStatus} ${
-                card.vendido ? styles.sold : styles.available
-              }`}
-            >
-              {card.vendido ? "Já vendido!" : "Ainda não vendido."}
-            </p>
+        {market.length === 0 ? (
+          <div className={styles.noItemsMessage}>
+            <p>Nenhum anúncio encontrado.</p>
           </div>
-        ))}
+        ) : (
+          market.map((card) => (
+            <div
+              key={card.id}
+              className={styles.card}
+              style={{
+                background: themeStyles.backgroundPaper,
+                color: themeStyles.textColor,
+              }}
+              onClick={() => handleCardClick(card.id)}
+            >
+              <img
+                src={card.image || themeStyles.cardImage.src}
+                alt={card.name}
+                className={styles.cardImage}
+              />
+              <h1 className={styles.cardTitle}>{card.name}</h1>
+              <p className={styles.cardDescription}>
+                {truncateDescription(card.description)}
+              </p>
+              <p className={styles.cardPrice}>{formatCurrency(card.price)}</p>
+              <p
+                className={`${styles.cardStatus} ${
+                  card.vendido ? styles.sold : styles.available
+                }`}
+              >
+                {card.vendido ? "Já vendido!" : "Ainda não vendido."}
+              </p>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

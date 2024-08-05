@@ -6,9 +6,16 @@
   overflow: auto;
 }
 
+.noItemsMessage {
+  width: 100%;
+  text-align: center;
+  font-family: MontSerrat;
+  font-size: 18px;
+  color: #a1a3a7;
+}
+
 .card {
   font-family: MontSerrat;
-
   padding: 16px;
   margin: 0 auto;
   border-radius: 8px;
@@ -33,14 +40,12 @@
 
 .cardTitle {
   font-family: MontSerrat;
-
   font-size: 18px;
   margin: 8px 0;
 }
 
 .cardDescription {
   font-family: MontSerrat;
-
   font-size: 14px;
   margin: 8px 0;
   text-align: left;
@@ -50,7 +55,6 @@
 
 .cardPrice {
   font-family: MontSerrat;
-
   font-size: 16px;
   font-weight: bold;
   margin: 8px 0;
@@ -59,7 +63,6 @@
 
 .cardStatus {
   font-family: MontSerrat;
-
   font-size: 14px;
   padding: 8px 16px;
   border-radius: 46px;
