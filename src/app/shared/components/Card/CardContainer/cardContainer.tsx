@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { IMarketContainerProps, IMarketData } from "../../@types";
-import { getAllMarket } from "../../services";
+import { IMarketContainerProps, IMarketData } from "../../../@types";
+import { getAllMarket } from "../../../services";
 import CardMarket from "../CardMarket/cardMarket";
 
 const CardContainer: React.FC<IMarketContainerProps> = ({ token }) => {
