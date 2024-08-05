@@ -137,6 +137,12 @@ interface IPostsContainerProps {
   isButton?: boolean;
 }
 
+interface IMarketContainerProps {
+  token: string;
+  userId?: string;
+  refreshMarket?: boolean;
+}
+
 interface IPostOptionsProps {
   post: IPostDataWithTimeElapsed;
   onEdit: () => void;
@@ -185,4 +191,5 @@ export type {
   ICreatePostProps,
   IMarketData,
   IMarketCreateData,
+  IMarketContainerProps,
 };

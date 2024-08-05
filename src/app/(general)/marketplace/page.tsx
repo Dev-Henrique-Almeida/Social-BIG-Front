@@ -1,18 +1,14 @@
-import CardMarket from "@/app/shared/components/CardMarket/cardMarket";
+"use client";
+import CardContainer from "@/app/shared/components/CardContainer/cardContainer";
+import { useAuthContext } from "@/app/shared/contexts";
 import React from "react";
 
 export default function Marketplace() {
-  const market = {
-    id: "1",
-    name: "Cachorro",
-    description: "Cachorro fofinho",
-    price: 1000,
-    vendido: true,
-  };
+  const { token } = useAuthContext();
 
   return (
     <div>
-      <CardMarket market={market} />
+      <CardContainer token={token!} />
     </div>
   );
 }
