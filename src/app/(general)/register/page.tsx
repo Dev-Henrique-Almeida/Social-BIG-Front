@@ -5,19 +5,19 @@ import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/app/shared/contexts";
 import { createUser } from "@/app/shared/services";
 import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
-import InputField from "@/app/shared/components/InputField/inputField";
-import useHandleChange from "@/app/shared/hooks/HandleChange/useHandleChange";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import FormatBirthdate from "@/app/shared/utils/ConvertDates/convertBirthdate";
 import Link from "next/link";
 import styles from "./register.module.scss";
 import useAgeCalculator from "@/app/shared/hooks/AgeCalculator/useAgeCalculator";
+import InputField from "@/app/shared/components/Profile/inputField/inputField";
+import useHandleChangeProfile from "@/app/shared/hooks/HandleChangeProfile/useHandleChangeProfile";
 
 export default function Register() {
   const router = useRouter();
   const themeStyles = useThemeStyles();
   const { setUser, setToken } = useAuthContext();
-  const { formData, handleChange } = useHandleChange();
+  const { formData, handleChange } = useHandleChangeProfile();
   const { calculateAge } = useAgeCalculator();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { MenuLateral } from "../shared/components";
 import { AppThemeProvider, DrawerProvider } from "../shared/contexts";
 import "../shared/styles/globals.scss";
 import {
@@ -10,6 +9,7 @@ import {
 } from "../shared/contexts/Auth/AuthContext";
 import useProtectedRoute from "../shared/hooks/Auth/useProtectedRoute";
 import { CssBaseline } from "@mui/material";
+import { MenuLateral } from "../shared/components/menuLateral/menuLateral";
 
 function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useAuthContext();

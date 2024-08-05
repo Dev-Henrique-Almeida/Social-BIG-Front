@@ -19,7 +19,7 @@ import ConvertSex from "@/app/shared/utils/ConvertSex/convertSex";
 import bannerImage from "../../assets/banner-perfil.png";
 import bannerImageMobile from "../../assets/banner-perfil-mobile.png";
 import styles from "./perfil.module.scss";
-import FormEdit from "@/app/shared/components/FormEdit/formEdit";
+import FormEdit from "@/app/shared/components/Profile/FormEdit/formEdit";
 
 export default function Perfil() {
   const { user, token } = useAuthContext();

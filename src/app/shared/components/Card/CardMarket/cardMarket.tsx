@@ -1,17 +1,30 @@
-import React from "react";
-import styles from "./cardMarket.module.scss";
-import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
+"use client";
+import React, { useState } from "react";
+import { Modal, Box, Backdrop } from "@mui/material";
 import { IMarketData } from "@/app/shared/@types";
+import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
+import FormCreateCard from "../FormCreateCard/formCreateCard";
 import CardMarketHeader from "../CardMarketHeader/cardMarketHeader";
+import styles from "./cardMarket.module.scss";
 import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
 
 interface IMarketContent {
   market: IMarketData[];
+  refreshMarket: () => void;
 }
 
-const CardMarket: React.FC<IMarketContent> = ({ market }) => {
+const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
   const themeStyles = useThemeStyles();
   const { formatCurrency } = useCurrency();
+  const [open, setOpen] = useState(false);
+
+  const handleAddButtonClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const truncateDescription = (description: string) => {
     if (description.length > 120) {
@@ -22,7 +35,25 @@ const CardMarket: React.FC<IMarketContent> = ({ market }) => {
 
   return (
     <div>
-      <CardMarketHeader />
+      <CardMarketHeader onAddButtonClick={handleAddButtonClick} />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+          style: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+        }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box className={styles.modalBox}>
+          <FormCreateCard onClose={handleClose} refreshMarket={refreshMarket} />
+        </Box>
+      </Modal>
       <div className={styles.cardContainer}>
         {market.map((card) => (
           <div

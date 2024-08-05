@@ -3,19 +3,19 @@
 import { useRouter } from "next/navigation";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import { useAuthContext } from "@/app/shared/contexts";
-import useHandleChange from "@/app/shared/hooks/HandleChange/useHandleChange";
 import { loginUser } from "@/app/shared/services";
 import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
-import InputField from "@/app/shared/components/InputField/inputField";
 import { Button, Typography } from "@mui/material";
 import Link from "next/link";
 import styles from "./login.module.scss";
+import InputField from "@/app/shared/components/Profile/inputField/inputField";
+import useHandleChangeProfile from "@/app/shared/hooks/HandleChangeProfile/useHandleChangeProfile";
 
 const Login = () => {
   const router = useRouter();
   const themeStyles = useThemeStyles();
   const { setUser, setToken } = useAuthContext();
-  const { formData, handleChange } = useHandleChange();
+  const { formData, handleChange } = useHandleChangeProfile();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

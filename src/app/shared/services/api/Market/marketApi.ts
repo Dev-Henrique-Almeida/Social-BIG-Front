@@ -1,12 +1,9 @@
 import { IMarketCreateData, IMarketData } from "../../../@types";
 import { api } from "../api";
 
-export const createMarket = async (
-  market: IMarketCreateData,
-  token: string
-) => {
+export const createMarket = async (data: IMarketCreateData, token: string) => {
   try {
-    const response = await api.post("/market", market, {
+    const response = await api.post("/market", data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

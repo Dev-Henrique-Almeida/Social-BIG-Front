@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { IInputFieldProps } from "../../@types";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import {
   FormControl,
   IconButton,
@@ -9,6 +7,8 @@ import {
   InputLabel,
   OutlinedInput,
 } from "@mui/material";
+import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
+import { IInputFieldProps } from "@/app/shared/@types";
 
 const InputField: React.FC<IInputFieldProps> = ({
   type,

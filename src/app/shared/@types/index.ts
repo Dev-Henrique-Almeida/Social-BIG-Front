@@ -29,6 +29,10 @@ interface IFormEditProps {
   onClose?: () => void;
 }
 
+interface IFormCreateCardProps {
+  onClose?: () => void;
+}
+
 interface IUserData {
   id?: string;
   name: string;
@@ -192,4 +196,5 @@ export type {
   IMarketData,
   IMarketCreateData,
   IMarketContainerProps,
+  IFormCreateCardProps,
 };

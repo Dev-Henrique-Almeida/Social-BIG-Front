@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { IEventProps, IUserData } from "../../@types";
 
-const useHandleChange = (initialData: Partial<IUserData> = {}) => {
+const useHandleChangeProfile = (initialData: Partial<IUserData> = {}) => {
   const [formData, setFormData] = useState<IUserData>({
     id: "",
     name: "",
@@ -12,7 +12,7 @@ const useHandleChange = (initialData: Partial<IUserData> = {}) => {
     password: "",
     confirmPassword: "",
     image: "",
-    sex: "Male" || "Female",
+    sex: initialData.sex ?? "Male",
     address: "",
     phone: "",
     occupation: "",
@@ -33,4 +33,4 @@ const useHandleChange = (initialData: Partial<IUserData> = {}) => {
   };
 };
 
-export default useHandleChange;
+export default useHandleChangeProfile;
