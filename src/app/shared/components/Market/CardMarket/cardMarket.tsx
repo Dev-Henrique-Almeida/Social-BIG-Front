@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Modal, Box } from "@mui/material";
+import { Modal, Box, FormControl } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { IMarketData } from "@/app/shared/@types";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
@@ -8,6 +8,7 @@ import FormCreateCard from "../FormCreateCard/formCreateCard";
 import CardMarketHeader from "../CardMarketHeader/cardMarketHeader";
 import styles from "./cardMarket.module.scss";
 import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
+import SelectField from "../../SelectField/selectField";
 
 interface IMarketContent {
   market: IMarketData[];
@@ -18,6 +19,7 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
   const themeStyles = useThemeStyles();
   const { formatCurrency } = useCurrency();
   const [open, setOpen] = useState(false);
+  const [filter, setFilter] = useState("all");
   const router = useRouter();
 
   const handleAddButtonClick = () => {
@@ -39,9 +41,32 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
     return description;
   };
 
+  const filteredMarket = market.filter((item) => {
+    if (filter === "sold") {
+      return item.vendido;
+    }
+    if (filter === "available") {
+      return !item.vendido;
+    }
+    return true;
+  });
+
   return (
     <div>
       <CardMarketHeader onAddButtonClick={handleAddButtonClick} />
+      <FormControl variant="outlined" className={styles.filterControl}>
+        <SelectField
+          type="select"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          name="filter"
+          options={[
+            { value: "all", label: "Todos" },
+            { value: "sold", label: "Já vendidos" },
+            { value: "available", label: "Ainda não vendidos" },
+          ]}
+        />
+      </FormControl>
       <Modal
         open={open}
         onClose={handleClose}
@@ -56,12 +81,12 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
         </Box>
       </Modal>
       <div className={styles.cardContainer}>
-        {market.length === 0 ? (
+        {filteredMarket.length === 0 ? (
           <div className={styles.noItemsMessage}>
             <p>Nenhum anúncio encontrado.</p>
           </div>
         ) : (
-          market.map((card) => (
+          filteredMarket.map((card) => (
             <div
               key={card.id}
               className={styles.card}
