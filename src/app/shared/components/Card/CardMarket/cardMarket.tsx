@@ -3,6 +3,7 @@ import styles from "./cardMarket.module.scss";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import { IMarketData } from "@/app/shared/@types";
 import CardMarketHeader from "../CardMarketHeader/cardMarketHeader";
+import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
 
 interface IMarketContent {
   market: IMarketData[];
@@ -10,6 +11,7 @@ interface IMarketContent {
 
 const CardMarket: React.FC<IMarketContent> = ({ market }) => {
   const themeStyles = useThemeStyles();
+  const { formatCurrency } = useCurrency();
 
   const truncateDescription = (description: string) => {
     if (description.length > 120) {
@@ -40,7 +42,7 @@ const CardMarket: React.FC<IMarketContent> = ({ market }) => {
             <p className={styles.cardDescription}>
               {truncateDescription(card.description)}
             </p>
-            <p className={styles.cardPrice}>R$ {card.price}</p>
+            <p className={styles.cardPrice}>{formatCurrency(card.price)}</p>
             <p
               className={`${styles.cardStatus} ${
                 card.vendido ? styles.sold : styles.available
