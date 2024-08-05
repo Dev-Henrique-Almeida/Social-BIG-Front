@@ -1,13 +1,12 @@
-"use client";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
-const useHandleChange = <T extends Object>(initialData: T) => {
-  const [formData, setFormData] = useState<T>(initialData);
+const useHandleChange = <T>(initialState: T) => {
+  const [formData, setFormData] = useState<T>(initialState);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({
-      ...prev,
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
     }));
   };
@@ -15,6 +14,7 @@ const useHandleChange = <T extends Object>(initialData: T) => {
   return {
     formData,
     handleChange,
+    setFormData,
   };
 };
 

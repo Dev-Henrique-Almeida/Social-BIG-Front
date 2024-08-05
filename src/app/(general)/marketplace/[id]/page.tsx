@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./marketDetails.module.scss";
 import { Avatar } from "@mui/material";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
+import useMarketWithTimeElapsed from "@/app/shared/hooks/MarketWithTimeElapsed/useMarketWithTimeElapsed";
 
 const MarketDetails = () => {
   const { user: userLogado, token } = useAuthContext();
@@ -17,6 +18,8 @@ const MarketDetails = () => {
   const [buyer, setBuyer] = useState<IUserData | null>(null);
   const { formatCurrency } = useCurrency();
   const themeStyles = useThemeStyles();
+
+  const marketWithTimeElapsed = useMarketWithTimeElapsed(market);
 
   useEffect(() => {
     const fetchMarket = async () => {
@@ -41,11 +44,11 @@ const MarketDetails = () => {
     fetchMarket();
   }, [userLogado, token, pathname]);
 
-  if (!market || !seller) {
+  if (!marketWithTimeElapsed || !seller) {
     return null;
   }
 
-  const imageUrl = market.image || themeStyles.cardDetails.src;
+  const imageUrl = marketWithTimeElapsed.image || themeStyles.cardDetails.src;
 
   const handleBuyItem = () => {
     // Lógica para comprar o item
@@ -56,19 +59,25 @@ const MarketDetails = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Detalhes do Item</h1>
       <div className={styles.imageContainer}>
-        <img src={imageUrl} alt={market.name} className={styles.image} />
+        <img
+          src={imageUrl}
+          alt={marketWithTimeElapsed.name}
+          className={styles.image}
+        />
       </div>
-      <h1 className={styles.itemName}>{market.name}</h1>
-      <p className={styles.description}>{market.description}</p>
+      <h1 className={styles.itemName}>{marketWithTimeElapsed.name}</h1>
+      <p className={styles.description}>{marketWithTimeElapsed.description}</p>
       <p
         className={`${styles.status} ${
-          market.vendido ? styles.sold : styles.available
+          marketWithTimeElapsed.vendido ? styles.sold : styles.available
         }`}
       >
-        {market.vendido ? "Já vendido!" : "Ainda não vendido."}
+        {marketWithTimeElapsed.vendido ? "Já vendido!" : "Ainda não vendido."}
       </p>
-      <p className={styles.price}>{formatCurrency(market.price)}</p>
-      {!market.vendido && (
+      <p className={styles.price}>
+        {formatCurrency(marketWithTimeElapsed.price)}
+      </p>
+      {!marketWithTimeElapsed.vendido && (
         <button className={styles.buyButton} onClick={handleBuyItem}>
           Comprar Item
         </button>
@@ -85,7 +94,7 @@ const MarketDetails = () => {
             <div className={styles.userDetails}>
               <p className={styles.userName}>{seller.name}</p>
               <div className={styles.userTime}>
-                <p className={styles.date}>Anunciado: {market.createdAt}</p>
+                <p className={styles.date}>{marketWithTimeElapsed.createdAt}</p>
               </div>
             </div>
           </div>
@@ -102,7 +111,9 @@ const MarketDetails = () => {
               <div className={styles.userDetails}>
                 <p className={styles.userName}>{buyer.name}</p>
                 <div className={styles.userTime}>
-                  <p className={styles.date}>Comprado: {market.updatedAt}</p>
+                  <p className={styles.date}>
+                    {marketWithTimeElapsed.updatedAt}
+                  </p>
                 </div>
               </div>
             </div>

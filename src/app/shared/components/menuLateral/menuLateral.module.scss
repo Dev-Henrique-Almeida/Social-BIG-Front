@@ -34,7 +34,7 @@
 }
 
 .linkFull:hover {
-  color: var(--orange, #fe2e05);
+  color: var(--red, #d32f2f);
 }
 
 .activeLink {
@@ -43,7 +43,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  background: var(--orange, #fe2e05);
+  background: var(--red, #d32f2f);
   color: black;
 }
 
