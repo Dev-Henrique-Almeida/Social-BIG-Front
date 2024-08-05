@@ -19,6 +19,4 @@ const useAvatarProps = (author?: IAuthor | IUserData) => {
   return getAvatarProps;
 };
 
-
-
 export default useAvatarProps;

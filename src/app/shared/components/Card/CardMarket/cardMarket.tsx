@@ -39,11 +39,6 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
       <Modal
         open={open}
         onClose={handleClose}
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-          style: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
-        }}
         style={{
           display: "flex",
           alignItems: "center",
