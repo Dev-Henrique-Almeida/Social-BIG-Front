@@ -76,6 +76,7 @@ interface IMarketData {
   name: string;
   description: string;
   createdAt?: string;
+  updatedAt?: string;
 }
 
 interface IPostsProps {

@@ -1,7 +1,7 @@
 "use client";
-import { IMarketData } from "@/app/shared/@types";
+import { IMarketData, IUserData } from "@/app/shared/@types";
 import { useAuthContext } from "@/app/shared/contexts";
-import { getByMarket } from "@/app/shared/services";
+import { getByMarket, getByUser } from "@/app/shared/services";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -9,6 +9,8 @@ const MarketDetails = () => {
   const { user: userLogado, token } = useAuthContext();
   const pathname = usePathname();
   const [market, setMarket] = useState<IMarketData | null>(null);
+  const [seller, setSeller] = useState<IUserData | null>(null);
+  const [buyer, setBuyer] = useState<IUserData | null>(null); // Adicione o estado do buyer
 
   useEffect(() => {
     const fetchMarket = async () => {
@@ -16,8 +18,16 @@ const MarketDetails = () => {
       if (userLogado && token) {
         try {
           const fetchedMarket = await getByMarket(marketId, token);
+          const fetchedSeller = await getByUser(fetchedMarket.sellerId, token);
           setMarket(fetchedMarket);
+          setSeller(fetchedSeller);
           console.log(fetchedMarket);
+
+          if (fetchedMarket.buyerId) {
+            // Condicionalmente buscar o comprador
+            const fetchedBuyer = await getByUser(fetchedMarket.buyerId, token);
+            setBuyer(fetchedBuyer);
+          }
         } catch (error) {
           console.error("Erro ao buscar mercado:", error);
         }
@@ -26,16 +36,25 @@ const MarketDetails = () => {
     fetchMarket();
   }, [userLogado, token, pathname]);
 
-  if (!market) {
+  if (!market || !seller) {
     return null;
   }
 
   return (
     <div>
+      <h1>Detalhes do Item</h1>
+      <img src={market.image} alt={market.name} />
       <h1>{market.name}</h1>
-      <p>{market.price}</p>
       <p>{market.description}</p>
-      <img src={market.image} />
+      <p>{market.price}</p>
+      <p>Vendedor: {seller.name}</p>
+      <p>Anunciado: {market.createdAt}</p>
+      {buyer && (
+        <div>
+          <p>Comprador: {buyer.name}</p>
+          <p>Comprado: {market.updatedAt}</p>
+        </div>
+      )}
     </div>
   );
 };
