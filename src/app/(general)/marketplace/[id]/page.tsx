@@ -2,7 +2,7 @@
 import { IMarketData, IUserData } from "@/app/shared/@types";
 import { useAuthContext } from "@/app/shared/contexts";
 import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
-import { getByMarket, getByUser } from "@/app/shared/services";
+import { getByMarket, getByUser, buyMarketItem } from "@/app/shared/services";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "./marketDetails.module.scss";
@@ -50,9 +50,32 @@ const MarketDetails = () => {
 
   const imageUrl = marketWithTimeElapsed.image || themeStyles.cardDetails.src;
 
-  const handleBuyItem = () => {
-    // Lógica para comprar o item
-    console.log("Comprar Item");
+  const handleBuyItem = async () => {
+    if (!userLogado || !userLogado.id) {
+      alert("Usuário não autenticado ou ID de usuário não encontrado.");
+      return;
+    }
+
+    if (userLogado.id === seller.id) {
+      alert("Você não pode comprar seu próprio produto.");
+      return;
+    }
+
+    const confirmed = confirm("Você quer realmente comprar este item?");
+    if (!confirmed) return;
+
+    try {
+      const response = await buyMarketItem(
+        marketWithTimeElapsed.id,
+        userLogado.id,
+        token!
+      );
+      setBuyer(response.buyer);
+      alert("Compra realizada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao comprar o item:", error);
+      alert("Erro ao comprar o item. Verifique o console para mais detalhes.");
+    }
   };
 
   return (

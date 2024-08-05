@@ -49,3 +49,26 @@ export const getAllMarket = async (token: string): Promise<IMarketData[]> => {
     throw error;
   }
 };
+
+export const buyMarketItem = async (
+  id: string,
+  userId: string,
+  token: string
+) => {
+  try {
+    const response = await api.patch(
+      `/market/buy/${id}`,
+      { userId },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao comprar o item:", error);
+    throw error;
+  }
+};
