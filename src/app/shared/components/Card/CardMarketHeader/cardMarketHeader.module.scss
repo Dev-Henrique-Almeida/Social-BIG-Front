@@ -3,6 +3,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .titleContainer {
@@ -39,4 +41,31 @@
 
 .addButton:hover {
   background: #9e0404;
+}
+
+@media (max-width: 550px) {
+  .headerContainer {
+    flex-direction: column;
+  }
+  .subtitle {
+    margin-left: 30px;
+  }
+}
+
+@media (max-width: 350px) {
+  .headerContainer {
+    flex-direction: column;
+  }
+  .title {
+    font-size: 14px;
+  }
+  .subtitle {
+    margin-left: 10px;
+    font-size: 10px;
+  }
+  .addButton {
+    width: 160px;
+    height: 56px;
+    font-size: 14px;
+  }
 }
