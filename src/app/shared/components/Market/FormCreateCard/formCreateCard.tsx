@@ -51,7 +51,7 @@ const FormCreateCard: React.FC<FormCreateCardProps> = ({
       onClose && onClose();
     } catch (error) {
       console.error("Erro ao criar card:", error);
-      alert("Erro ao criar card. Verifique o console para mais detalhes.");
+      alert("Erro ao criar card. Verifique os dados, e tente novamente!");
     }
   };
 

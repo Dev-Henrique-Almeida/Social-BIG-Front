@@ -1,8 +1,7 @@
 "use client";
+import React, { useRef, useState } from "react";
 import { Button } from "@mui/material";
 import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
-
-import React from "react";
 import styles from "./formEdit.module.scss";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import { IFormEditProps } from "@/app/shared/@types";
@@ -11,11 +10,16 @@ import InputField from "../inputField/inputField";
 import FormatBirthdate from "@/app/shared/utils/ConvertDates/convertBirthdate";
 import SelectField from "../../SelectField/selectField";
 import useHandleChange from "@/app/shared/hooks/HandleChangeProfile/useHandleChangeProfile";
+import { Close } from "@mui/icons-material";
 
 export default function FormEdit({ user, token, onClose }: IFormEditProps) {
   const themeStyles = useThemeStyles();
   const { setUser } = useAuthContext();
-  const { formData, handleChange } = useHandleChange(user);
+  const { formData, handleChange, setFormData } = useHandleChange(user);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    user.image || null
+  );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,6 +35,30 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
       alert(
         "Erro ao atualizar usuário. Verifique o console para mais detalhes."
       );
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+        setFormData({ ...formData, image: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleRemoveImage = () => {
+    setImagePreview(null);
+    setFormData({ ...formData, image: "" });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
   };
 
@@ -100,14 +128,37 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
           placeholder="Telefone"
           className={styles.inputField}
         />
-        <InputField
-          type="text"
-          value={formData.image!}
-          onChange={handleChange}
-          name="image"
-          placeholder="Imagem"
-          className={styles.inputField}
-        />
+        <div className={styles.imageUploadContainer}>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+            accept="image/*"
+          />
+          <Button
+            variant="contained"
+            onClick={handleImageClick}
+            className={styles.uploadButton}
+          >
+            Escolher Imagem
+          </Button>
+          {imagePreview && (
+            <div className={styles.imagePreviewContainer}>
+              <img
+                src={imagePreview}
+                alt="Pré-visualização"
+                className={styles.imagePreview}
+              />
+              <Button
+                onClick={handleRemoveImage}
+                className={styles.removeImageButton}
+              >
+                <Close className={styles.removeImageIcon} />
+              </Button>
+            </div>
+          )}
+        </div>
         <SelectField
           value={formData.sex!}
           onChange={handleChange}

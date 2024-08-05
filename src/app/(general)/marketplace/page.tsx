@@ -1,5 +1,5 @@
 "use client";
-import CardContainer from "@/app/shared/components/Card/CardContainer/cardContainer";
+import CardContainer from "@/app/shared/components/Market/CardContainer/cardContainer";
 import { useAuthContext } from "@/app/shared/contexts";
 import React from "react";
 

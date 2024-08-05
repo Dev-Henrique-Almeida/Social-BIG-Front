@@ -30,6 +30,7 @@ const useHandleChangeProfile = (initialData: Partial<IUserData> = {}) => {
   return {
     formData,
     handleChange,
+    setFormData,
   };
 };
 
