@@ -40,7 +40,13 @@ const FormCreateCard: React.FC<FormCreateCardProps> = ({
 
     const formattedFormData = {
       ...formData,
-      price: parseFloat(formData.price.toString()),
+      price: parseFloat(
+        formData.price
+          .toString()
+          .replace("R$", "")
+          .replace(".", "")
+          .replace(",", ".")
+      ),
     };
 
     try {
@@ -79,6 +85,13 @@ const FormCreateCard: React.FC<FormCreateCardProps> = ({
     }
   };
 
+  const formatCurrency = (value: number) => {
+    return value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  };
+
   return (
     <div className={styles.formCreateCardContainer}>
       <form
@@ -111,12 +124,21 @@ const FormCreateCard: React.FC<FormCreateCardProps> = ({
           className={styles.inputField}
         />
         <InputField
-          type="number"
-          value={formData.price.toString()}
-          onChange={handleChange}
+          type="text"
+          value={formatCurrency(formData.price)}
+          onChange={(e) => {
+            const numericValue = parseFloat(
+              e.target.value
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",", ".")
+            );
+            setFormData({ ...formData, price: numericValue });
+          }}
           name="price"
           placeholder="Preço"
           className={styles.inputField}
+          mask="currency"
         />
         <div className={styles.imageUploadContainer}>
           <input

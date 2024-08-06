@@ -17,6 +17,7 @@ const InputField: React.FC<IInputFieldProps> = ({
   name,
   placeholder,
   className,
+  mask,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const themeStyles = useThemeStyles();
@@ -35,6 +36,15 @@ const InputField: React.FC<IInputFieldProps> = ({
     onChange(e);
   };
 
+  const handleCurrencyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let val = e.target.value.replace(/\D/g, "");
+    val = (parseInt(val, 10) / 100).toFixed(2).toString();
+    val = val.replace(".", ",");
+    val = val.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    e.target.value = "R$ " + val;
+    onChange(e);
+  };
+
   return (
     <FormControl fullWidth className={className} variant="outlined">
       <InputLabel shrink /* ={type === "date" || undefined} */>
@@ -43,7 +53,13 @@ const InputField: React.FC<IInputFieldProps> = ({
       <OutlinedInput
         type={type === "password" ? (showPassword ? "text" : "password") : type}
         value={value}
-        onInput={type === "tel" ? handlePhoneChange : onChange}
+        onInput={
+          type === "tel"
+            ? handlePhoneChange
+            : mask === "currency"
+            ? handleCurrencyChange
+            : onChange
+        }
         name={name}
         style={{
           backgroundColor: themeStyles.backgroundPaper,
