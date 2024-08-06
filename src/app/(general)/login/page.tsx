@@ -21,15 +21,15 @@ const Login = () => {
     event.preventDefault();
     try {
       const data = await loginUser(formData);
-      console.log(data.token);
-      console.log(data.user.id);
+      /*   console.log(data.token);
+      console.log(data.user.id); */
 
       setUser(data.user);
       setToken(data.token);
 
       router.push("/home");
     } catch (error) {
-      console.error("Erro ao logar:", error);
+      /*  console.error("Erro ao logar:", error); */
       alert("Credenciais inválidas. Por favor, verifique e tente novamente.");
     }
   };

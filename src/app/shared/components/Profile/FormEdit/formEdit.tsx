@@ -144,6 +144,7 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
             { value: "Female", label: "Feminino" },
           ]}
         />
+
         <div className={styles.imageUploadContainer}>
           <input
             type="file"

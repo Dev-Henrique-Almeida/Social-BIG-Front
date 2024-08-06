@@ -2,6 +2,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.formEditForm {
+  overflow-y: scroll;
+  max-height: 90vh;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.formEditForm::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.formEditForm {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .header {
@@ -49,7 +70,7 @@
 
 .imagePreview {
   max-width: 100%;
-  max-height: 200px;
+  max-height: 150px;
   border-radius: 8px;
 }
 
@@ -62,18 +83,37 @@
 }
 
 .removeImageIcon {
-  font-size: 24px;
+  font-size: 16px;
 }
 
 .buttonContainer {
   display: flex;
   justify-content: space-between;
-  margin-left: 1.5%;
-  width: 97%;
+  width: 100%;
   margin-top: 1rem;
 }
 
 .formEditButton {
   width: 48%;
   font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .inputField {
+    width: 100%;
+  }
+
+  .formEditButton {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .formEditForm {
+    max-height: 70vh;
+  }
 }
