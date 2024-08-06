@@ -93,7 +93,25 @@
   width: 100%;
 }
 
+.filterContainer {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .filterControl {
   margin: 16px;
   min-width: 200px;
+}
+
+@media (max-width: 550px) {
+  .filterControl {
+    margin: 16px 0;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+  }
+  .filterContainer {
+    justify-content: center;
+  }
 }
