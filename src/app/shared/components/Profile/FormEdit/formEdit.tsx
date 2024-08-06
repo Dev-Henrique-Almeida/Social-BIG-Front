@@ -25,7 +25,11 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
     event.preventDefault();
 
     try {
-      const updatedUser = await updateUser(formData, user.id!, token);
+      // Remova o campo 'image' se não houver uma imagem
+      const { image, ...otherData } = formData;
+      const dataToUpdate = image ? formData : otherData;
+
+      const updatedUser = await updateUser(dataToUpdate, user.id!, token);
       console.log(updatedUser);
       alert("Usuário atualizado com sucesso!");
       setUser(updatedUser);
