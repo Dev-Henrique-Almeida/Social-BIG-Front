@@ -54,19 +54,21 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
   return (
     <div>
       <CardMarketHeader onAddButtonClick={handleAddButtonClick} />
-      <FormControl variant="outlined" className={styles.filterControl}>
-        <SelectField
-          type="select"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          name="filter"
-          options={[
-            { value: "all", label: "Todos" },
-            { value: "sold", label: "Já vendidos" },
-            { value: "available", label: "Ainda não vendidos" },
-          ]}
-        />
-      </FormControl>
+      {filteredMarket.length > 0 && (
+        <FormControl variant="outlined" className={styles.filterControl}>
+          <SelectField
+            type="select"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            name="filter"
+            options={[
+              { value: "all", label: "Todos" },
+              { value: "sold", label: "Já vendidos" },
+              { value: "available", label: "Ainda não vendidos" },
+            ]}
+          />
+        </FormControl>
+      )}
       <Modal
         open={open}
         onClose={handleClose}
