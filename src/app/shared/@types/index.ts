@@ -79,6 +79,11 @@ interface IMarketData {
   updatedAt?: string;
 }
 
+interface IMarketContent {
+  market: IMarketData[];
+  refreshMarket: () => void;
+}
+
 interface IPostsProps {
   posts: IPostData[];
   isButton?: boolean;
@@ -198,4 +203,5 @@ export type {
   IMarketCreateData,
   IMarketContainerProps,
   IFormCreateCardProps,
+  IMarketContent,
 };

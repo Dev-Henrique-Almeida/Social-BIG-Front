@@ -2,18 +2,13 @@
 import React, { useState } from "react";
 import { Modal, Box, FormControl } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { IMarketData } from "@/app/shared/@types";
+import { IMarketContent } from "@/app/shared/@types";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import FormCreateCard from "../FormCreateCard/formCreateCard";
 import CardMarketHeader from "../CardMarketHeader/cardMarketHeader";
 import styles from "./cardMarket.module.scss";
 import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
 import SelectField from "../../SelectField/selectField";
-
-interface IMarketContent {
-  market: IMarketData[];
-  refreshMarket: () => void;
-}
 
 const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
   const themeStyles = useThemeStyles();
@@ -54,7 +49,7 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
   return (
     <div>
       <CardMarketHeader onAddButtonClick={handleAddButtonClick} />
-      {filteredMarket.length > 0 && (
+      {market.length > 0 && (
         <FormControl variant="outlined" className={styles.filterControl}>
           <SelectField
             type="select"
