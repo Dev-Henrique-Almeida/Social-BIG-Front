@@ -14,7 +14,7 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
   const themeStyles = useThemeStyles();
   const { formatCurrency } = useCurrency();
   const [open, setOpen] = useState(false);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("todos");
   const router = useRouter();
 
   const handleAddButtonClick = () => {
@@ -37,10 +37,10 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
   };
 
   const filteredMarket = market.filter((item) => {
-    if (filter === "sold") {
+    if (filter === "vendido") {
       return item.vendido;
     }
-    if (filter === "available") {
+    if (filter === "disponivel") {
       return !item.vendido;
     }
     return true;
@@ -57,9 +57,9 @@ const CardMarket: React.FC<IMarketContent> = ({ market, refreshMarket }) => {
             onChange={(e) => setFilter(e.target.value)}
             name="filter"
             options={[
-              { value: "all", label: "Todos" },
-              { value: "sold", label: "Já vendidos" },
-              { value: "available", label: "Ainda não vendidos" },
+              { value: "todos", label: "Todos" },
+              { value: "vendido", label: "Já vendidos" },
+              { value: "disponivel", label: "Ainda não vendidos" },
             ]}
           />
         </FormControl>
