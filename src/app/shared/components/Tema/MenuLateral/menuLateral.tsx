@@ -9,16 +9,16 @@ import {
   useTheme,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { IChildrenProps } from "../../@types";
-import { useDrawerContext, useThemeContext } from "../../contexts";
-import { useResponsiveContent } from "../../hooks/Responsive/useResponsiveContent";
 import { usePathname, useRouter } from "next/navigation";
 import { NavBar } from "../NavBarCustom/navBar";
 import styles from "./menuLateral.module.scss";
 import Link from "next/link";
-import logoPositivo from "../../../assets/logo.png";
-import logo from "../../../assets/logo-dark.png";
-import { localStorageUtils } from "../../utils";
+import logoPositivo from "../../../../assets/logo.png";
+import logo from "../../../../assets/logo-dark.png";
+import { IChildrenProps } from "@/app/shared/@types";
+import { useResponsiveContent } from "@/app/shared/hooks";
+import { useDrawerContext, useThemeContext } from "@/app/shared/contexts";
+import { localStorageUtils } from "@/app/shared/utils";
 
 export const MenuLateral: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();

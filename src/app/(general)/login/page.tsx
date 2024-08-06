@@ -9,7 +9,7 @@ import Link from "next/link";
 import styles from "./login.module.scss";
 import InputField from "@/app/shared/components/Profile/inputField/inputField";
 import useHandleChangeProfile from "@/app/shared/hooks/HandleChangeProfile/useHandleChangeProfile";
-import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
+import TrocarTema from "@/app/shared/components/Tema/TrocarTema/trocarTema";
 
 const Login = () => {
   const router = useRouter();
@@ -51,7 +51,7 @@ const Login = () => {
           >
             Login
           </h1>
-          <ChangeTheme />
+          <TrocarTema />
         </div>
         <InputField
           type="text"

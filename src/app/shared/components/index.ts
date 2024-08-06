@@ -2,7 +2,6 @@ export * from "./Profile/FormEdit/formEdit";
 export * from "./Profile/inputField/inputField";
 export * from "./NavBarCustom/navBar";
 export * from "./SelectField/selectField";
-export * from "./ChangeTheme/changeTheme";
 export * from "./CardUsers/cardUsers";
 export * from "./NavBarCustom/navBar";
 export * from "./Posts/CreatePost/createPost";

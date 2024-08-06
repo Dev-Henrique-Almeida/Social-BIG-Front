@@ -8,15 +8,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
-import logoClosed from "../../../assets/close-menu.png";
-import logoOpen from "../../../assets/open-menu.png";
+import logoClosed from "../../../../assets/close-menu.png";
+import logoOpen from "../../../../assets/open-menu.png";
 import styles from "./navBar.module.scss";
 import { IChildrenProps } from "@/app/shared/@types";
 import { useAuthContext, useDrawerContext } from "@/app/shared/contexts";
 import { useResponsiveContent } from "@/app/shared/hooks";
 import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
 import useFirstAndLastName from "@/app/shared/hooks/FirstAndLastName/useFirstAndLastName";
-import ChangeTheme from "../ChangeTheme/changeTheme";
+import TrocarTema from "../TrocarTema/trocarTema";
 
 export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
   const theme = useTheme();
@@ -54,7 +54,7 @@ export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
             </Tooltip>
           </Box>
           <Box className={styles.boxUser}>
-            <ChangeTheme />
+            <TrocarTema />
             <Typography
               variant="body1"
               className={styles.typoName}
