@@ -71,6 +71,11 @@ const MarketDetails = () => {
         token!
       );
       setBuyer(response.buyer);
+      setMarket((prevMarket) => ({
+        ...prevMarket!,
+        vendido: true,
+        updatedAt: new Date().toISOString(), // Atualiza o campo updatedAt no frontend
+      }));
       alert("Compra realizada com sucesso!");
     } catch (error) {
       console.error("Erro ao comprar o item:", error);

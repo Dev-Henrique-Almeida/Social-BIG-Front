@@ -128,6 +128,18 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
           placeholder="Telefone"
           className={styles.inputField}
         />
+        <SelectField
+          value={formData.sex!}
+          onChange={handleChange}
+          name="sex"
+          type="text"
+          placeholder="Sexo"
+          className={styles.inputField}
+          options={[
+            { value: "Male", label: "Masculino" },
+            { value: "Female", label: "Feminino" },
+          ]}
+        />
         <div className={styles.imageUploadContainer}>
           <input
             type="file"
@@ -159,18 +171,7 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
             </div>
           )}
         </div>
-        <SelectField
-          value={formData.sex!}
-          onChange={handleChange}
-          name="sex"
-          type="text"
-          placeholder="Sexo"
-          className={styles.inputField}
-          options={[
-            { value: "Male", label: "Masculino" },
-            { value: "Female", label: "Feminino" },
-          ]}
-        />
+
         <div className={styles.buttonContainer}>
           <Button
             type="submit"
