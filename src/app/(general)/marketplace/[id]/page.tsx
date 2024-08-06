@@ -9,6 +9,8 @@ import styles from "./marketDetails.module.scss";
 import { Avatar } from "@mui/material";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import useMarketWithTimeElapsed from "@/app/shared/hooks/MarketWithTimeElapsed/useMarketWithTimeElapsed";
+import useProfileNavigation from "@/app/shared/hooks/ProfileNavigation/useProfileNavigation";
+import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
 
 const MarketDetails = () => {
   const { user: userLogado, token } = useAuthContext();
@@ -17,6 +19,7 @@ const MarketDetails = () => {
   const [seller, setSeller] = useState<IUserData | null>(null);
   const [buyer, setBuyer] = useState<IUserData | null>(null);
   const { formatCurrency } = useCurrency();
+  const { handlePickPerfil } = useProfileNavigation();
   const themeStyles = useThemeStyles();
 
   const marketWithTimeElapsed = useMarketWithTimeElapsed(market);
@@ -115,9 +118,9 @@ const MarketDetails = () => {
           <p className={styles.infoTitle}>Vendedor</p>
           <div className={styles.userInfo}>
             <Avatar
-              src={seller.image}
-              alt={seller.name}
+              {...useAvatarProps(seller)()}
               className={styles.userImage}
+              onClick={() => handlePickPerfil(seller.id!)}
             />
             <div className={styles.userDetails}>
               <p className={styles.userName}>{seller.name}</p>
@@ -132,9 +135,9 @@ const MarketDetails = () => {
             <p className={styles.infoTitle}>Comprador</p>
             <div className={styles.userInfo}>
               <Avatar
-                src={buyer.image}
-                alt={buyer.name}
+                {...useAvatarProps(buyer)()}
                 className={styles.userImage}
+                onClick={() => handlePickPerfil(buyer.id!)}
               />
               <div className={styles.userDetails}>
                 <p className={styles.userName}>{buyer.name}</p>

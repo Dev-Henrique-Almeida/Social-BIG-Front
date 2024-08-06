@@ -6,15 +6,13 @@ const useProfileNavigation = () => {
   const pathname = usePathname();
   const { user } = useAuthContext();
 
-  const isProfilePage = pathname !== "/home";
+  const isProfilePage = pathname === "/perfil";
 
   const handlePickPerfil = (id: string) => {
     if (user!.id === id) {
-      router.push(`/perfil/`);
+      router.push(`/perfil`);
     } else {
-      if (!isProfilePage) {
-        router.push(`/perfil/${id}`);
-      }
+      router.push(`/perfil/${id}`);
     }
   };
 
