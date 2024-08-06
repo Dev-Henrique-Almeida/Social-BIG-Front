@@ -4,7 +4,7 @@ import { Image, LocationOn, Close } from "@mui/icons-material";
 import { ICreatePostProps, IPostCreateData } from "../../../@types";
 import { createPost } from "../../../services/api/Post/postApi";
 import { useState, useRef } from "react";
-import styles from "./CreatePost.module.scss";
+import styles from "./createPost.module.scss";
 import useAvatarProps from "../../../hooks/AvatarProps/useAvatarProps";
 import useThemeStyles from "../../../hooks/ThemeStyles/useThemeStyles";
 import { useRouter } from "next/navigation";

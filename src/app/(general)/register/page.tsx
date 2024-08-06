@@ -4,7 +4,6 @@ import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/app/shared/contexts";
 import { createUser } from "@/app/shared/services";
-import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import FormatBirthdate from "@/app/shared/utils/ConvertDates/convertBirthdate";
 import Link from "next/link";
@@ -12,6 +11,7 @@ import styles from "./register.module.scss";
 import useAgeCalculator from "@/app/shared/hooks/AgeCalculator/useAgeCalculator";
 import InputField from "@/app/shared/components/Profile/inputField/inputField";
 import useHandleChangeProfile from "@/app/shared/hooks/HandleChangeProfile/useHandleChangeProfile";
+import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
 
 export default function Register() {
   const router = useRouter();
@@ -20,7 +20,9 @@ export default function Register() {
   const { formData, handleChange } = useHandleChangeProfile();
   const { calculateAge } = useAgeCalculator();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       console.error("As senhas não coincidem");
