@@ -11,7 +11,7 @@ import styles from "./register.module.scss";
 import useAgeCalculator from "@/app/shared/hooks/AgeCalculator/useAgeCalculator";
 import InputField from "@/app/shared/components/Profile/inputField/inputField";
 import useHandleChangeProfile from "@/app/shared/hooks/HandleChangeProfile/useHandleChangeProfile";
-import ChangeTheme from "../../shared/components/ChangeTheme/changeTheme";
+import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
 
 export default function Register() {
   const router = useRouter();

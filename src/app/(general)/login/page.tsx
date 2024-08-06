@@ -9,7 +9,7 @@ import Link from "next/link";
 import styles from "./login.module.scss";
 import InputField from "@/app/shared/components/Profile/inputField/inputField";
 import useHandleChangeProfile from "@/app/shared/hooks/HandleChangeProfile/useHandleChangeProfile";
-import ChangeTheme from "../../shared/components/ChangeTheme/changeTheme";
+import ChangeTheme from "@/app/shared/components/ChangeTheme/changeTheme";
 
 const Login = () => {
   const router = useRouter();

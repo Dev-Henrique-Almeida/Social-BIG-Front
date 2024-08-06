@@ -7,16 +7,15 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-import { IChildrenProps } from "../../@types";
-import { useResponsiveContent } from "../../hooks";
-import { useDrawerContext } from "../../contexts";
-import { useAuthContext } from "../../contexts/Auth/AuthContext";
 import { useRouter } from "next/navigation";
-import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
-import useFirstAndLastName from "../../hooks/FirstAndLastName/useFirstAndLastName";
 import logoClosed from "../../../assets/close-menu.png";
 import logoOpen from "../../../assets/open-menu.png";
 import styles from "./navBar.module.scss";
+import { IChildrenProps } from "@/app/shared/@types";
+import { useAuthContext, useDrawerContext } from "@/app/shared/contexts";
+import { useResponsiveContent } from "@/app/shared/hooks";
+import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
+import useFirstAndLastName from "@/app/shared/hooks/FirstAndLastName/useFirstAndLastName";
 import ChangeTheme from "../ChangeTheme/changeTheme";
 
 export const NavBar: React.FC<IChildrenProps> = ({ children }) => {
