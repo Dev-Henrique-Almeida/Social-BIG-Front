@@ -74,7 +74,7 @@ const MarketDetails = () => {
       setMarket((prevMarket) => ({
         ...prevMarket!,
         vendido: true,
-        updatedAt: new Date().toISOString(), // Atualiza o campo updatedAt no frontend
+        updatedAt: new Date().toISOString(), // pra atualizar o campo updatedAt
       }));
       alert("Compra realizada com sucesso!");
     } catch (error) {

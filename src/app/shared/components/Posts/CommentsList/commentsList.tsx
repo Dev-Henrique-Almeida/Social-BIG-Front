@@ -6,6 +6,7 @@ import useProfileNavigation from "@/app/shared/hooks/ProfileNavigation/useProfil
 import { IComment, ICommentsListProps } from "@/app/shared/@types";
 import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
 import { v4 as uuidv4 } from "uuid";
+import useFirstAndLastName from "@/app/shared/hooks/FirstAndLastName/useFirstAndLastName";
 
 const CommentsList: React.FC<ICommentsListProps> = ({
   comments,
@@ -37,32 +38,37 @@ const CommentsList: React.FC<ICommentsListProps> = ({
   return (
     <div className={styles.commentsSection}>
       {sortedComments.length > 0 && <p>Todos os comentários</p>}
-      {sortedComments.slice(0, visibleCommentsCount).map((comment) => (
-        <div className={styles.comment} key={comment.id}>
-          <Avatar
-            className={styles.avatarStyle}
-            {...useAvatarProps(comment.author)()}
-            onClick={() => handlePickPerfil(comment.author.id)}
-          />
-          <div className={styles.commentContent}>
-            <div className={styles.commentAuthor}>
-              {comment.author?.name ? (
-                <>
-                  {comment.author.name} •{" "}
+      {sortedComments.slice(0, visibleCommentsCount).map((comment) => {
+        const fullName = comment.author?.name || "";
+        const displayName = useFirstAndLastName(fullName);
+
+        return (
+          <div className={styles.comment} key={comment.id}>
+            <Avatar
+              className={styles.avatarStyle}
+              {...useAvatarProps(comment.author)()}
+              onClick={() => handlePickPerfil(comment.author.id)}
+            />
+            <div className={styles.commentContent}>
+              <div className={styles.commentAuthor}>
+                {comment.author?.name ? (
+                  <>
+                    {displayName} •{" "}
+                    <span className={styles.commentTime}>
+                      {comment.timeElapsed}
+                    </span>
+                  </>
+                ) : (
                   <span className={styles.commentTime}>
                     {comment.timeElapsed}
                   </span>
-                </>
-              ) : (
-                <span className={styles.commentTime}>
-                  {comment.timeElapsed}
-                </span>
-              )}
+                )}
+              </div>
+              <div className={styles.commentText}>{comment.content}</div>
             </div>
-            <div className={styles.commentText}>{comment.content}</div>
           </div>
-        </div>
-      ))}
+        );
+      })}
       {comments.length === 0 && (
         <div>
           <Divider sx={{ paddingTop: "20px", marginBottom: "20px" }} />

@@ -9,7 +9,7 @@ import {
 } from "../shared/contexts/Auth/AuthContext";
 import useProtectedRoute from "../shared/hooks/Auth/useProtectedRoute";
 import { CssBaseline } from "@mui/material";
-import { MenuLateral } from "../shared/components/menuLateral/menuLateral";
+import { MenuLateral } from "../shared/components/MenuLateral/menuLateral";
 
 function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useAuthContext();
