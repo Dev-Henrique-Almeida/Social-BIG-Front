@@ -13,7 +13,6 @@
   padding: 0;
   gap: 8px;
   width: 100%;
-  height: 56px;
   font-family: "Inter";
   font-weight: 700;
   font-size: 48px;
@@ -51,14 +50,13 @@
 
 .image {
   width: 100%;
-  height: 600px;
-  object-position: center;
+  height: 100%;
+  object-fit: cover;
   border-radius: 8px;
 }
 
 .itemName {
   width: 100%;
-  height: 48px;
   font-family: "MontSerrat";
   font-weight: 500;
   font-size: 40px;
@@ -75,38 +73,31 @@
 }
 
 .status {
-  &.sold {
-    background: #d32f2f;
-    border-radius: 24px;
-    font-family: "Inter";
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
-    text-align: center;
-    align-self: start;
-    color: #ffffff;
-    width: 180px;
-    height: 30px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 24px;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  text-align: center;
+  align-self: start;
+  color: #ffffff;
+  width: 180px;
+  height: 30px;
+}
 
-  &.available {
-    background: #75767d;
-    border-radius: 24px;
-    font-family: "Inter";
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
-    text-align: center;
-    align-self: start;
-    color: #ffffff;
-    width: 180px;
-    height: 30px;
-  }
+.sold {
+  background: #d32f2f;
+}
+
+.available {
+  background: #75767d;
 }
 
 .price {
   width: 100%;
-  height: 24px;
   font-family: "Inter";
   font-weight: 400;
   font-size: 24px;
@@ -117,7 +108,6 @@
 
 .buyButton {
   background: #d32f2f;
-
   color: white;
   font-family: "Inter";
   font-weight: 500;
@@ -142,7 +132,7 @@
   align-items: flex-start;
   padding: 0;
   width: 100%;
-  height: 238px;
+  gap: 16px;
 }
 
 .infoSection {
@@ -150,18 +140,15 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-  gap: 32px;
-  margin: 0 auto;
+  gap: 16px;
   width: 100%;
-  height: 95px;
 }
 
 .infoTitle {
   width: 100%;
-  height: 24px;
   font-family: "Inter";
   font-weight: 500;
-  font-size: 48px;
+  font-size: 24px;
   line-height: 24px;
   letter-spacing: -0.03em;
 }
@@ -173,12 +160,13 @@
   padding: 0;
   gap: 16px;
   width: 100%;
-  height: 39px;
 }
 
 .userImage {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .userDetails {
@@ -187,13 +175,9 @@
   justify-content: center;
   align-items: flex-start;
   padding: 0;
-  width: 100%;
-  height: 39px;
 }
 
 .userName {
-  width: 100%;
-  height: 21px;
   font-family: "Poppins";
   font-weight: 400;
   font-size: 14px;
@@ -206,16 +190,62 @@
   align-items: center;
   padding: 0;
   gap: 6px;
-  width: 100%;
-  height: 18px;
 }
 
 .date {
-  width: 100%;
-  height: 18px;
   font-family: "Poppins";
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
   color: #75767d;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .imageContainer {
+    height: 300px;
+  }
+
+  .image {
+    height: 300px;
+  }
+
+  .itemName {
+    font-size: 24px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .price {
+    font-size: 18px;
+  }
+
+  .buyButton {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .infoRow {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .userImage {
+    width: 32px;
+    height: 32px;
+  }
+
+  .status {
+    font-size: 14px;
+    line-height: 24px;
+    width: auto;
+    height: auto;
+    padding: 8px 12px;
+  }
 }
