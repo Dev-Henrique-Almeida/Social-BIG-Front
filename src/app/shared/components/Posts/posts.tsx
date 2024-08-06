@@ -76,8 +76,14 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
 
   const handleDeletePost = async (postId: string) => {
     if (token) {
+      const confirmed = window.confirm(
+        "Você realmente quer excluir este post?"
+      );
+      if (!confirmed) return;
+
       try {
         await deletePost(postId, token);
+        alert("Post excluído com sucesso!");
         setFilteredPosts(filteredPosts.filter((post) => post.id !== postId));
       } catch (error) {
         console.error(error);
