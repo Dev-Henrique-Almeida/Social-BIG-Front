@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   IPostsProps,
   IPostDataWithTimeElapsed,
@@ -23,6 +23,7 @@ import PostFooter from "./PostFooter/postFooter";
 import CommentInput from "./CommentInput/commentInput";
 import CommentsList from "./CommentsList/commentsList";
 import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
+import { throttle } from "lodash";
 
 const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const { user, token } = useAuthContext();
@@ -34,6 +35,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   const [likedPosts, setLikedPosts] = useState<string[]>([]);
   const { handlePickPerfil } = useProfileNavigation();
   const [postIdToEdit, setPostIdToEdit] = useState<string | null>(null);
+  const [lastLikeTime, setLastLikeTime] = useState<number>(0);
   const [visibleCommentsCountMap, setVisibleCommentsCountMap] = useState<{
     [key: string]: number;
   }>({});
@@ -119,6 +121,13 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
   };
 
   const handleLikePost = async (postId: string) => {
+    const now = Date.now();
+    if (now - lastLikeTime < 1000) {
+      // Verifica se a última curtida foi há menos de 1 segundo
+      alert("Você está fazendo muitas requisições. Tente novamente em breve.");
+      return;
+    }
+
     if (token && user?.id) {
       try {
         const updatedPost = await likePost(postId, token, user.id);
@@ -138,6 +147,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
           : [...likedPosts, postId];
         setLikedPosts(updatedLikedPosts);
         cookieUtils.setLikedPostsByUser(user.id, updatedLikedPosts);
+        setLastLikeTime(now); // Atualiza o tempo da última curtida
       } catch (error) {
         console.error(`Erro ao dar like no post:`, error);
       }
@@ -216,7 +226,7 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
                 )}
                 <PostFooter
                   post={post}
-                  onLike={handleLikePost}
+                  onLike={() => handleLikePost(post.id)}
                   isLiked={likedPosts.includes(post.id)}
                 />
                 <CommentInput
