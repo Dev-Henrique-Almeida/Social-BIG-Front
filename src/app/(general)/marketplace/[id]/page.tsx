@@ -3,10 +3,11 @@ import { IMarketData, IUserData } from "@/app/shared/@types";
 import { useAuthContext } from "@/app/shared/contexts";
 import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
 import { getByMarket, getByUser, buyMarketItem } from "@/app/shared/services";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation"; // Importando useRouter
 import React, { useEffect, useState } from "react";
 import styles from "./marketDetails.module.scss";
 import { Avatar } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"; // Importando o ícone de seta
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import useMarketWithTimeElapsed from "@/app/shared/hooks/MarketWithTimeElapsed/useMarketWithTimeElapsed";
 import useProfileNavigation from "@/app/shared/hooks/ProfileNavigation/useProfileNavigation";
@@ -15,6 +16,7 @@ import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
 const MarketDetails = () => {
   const { user: userLogado, token } = useAuthContext();
   const pathname = usePathname();
+  const router = useRouter(); // Inicializando o hook useRouter
   const [market, setMarket] = useState<IMarketData | null>(null);
   const [seller, setSeller] = useState<IUserData | null>(null);
   const [buyer, setBuyer] = useState<IUserData | null>(null);
@@ -88,7 +90,14 @@ const MarketDetails = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Detalhes do Item</h1>
+      <div className={styles.header}>
+        <button className={styles.backButton} onClick={() => router.back()}>
+          {" "}
+          {/* Botão de Voltar com ícone */}
+          <ArrowBackIcon />
+        </button>
+        <h1 className={styles.title}>Detalhes do Item</h1>
+      </div>
       <div className={styles.imageContainer}>
         <img
           src={imageUrl}

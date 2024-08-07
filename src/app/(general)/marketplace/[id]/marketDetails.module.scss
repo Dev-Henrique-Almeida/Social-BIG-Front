@@ -4,23 +4,52 @@
   align-items: center;
   width: 100%;
   font-family: "MontSerrat";
-
   padding: 0px 36px;
 }
 
-.title {
+.header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 0;
-  gap: 8px;
   width: 100%;
+  justify-content: center;
+  position: relative;
+  padding-left: 50px;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d32f2f;
+  color: white;
+  font-family: "MontSerrat";
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+
+  &:hover {
+    background: #9e0404;
+  }
+
+  svg {
+    font-size: 24px;
+  }
+}
+
+.title {
   font-family: "MontSerrat";
   font-weight: 700;
   font-size: 48px;
   line-height: 56px;
   text-align: center;
   letter-spacing: -0.02em;
+  margin: 0;
 }
 
 .infos {
@@ -30,7 +59,6 @@
   padding: 0;
   gap: 48px;
   font-family: "MontSerrat";
-
   width: 100%;
 }
 
@@ -94,13 +122,11 @@
 
 .sold {
   font-family: "MontSerrat";
-
   background: #d32f2f;
 }
 
 .available {
   font-family: "MontSerrat";
-
   background: #75767d;
 }
 
@@ -165,7 +191,6 @@
 .userInfo {
   display: flex;
   font-family: "MontSerrat";
-
   flex-direction: row;
   align-items: center;
   padding: 0;
@@ -185,7 +210,6 @@
 .userDetails {
   display: flex;
   font-family: "MontSerrat";
-
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -219,6 +243,16 @@
   .title {
     font-size: 24px;
     line-height: 32px;
+  }
+
+  .backButton {
+    padding: 6px;
+  }
+
+  .header {
+    justify-content: center;
+    padding-left: 40px;
+    margin-bottom: 10px;
   }
 
   .imageContainer {
@@ -262,5 +296,27 @@
     width: auto;
     height: auto;
     padding: 8px 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .header {
+    padding-left: 30px;
+  }
+}
+
+@media (max-width: 350px) {
+  .title {
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .backButton {
+    padding: 4px;
   }
 }
