@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { AppThemeProvider, DrawerProvider } from "../shared/contexts";
 import "../shared/styles/globals.scss";
 import {
@@ -10,15 +9,19 @@ import {
 import useProtectedRoute from "../shared/hooks/Auth/useProtectedRoute";
 import { CssBaseline } from "@mui/material";
 import { MenuLateral } from "../shared/components/Tema/MenuLateral/menuLateral";
+import { usePathname } from "next/navigation";
 
 function Layout({ children }: { children: React.ReactNode }) {
+  const { isProtectedRoute } = useProtectedRoute();
+
+  if (isProtectedRoute) {
+    return null; // Não renderiza nada se o usuário não estiver logado e estiver tentando acessar uma rota protegida
+  }
+
   const { user } = useAuthContext();
   const pathname = usePathname();
   const noMenuRoutes = ["/register", "/login"];
-
   const showMenuLateral = user && !noMenuRoutes.includes(pathname);
-
-  useProtectedRoute();
 
   return (
     <>{showMenuLateral ? <MenuLateral>{children}</MenuLateral> : children}</>
