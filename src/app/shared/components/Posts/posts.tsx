@@ -106,7 +106,9 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
         );
         setFilteredPosts((prevPosts) =>
           prevPosts.map((post) =>
-            post.id === updatedPost.id ? { ...post, ...updatedPost } : post
+            post.id === updatedPost.id
+              ? { ...post, ...updatedPost, edited: true }
+              : post
           )
         );
         setPostIdToEdit(null);
@@ -209,6 +211,9 @@ const Posts: React.FC<IPostsProps> = ({ posts, isButton = false }) => {
                   }}
                 />
                 <PostContent post={post} />
+                {post.edited && (
+                  <div className={styles.editedLabel}>editado</div>
+                )}
                 <PostFooter
                   post={post}
                   onLike={handleLikePost}

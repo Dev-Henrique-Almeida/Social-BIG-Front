@@ -64,6 +64,7 @@ interface IPostData {
   comments: IComment[];
   createdAt: string;
   likedByCurrentUser?: boolean;
+  edited?: boolean;
 }
 
 interface IMarketData {
