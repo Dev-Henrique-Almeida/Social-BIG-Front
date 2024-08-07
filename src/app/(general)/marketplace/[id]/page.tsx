@@ -1,8 +1,15 @@
+// MarketDetails.tsx
 "use client";
 import { IMarketData, IUserData } from "@/app/shared/@types";
 import { useAuthContext } from "@/app/shared/contexts";
 import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
-import { getByMarket, getByUser, buyMarketItem } from "@/app/shared/services";
+import {
+  getByMarket,
+  getByUser,
+  buyMarketItem,
+  updateMarket,
+  deleteMarket,
+} from "@/app/shared/services";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "./marketDetails.module.scss";
@@ -13,6 +20,7 @@ import useMarketWithTimeElapsed from "@/app/shared/hooks/MarketWithTimeElapsed/u
 import useProfileNavigation from "@/app/shared/hooks/ProfileNavigation/useProfileNavigation";
 import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
 import MarketOptions from "@/app/shared/components/Market/MarketOptions/marketOptions";
+import EditMarketForm from "@/app/shared/components/Market/EditMarketForm/editMarketForm";
 
 const MarketDetails = () => {
   const { user: userLogado, token } = useAuthContext();
@@ -21,6 +29,7 @@ const MarketDetails = () => {
   const [market, setMarket] = useState<IMarketData | null>(null);
   const [seller, setSeller] = useState<IUserData | null>(null);
   const [buyer, setBuyer] = useState<IUserData | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
   const { formatCurrency } = useCurrency();
   const { handlePickPerfil } = useProfileNavigation();
   const themeStyles = useThemeStyles();
@@ -90,11 +99,45 @@ const MarketDetails = () => {
   };
 
   const handleEditPost = () => {
-    alert("Editar anúncio não implementado");
+    setIsEditing(true);
   };
 
-  const handleDeletePost = () => {
-    alert("Excluir anúncio não implementado");
+  const handleDeletePost = async () => {
+    const confirmed = confirm("Você realmente quer excluir este anúncio?");
+    if (!confirmed) return;
+
+    try {
+      await deleteMarket(market!.id, token!);
+      alert("Anúncio deletado com sucesso!");
+      router.push("/marketplace");
+    } catch (error) {
+      console.error("Erro ao deletar o anúncio:", error);
+      alert(
+        "Erro ao deletar o anúncio. Verifique o console para mais detalhes."
+      );
+    }
+  };
+
+  const handleSaveEdit = async (updatedMarket: IMarketData) => {
+    try {
+      const response = await updateMarket(
+        updatedMarket.id,
+        updatedMarket,
+        token!
+      );
+      setMarket(response);
+      setIsEditing(false);
+      alert("Anúncio atualizado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao atualizar o anúncio:", error);
+      alert(
+        "Erro ao atualizar o anúncio. Verifique o console para mais detalhes."
+      );
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
   };
 
   return (
@@ -103,73 +146,97 @@ const MarketDetails = () => {
         <button className={styles.backButton} onClick={() => router.back()}>
           <ArrowBackIcon />
         </button>
-        <h1 className={styles.title}>Detalhes do Item</h1>
+        <div className={styles.titleContainer}>
+          <h1 className={styles.title}>Detalhes do Item</h1>
+        </div>
+
         {seller.id === userLogado?.id && (
-          <MarketOptions onEdit={handleEditPost} onDelete={handleDeletePost} />
+          <div className={styles.options}>
+            <MarketOptions
+              onEdit={handleEditPost}
+              onDelete={handleDeletePost}
+            />
+          </div>
         )}
       </div>
-      <div className={styles.imageContainer}>
-        <img
-          src={imageUrl}
-          alt={marketWithTimeElapsed.name}
-          className={styles.image}
+      {isEditing ? (
+        <EditMarketForm
+          market={marketWithTimeElapsed}
+          onCancel={handleCancelEdit}
+          onSave={handleSaveEdit}
         />
-      </div>
-      <h1 className={styles.itemName}>{marketWithTimeElapsed.name}</h1>
-      <p className={styles.description}>{marketWithTimeElapsed.description}</p>
-      <p
-        className={`${styles.status} ${
-          marketWithTimeElapsed.vendido ? styles.sold : styles.available
-        }`}
-      >
-        {marketWithTimeElapsed.vendido ? "Já vendido!" : "Ainda não vendido."}
-      </p>
-      <p className={styles.price}>
-        {formatCurrency(marketWithTimeElapsed.price)}
-      </p>
-      {!marketWithTimeElapsed.vendido && (
-        <button className={styles.buyButton} onClick={handleBuyItem}>
-          Comprar Item
-        </button>
-      )}
-      <div className={styles.infoRow}>
-        <div className={styles.infoSection}>
-          <p className={styles.infoTitle}>Vendedor</p>
-          <div className={styles.userInfo}>
-            <Avatar
-              {...useAvatarProps(seller)()}
-              className={styles.userImage}
-              onClick={() => handlePickPerfil(seller.id!)}
+      ) : (
+        <>
+          <div className={styles.imageContainer}>
+            <img
+              src={imageUrl}
+              alt={marketWithTimeElapsed.name}
+              className={styles.image}
             />
-            <div className={styles.userDetails}>
-              <p className={styles.userName}>{seller.name}</p>
-              <div className={styles.userTime}>
-                <p className={styles.date}>{marketWithTimeElapsed.createdAt}</p>
-              </div>
-            </div>
           </div>
-        </div>
-        {buyer && (
-          <div className={styles.infoSection}>
-            <p className={styles.infoTitle}>Comprador</p>
-            <div className={styles.userInfo}>
-              <Avatar
-                {...useAvatarProps(buyer)()}
-                className={styles.userImage}
-                onClick={() => handlePickPerfil(buyer.id!)}
-              />
-              <div className={styles.userDetails}>
-                <p className={styles.userName}>{buyer.name}</p>
-                <div className={styles.userTime}>
-                  <p className={styles.date}>
-                    {marketWithTimeElapsed.updatedAt}
-                  </p>
+          <h1 className={styles.itemName}>{marketWithTimeElapsed.name}</h1>
+          <p className={styles.description}>
+            {marketWithTimeElapsed.description}
+          </p>
+          <p
+            className={`${styles.status} ${
+              marketWithTimeElapsed.vendido ? styles.sold : styles.available
+            }`}
+          >
+            {marketWithTimeElapsed.vendido
+              ? "Já vendido!"
+              : "Ainda não vendido."}
+          </p>
+          <p className={styles.price}>
+            {formatCurrency(marketWithTimeElapsed.price)}
+          </p>
+          {!marketWithTimeElapsed.vendido && (
+            <button className={styles.buyButton} onClick={handleBuyItem}>
+              Comprar Item
+            </button>
+          )}
+          <div className={styles.infoRow}>
+            <div className={styles.infoSection}>
+              <p className={styles.infoTitle}>Vendedor</p>
+              <div className={styles.userInfo}>
+                <Avatar
+                  {...useAvatarProps(seller)()}
+                  className={styles.userImage}
+                  onClick={() => handlePickPerfil(seller.id!)}
+                />
+                <div className={styles.userDetails}>
+                  <p className={styles.userName}>{seller.name}</p>
+                  <div className={styles.userTime}>
+                    <p className={styles.date}>
+                      {marketWithTimeElapsed.createdAt}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
+            {buyer && (
+              <div className={styles.infoSection}>
+                <p className={styles.infoTitle}>Comprador</p>
+                <div className={styles.userInfo}>
+                  <Avatar
+                    {...useAvatarProps(buyer)()}
+                    className={styles.userImage}
+                    onClick={() => handlePickPerfil(buyer.id!)}
+                  />
+                  <div className={styles.userDetails}>
+                    <p className={styles.userName}>{buyer.name}</p>
+                    <div className={styles.userTime}>
+                      <p className={styles.date}>
+                        {marketWithTimeElapsed.updatedAt}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 };

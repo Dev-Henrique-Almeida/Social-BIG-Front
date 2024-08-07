@@ -1,10 +1,14 @@
+// MarketOptions.tsx
 import React from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { IMarketOptionsProps } from "@/app/shared/@types";
-import styles from "./marketOptions.module.scss";
 
-const MarketOptions: React.FC<IMarketOptionsProps> = ({ onEdit, onDelete }) => {
+interface MarketOptionsProps {
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
+const MarketOptions: React.FC<MarketOptionsProps> = ({ onEdit, onDelete }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -22,7 +26,6 @@ const MarketOptions: React.FC<IMarketOptionsProps> = ({ onEdit, onDelete }) => {
         aria-controls="long-menu"
         aria-haspopup="true"
         onClick={handleMenuOpen}
-        className={styles.iconStyle}
       >
         <MoreHorizIcon />
       </IconButton>

@@ -75,7 +75,7 @@ export const buyMarketItem = async (
 
 export const updateMarket = async (
   id: string,
-  data: IMarketCreateData,
+  data: IMarketData,
   token: string
 ) => {
   try {

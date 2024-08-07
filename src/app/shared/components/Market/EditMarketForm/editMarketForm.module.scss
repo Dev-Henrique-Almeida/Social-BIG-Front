@@ -1,0 +1,89 @@
+.editMarketContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.editMarketForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+.editMarketTitle {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.imageUploadContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.uploadButton {
+  margin-top: 8px;
+}
+
+.imagePreviewContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  gap: 8px;
+}
+
+.imageWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagePreview {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+}
+
+.removeImageButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  min-width: 0;
+  padding: 4px;
+  border-radius: 50%; /* Adicione esta linha para bordas arredondadas */
+}
+
+.removeImageIcon {
+  font-size: 24px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.editMarketButton {
+  width: 100%;
+}
