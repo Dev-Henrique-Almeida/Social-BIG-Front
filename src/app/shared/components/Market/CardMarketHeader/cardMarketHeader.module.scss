@@ -1,5 +1,7 @@
 .headerContainer {
   display: flex;
+  font-family: "MontSerrat";
+
   justify-content: space-between;
   align-items: center;
   padding: 16px;
@@ -8,24 +10,26 @@
 }
 
 .titleContainer {
+  font-family: "MontSerrat";
+
   display: flex;
   flex-direction: column;
 }
 
 .subtitle {
-  font-family: MontSerrat;
+  font-family: "MontSerrat";
   font-size: 14px;
   color: #a1a3a7;
 }
 
 .title {
-  font-family: MontSerrat;
+  font-family: "MontSerrat";
   font-size: 24px;
   font-weight: bold;
 }
 
 .addButton {
-  font-family: MontSerrat;
+  font-family: "MontSerrat";
   width: 200px;
   height: 56px;
   font-size: 16px;

@@ -39,13 +39,13 @@
 }
 
 .cardTitle {
-  font-family: MontSerrat;
+  font-family: "MontSerrat";
   font-size: 18px;
   margin: 8px 0;
 }
 
 .cardDescription {
-  font-family: MontSerrat;
+  font-family: "MontSerrat";
   font-size: 14px;
   margin: 8px 0;
   text-align: left;
@@ -54,7 +54,7 @@
 }
 
 .cardPrice {
-  font-family: MontSerrat;
+  font-family: "MontSerrat";
   font-size: 16px;
   font-weight: bold;
   margin: 8px 0;
@@ -62,7 +62,7 @@
 }
 
 .cardStatus {
-  font-family: MontSerrat;
+  font-family: "MontSerrat";
   font-size: 14px;
   padding: 8px 16px;
   border-radius: 46px;
@@ -72,11 +72,15 @@
 }
 
 .sold {
+  font-family: "MontSerrat";
+
   background-color: #d32f2f;
   color: white;
 }
 
 .available {
+  font-family: "MontSerrat";
+
   background-color: #737373;
   color: white;
 }
@@ -100,6 +104,8 @@
 }
 
 .filterControl {
+  font-family: "MontSerrat";
+
   margin: 16px;
   min-width: 200px;
 }

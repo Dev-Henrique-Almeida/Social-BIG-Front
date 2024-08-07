@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  font-family: "MontSerrat";
+
   padding: 0px 36px;
 }
 
@@ -13,7 +15,7 @@
   padding: 0;
   gap: 8px;
   width: 100%;
-  font-family: "Inter";
+  font-family: "MontSerrat";
   font-weight: 700;
   font-size: 48px;
   line-height: 56px;
@@ -27,6 +29,8 @@
   align-items: center;
   padding: 0;
   gap: 48px;
+  font-family: "MontSerrat";
+
   width: 100%;
 }
 
@@ -64,7 +68,7 @@
 
 .description {
   width: 100%;
-  font-family: "Inter";
+  font-family: "MontSerrat";
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
@@ -77,7 +81,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 24px;
-  font-family: "Inter";
+  font-family: "MontSerrat";
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
@@ -89,16 +93,20 @@
 }
 
 .sold {
+  font-family: "MontSerrat";
+
   background: #d32f2f;
 }
 
 .available {
+  font-family: "MontSerrat";
+
   background: #75767d;
 }
 
 .price {
   width: 100%;
-  font-family: "Inter";
+  font-family: "MontSerrat";
   font-weight: 400;
   font-size: 24px;
   line-height: 24px;
@@ -109,7 +117,7 @@
 .buyButton {
   background: #d32f2f;
   color: white;
-  font-family: "Inter";
+  font-family: "MontSerrat";
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -133,6 +141,7 @@
   padding: 0;
   width: 100%;
   gap: 16px;
+  font-family: "MontSerrat";
 }
 
 .infoSection {
@@ -146,7 +155,7 @@
 
 .infoTitle {
   width: 100%;
-  font-family: "Inter";
+  font-family: "MontSerrat";
   font-weight: 500;
   font-size: 24px;
   line-height: 24px;
@@ -155,6 +164,8 @@
 
 .userInfo {
   display: flex;
+  font-family: "MontSerrat";
+
   flex-direction: row;
   align-items: center;
   padding: 0;
@@ -173,6 +184,8 @@
 
 .userDetails {
   display: flex;
+  font-family: "MontSerrat";
+
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -180,7 +193,7 @@
 }
 
 .userName {
-  font-family: "Poppins";
+  font-family: "MontSerrat";
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
@@ -195,7 +208,7 @@
 }
 
 .date {
-  font-family: "Poppins";
+  font-family: "MontSerrat";
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
