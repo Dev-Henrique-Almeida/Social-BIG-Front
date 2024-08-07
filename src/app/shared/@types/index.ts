@@ -15,6 +15,11 @@ interface IAuthContextData {
   setToken: (token: string | null) => void;
 }
 
+interface IMarketOptionsProps {
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
 interface IChildrenProps {
   children: React.ReactNode;
 }
@@ -205,4 +210,5 @@ export type {
   IMarketContainerProps,
   IFormCreateCardProps,
   IMarketContent,
+  IMarketOptionsProps,
 };

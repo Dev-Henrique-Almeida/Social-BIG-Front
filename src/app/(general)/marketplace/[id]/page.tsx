@@ -3,20 +3,21 @@ import { IMarketData, IUserData } from "@/app/shared/@types";
 import { useAuthContext } from "@/app/shared/contexts";
 import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
 import { getByMarket, getByUser, buyMarketItem } from "@/app/shared/services";
-import { usePathname, useRouter } from "next/navigation"; // Importando useRouter
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "./marketDetails.module.scss";
 import { Avatar } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack"; // Importando o ícone de seta
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import useMarketWithTimeElapsed from "@/app/shared/hooks/MarketWithTimeElapsed/useMarketWithTimeElapsed";
 import useProfileNavigation from "@/app/shared/hooks/ProfileNavigation/useProfileNavigation";
 import useAvatarProps from "@/app/shared/hooks/AvatarProps/useAvatarProps";
+import MarketOptions from "@/app/shared/components/Market/MarketOptions/marketOptions";
 
 const MarketDetails = () => {
   const { user: userLogado, token } = useAuthContext();
   const pathname = usePathname();
-  const router = useRouter(); // Inicializando o hook useRouter
+  const router = useRouter();
   const [market, setMarket] = useState<IMarketData | null>(null);
   const [seller, setSeller] = useState<IUserData | null>(null);
   const [buyer, setBuyer] = useState<IUserData | null>(null);
@@ -79,7 +80,7 @@ const MarketDetails = () => {
       setMarket((prevMarket) => ({
         ...prevMarket!,
         vendido: true,
-        updatedAt: new Date().toISOString(), // pra atualizar o campo updatedAt
+        updatedAt: new Date().toISOString(),
       }));
       alert("Compra realizada com sucesso!");
     } catch (error) {
@@ -88,15 +89,24 @@ const MarketDetails = () => {
     }
   };
 
+  const handleEditPost = () => {
+    alert("Editar anúncio não implementado");
+  };
+
+  const handleDeletePost = () => {
+    alert("Excluir anúncio não implementado");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <button className={styles.backButton} onClick={() => router.back()}>
-          {" "}
-          {/* Botão de Voltar com ícone */}
           <ArrowBackIcon />
         </button>
         <h1 className={styles.title}>Detalhes do Item</h1>
+        {seller.id === userLogado?.id && (
+          <MarketOptions onEdit={handleEditPost} onDelete={handleDeletePost} />
+        )}
       </div>
       <div className={styles.imageContainer}>
         <img

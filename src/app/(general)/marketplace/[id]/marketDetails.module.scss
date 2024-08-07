@@ -1,3 +1,5 @@
+/* marketDetails.module.scss */
+
 .container {
   display: flex;
   flex-direction: column;
@@ -11,9 +13,9 @@
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: center;
-  position: relative;
-  padding-left: 50px;
+  justify-content: center; /* Centraliza o título */
+  position: relative; /* Para posicionar o botão de voltar */
+  padding-left: 50px; /* Adiciona padding à esquerda para o botão de voltar */
 }
 
 .backButton {
@@ -30,8 +32,9 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  position: absolute;
-  left: 0;
+  position: absolute; /* Posiciona o botão de voltar */
+  left: 0; /* À esquerda do título */
+  margin-top: 10px; /* Adiciona margem superior para afastar da imagem */
 
   &:hover {
     background: #9e0404;
@@ -50,6 +53,7 @@
   text-align: center;
   letter-spacing: -0.02em;
   margin: 0;
+  flex-grow: 1; /* Adiciona espaço flexível entre o título e as opções */
 }
 
 .infos {
