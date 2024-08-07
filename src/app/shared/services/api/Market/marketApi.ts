@@ -72,3 +72,37 @@ export const buyMarketItem = async (
     throw error;
   }
 };
+
+export const updateMarket = async (
+  id: string,
+  data: IMarketCreateData,
+  token: string
+) => {
+  try {
+    const response = await api.put(`/market/${id}`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar o anúncio no marketplace:", error);
+    throw error;
+  }
+};
+
+export const deleteMarket = async (id: string, token: string) => {
+  try {
+    const response = await api.delete(`/market/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao deletar o anúncio no marketplace:", error);
+    throw error;
+  }
+};
