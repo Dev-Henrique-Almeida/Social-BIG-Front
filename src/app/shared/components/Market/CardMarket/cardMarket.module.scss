@@ -4,19 +4,21 @@
   gap: 16px;
   padding: 16px;
   overflow: auto;
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
 }
 
 .noItemsMessage {
   width: 100%;
   text-align: center;
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
+
   font-size: 18px;
   color: #a1a3a7;
 }
 
 .card {
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
+
   padding: 16px;
   margin: 0 auto;
   border-radius: 8px;
@@ -40,13 +42,15 @@
 }
 
 .cardTitle {
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
+
   font-size: 18px;
   margin: 8px 0;
 }
 
 .cardDescription {
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
+
   font-size: 14px;
   margin: 8px 0;
   text-align: left;
@@ -55,7 +59,8 @@
 }
 
 .cardPrice {
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
+
   font-size: 16px;
   font-weight: bold;
   margin: 8px 0;
@@ -63,7 +68,8 @@
 }
 
 .cardStatus {
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
+
   font-size: 14px;
   padding: 8px 16px;
   border-radius: 46px;
@@ -73,14 +79,14 @@
 }
 
 .sold {
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
 
   background-color: #d32f2f;
   color: white;
 }
 
 .available {
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
 
   background-color: #737373;
   color: white;
@@ -105,7 +111,7 @@
 }
 
 .filterControl {
-  font-family: "MontSerrat";
+  font-family: "Montserrat", sans-serif;
 
   margin: 16px;
   min-width: 200px;
