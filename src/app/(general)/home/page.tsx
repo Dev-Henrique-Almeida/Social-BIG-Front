@@ -11,6 +11,7 @@ export default function Home() {
   const { user, token } = useAuthContext();
   const [refreshPosts, setRefreshPosts] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showCardUsers, setShowCardUsers] = useState(true); // Novo estado para controlar a exibição de CardUsers
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,12 +34,18 @@ export default function Home() {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.content}>
+      <div
+        className={`${styles.content} ${
+          !showCardUsers ? styles.fullWidth : ""
+        }`}
+      >
         {isMobile ? (
           <>
-            <div className={styles.rightSection + " " + styles.mobileOrder}>
-              <CardUsers user={user} token={token!} />
-            </div>
+            {showCardUsers && (
+              <div className={styles.rightSection + " " + styles.mobileOrder}>
+                <CardUsers user={user} token={token!} />
+              </div>
+            )}
             <div className={styles.leftSection}>
               <CreatePost
                 user={user}
@@ -58,9 +65,11 @@ export default function Home() {
               />
               <PostsContainer token={token!} refreshPosts={refreshPosts} />
             </div>
-            <div className={styles.rightSection}>
-              <CardUsers user={user} token={token!} />
-            </div>
+            {showCardUsers && (
+              <div className={styles.rightSection}>
+                <CardUsers user={user} token={token!} />
+              </div>
+            )}
           </>
         )}
       </div>

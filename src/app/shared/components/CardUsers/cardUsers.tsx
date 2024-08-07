@@ -8,6 +8,7 @@ import styles from "./cardUsers.module.scss";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
 import useProfileNavigation from "../../hooks/ProfileNavigation/useProfileNavigation";
 import useAvatarProps from "../../hooks/AvatarProps/useAvatarProps";
+import useFirstAndLastName from "../../hooks/FirstAndLastName/useFirstAndLastName";
 
 const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
   const [users, setUsers] = useState<IUserData[]>([]);
@@ -61,7 +62,9 @@ const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
               }}
               {...useAvatarProps(friend)()}
             />
-            <div className={styles.friendName}>{friend.name}</div>
+            <div className={styles.friendName}>
+              {useFirstAndLastName(friend.name)}
+            </div>
           </div>
         ))}
       </div>
