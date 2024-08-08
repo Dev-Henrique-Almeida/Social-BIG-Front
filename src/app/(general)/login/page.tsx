@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import { useAuthContext } from "@/app/shared/contexts";
 import { loginUser } from "@/app/shared/services";
@@ -14,22 +15,23 @@ import TrocarTema from "@/app/shared/components/Tema/TrocarTema/trocarTema";
 const Login = () => {
   const router = useRouter();
   const themeStyles = useThemeStyles();
-  const { setUser, setToken } = useAuthContext();
+  const { user, setUser, setToken } = useAuthContext();
   const { formData, handleChange } = useHandleChangeProfile();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/home");
+    }
+  }, [user, router]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const data = await loginUser(formData);
-      /*   console.log(data.token);
-      console.log(data.user.id); */
-
       setUser(data.user);
       setToken(data.token);
-
       router.push("/home");
     } catch (error) {
-      /*  console.error("Erro ao logar:", error); */
       alert("Credenciais inválidas. Por favor, verifique e tente novamente.");
     }
   };

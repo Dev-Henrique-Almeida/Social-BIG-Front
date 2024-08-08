@@ -2,6 +2,7 @@
 
 import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useAuthContext } from "@/app/shared/contexts";
 import { createUser } from "@/app/shared/services";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
@@ -16,9 +17,15 @@ import TrocarTema from "@/app/shared/components/Tema/TrocarTema/trocarTema";
 export default function Register() {
   const router = useRouter();
   const themeStyles = useThemeStyles();
-  const { setUser, setToken } = useAuthContext();
+  const { user, setUser, setToken } = useAuthContext();
   const { formData, handleChange } = useHandleChangeProfile();
   const { calculateAge } = useAgeCalculator();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/home");
+    }
+  }, [user, router]);
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
