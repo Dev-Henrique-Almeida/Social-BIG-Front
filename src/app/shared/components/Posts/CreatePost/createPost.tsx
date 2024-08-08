@@ -31,7 +31,7 @@ const CreatePost: React.FC<ICreatePostProps> = ({
       text: postContent,
       location,
       image: imagePreview || "",
-      authorId: user.id!,
+      authorId: user!.id!,
     };
 
     try {
