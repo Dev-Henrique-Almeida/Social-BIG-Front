@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { IFormEditProps, IMarketData } from "../../@types";
+import { ICardDestaqueProps, IMarketData } from "../../@types";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import { getAllMarket } from "../../services";
 import { Avatar } from "@mui/material";
@@ -10,7 +10,7 @@ import useFirstAndLastName from "../../hooks/FirstAndLastName/useFirstAndLastNam
 import useMarketNavigation from "../../hooks/MarketNavigation/useMarketNavigation";
 import useCurrency from "../../hooks/RealCurrency/useCurrency";
 
-const CardDestaque: React.FC<IFormEditProps> = ({ token }) => {
+const CardDestaque: React.FC<ICardDestaqueProps> = ({ token }) => {
   const [markets, setMarkets] = useState<IMarketData[]>([]);
   const themeStyles = useThemeStyles();
   const [isOpen, setIsOpen] = useState(false);

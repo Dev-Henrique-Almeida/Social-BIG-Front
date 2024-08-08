@@ -29,6 +29,12 @@ interface IEventProps {
 }
 
 interface IFormEditProps {
+  user: IUserData;
+  token: string;
+  onClose?: () => void;
+}
+
+interface ICardDestaqueProps {
   user?: IUserData;
   token: string;
   onClose?: () => void;
@@ -211,4 +217,5 @@ export type {
   IFormCreateCardProps,
   IMarketContent,
   IMarketOptionsProps,
+  ICardDestaqueProps,
 };

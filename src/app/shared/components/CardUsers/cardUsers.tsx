@@ -19,7 +19,7 @@ const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const users = await getOthersUsers(token, user!.id!);
+        const users = await getOthersUsers(token, user.id!);
         setUsers(users);
       } catch (error) {
         console.error("Erro ao buscar usuários:", error);
@@ -27,7 +27,7 @@ const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
     };
 
     fetchUsers();
-  }, [token, user!.id]);
+  }, [token, user.id]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
