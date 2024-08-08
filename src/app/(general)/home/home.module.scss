@@ -21,10 +21,16 @@
 .rightSection {
   flex: 1;
   max-width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .fullWidth .leftSection {
   flex: 1;
+}
+
+.spacer {
+  height: 20px; /* Espaçamento entre os cartões */
 }
 
 @media (max-width: 900px) {
@@ -34,7 +40,8 @@
   .rightSection {
     max-width: 100%;
   }
-  .mobileOrder {
-    order: -1;
+  .rightSectionMobile {
+    display: flex;
+    flex-direction: column;
   }
 }

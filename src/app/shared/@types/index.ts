@@ -29,7 +29,7 @@ interface IEventProps {
 }
 
 interface IFormEditProps {
-  user: IUserData;
+  user?: IUserData;
   token: string;
   onClose?: () => void;
 }

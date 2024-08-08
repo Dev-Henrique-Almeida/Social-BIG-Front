@@ -6,12 +6,13 @@ import CreatePost from "@/app/shared/components/Posts/CreatePost/createPost";
 import PostsContainer from "@/app/shared/components/Posts/PostContainer/postsContainer";
 import CardUsers from "@/app/shared/components/CardUsers/cardUsers";
 import styles from "./home.module.scss";
+import CardDestaque from "@/app/shared/components/CardDestaque/cardDestaque";
 
 export default function Home() {
   const { user, token } = useAuthContext();
   const [refreshPosts, setRefreshPosts] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [showCardUsers, setShowCardUsers] = useState(true); // Novo estado para controlar a exibição de CardUsers
+  const [showCardUsers, setShowCardUsers] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,8 +43,10 @@ export default function Home() {
         {isMobile ? (
           <>
             {showCardUsers && (
-              <div className={styles.rightSection + " " + styles.mobileOrder}>
+              <div className={styles.rightSectionMobile}>
                 <CardUsers user={user} token={token!} />
+                <div className={styles.spacer}></div>{" "}
+                <CardDestaque token={token!} />
               </div>
             )}
             <div className={styles.leftSection}>
@@ -68,6 +71,8 @@ export default function Home() {
             {showCardUsers && (
               <div className={styles.rightSection}>
                 <CardUsers user={user} token={token!} />
+                <div className={styles.spacer}></div>{" "}
+                <CardDestaque token={token!} />
               </div>
             )}
           </>

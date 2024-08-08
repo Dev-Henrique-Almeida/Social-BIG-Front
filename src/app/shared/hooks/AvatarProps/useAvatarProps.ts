@@ -1,7 +1,7 @@
 import { useAuthContext } from "../../contexts/Auth/AuthContext";
-import { IAuthor, IUserData } from "../../@types";
+import { IAuthor, IMarketData, IUserData } from "../../@types";
 
-const useAvatarProps = (author?: IAuthor | IUserData) => {
+const useAvatarProps = (author?: IAuthor | IUserData | IMarketData) => {
   const { user } = useAuthContext();
 
   const getAvatarProps = () => {
