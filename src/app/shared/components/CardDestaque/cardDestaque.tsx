@@ -65,7 +65,8 @@ const CardDestaque: React.FC<ICardDestaqueProps> = ({ token }) => {
             />
             <div className={styles.friendName}>
               <div className={styles.name}>
-                {useFirstAndLastName(market.name)}
+                {/*                 {useFirstAndLastName(market.name)}*/}
+                {market.name}
               </div>
               <div className={styles.price}>{formatCurrency(market.price)}</div>
             </div>

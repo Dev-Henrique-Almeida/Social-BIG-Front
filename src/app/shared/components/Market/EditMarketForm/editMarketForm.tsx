@@ -1,12 +1,13 @@
-// EditMarketForm.tsx
+"use client";
 import React, { useState, useRef } from "react";
-import { Button } from "@mui/material";
+import { Button, Alert } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import styles from "./editMarketForm.module.scss";
 import { IMarketData } from "@/app/shared/@types";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
 import InputField from "../../Profile/inputField/inputField";
 import useHandleChange from "@/app/shared/hooks/HandleChangeCard/useHandleChangeCard";
+import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
 
 interface EditMarketFormProps {
   market: IMarketData;
@@ -36,9 +37,15 @@ const EditMarketForm: React.FC<EditMarketFormProps> = ({
   const [imagePreview, setImagePreview] = useState<string | null>(
     market.image || null
   );
+  const [nameError, setNameError] = useState<string | null>(null);
+  const { formatCurrency } = useCurrency();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (formData.name.length > 45) {
+      setNameError("O título deve ter no máximo 45 caracteres.");
+      return;
+    }
     onSave(formData);
   };
 
@@ -66,13 +73,6 @@ const EditMarketForm: React.FC<EditMarketFormProps> = ({
     }
   };
 
-  const formatCurrency = (value: number) => {
-    return value.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-  };
-
   return (
     <div className={styles.editMarketContainer}>
       <form
@@ -88,22 +88,36 @@ const EditMarketForm: React.FC<EditMarketFormProps> = ({
             Editar Anúncio
           </h1>
         </div>
-        <InputField
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-          name="name"
-          placeholder="Nome"
-          className={styles.inputField}
-        />
-        <InputField
-          type="text"
-          value={formData.description}
-          onChange={handleChange}
-          name="description"
-          placeholder="Descrição"
-          className={styles.inputField}
-        />
+        <div className={styles.inputContainer}>
+          <InputField
+            type="text"
+            value={formData.name}
+            onChange={(e) => {
+              handleChange(e);
+              if (e.target.value.length > 45) {
+                setNameError("O título deve ter no máximo 45 caracteres.");
+              } else {
+                setNameError(null);
+              }
+            }}
+            name="name"
+            placeholder="Nome"
+            className={`${styles.inputField} ${
+              nameError ? styles.inputFieldError : ""
+            }`}
+          />
+          {nameError && <span className={styles.errorText}>{nameError}</span>}
+        </div>
+        <div className={styles.inputContainer}>
+          <InputField
+            type="text"
+            value={formData.description}
+            onChange={handleChange}
+            name="description"
+            placeholder="Descrição"
+            className={styles.inputField}
+          />
+        </div>
         <InputField
           type="text"
           value={formatCurrency(formData.price)}

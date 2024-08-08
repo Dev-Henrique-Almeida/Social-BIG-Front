@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { Button } from "@mui/material";
+import { Button, Alert } from "@mui/material";
 import { useAuthContext } from "@/app/shared/contexts/Auth/AuthContext";
 import styles from "./formCreateCard.module.scss";
 import useThemeStyles from "@/app/shared/hooks/ThemeStyles/useThemeStyles";
@@ -9,6 +9,7 @@ import { IFormCreateCardProps, IMarketCreateData } from "@/app/shared/@types";
 import { createMarket } from "@/app/shared/services";
 import useHandleChange from "@/app/shared/hooks/HandleChangeCard/useHandleChangeCard";
 import { Close } from "@mui/icons-material";
+import useCurrency from "@/app/shared/hooks/RealCurrency/useCurrency";
 
 interface FormCreateCardProps extends IFormCreateCardProps {
   refreshMarket: () => void;
@@ -34,9 +35,16 @@ const FormCreateCard: React.FC<FormCreateCardProps> = ({
     useHandleChange<IMarketCreateData>(initialFormData);
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [nameError, setNameError] = useState<string | null>(null);
+  const { formatCurrency } = useCurrency();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (formData.name.length > 45) {
+      setNameError("O título deve ter no máximo 45 caracteres.");
+      return;
+    }
 
     const formattedFormData = {
       ...formData,
@@ -85,13 +93,6 @@ const FormCreateCard: React.FC<FormCreateCardProps> = ({
     }
   };
 
-  const formatCurrency = (value: number) => {
-    return value.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-  };
-
   return (
     <div className={styles.formCreateCardContainer}>
       <form
@@ -107,22 +108,36 @@ const FormCreateCard: React.FC<FormCreateCardProps> = ({
             Criar Card
           </h1>
         </div>
-        <InputField
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-          name="name"
-          placeholder="Nome"
-          className={styles.inputField}
-        />
-        <InputField
-          type="text"
-          value={formData.description}
-          onChange={handleChange}
-          name="description"
-          placeholder="Descrição"
-          className={styles.inputField}
-        />
+        <div className={styles.inputContainer}>
+          <InputField
+            type="text"
+            value={formData.name}
+            onChange={(e) => {
+              handleChange(e);
+              if (e.target.value.length > 45) {
+                setNameError("O título deve ter no máximo 45 caracteres.");
+              } else {
+                setNameError(null);
+              }
+            }}
+            name="name"
+            placeholder="Nome"
+            className={`${styles.inputField} ${
+              nameError ? styles.inputFieldError : ""
+            }`}
+          />
+          {nameError && <span className={styles.errorText}>{nameError}</span>}
+        </div>
+        <div className={styles.inputContainer}>
+          <InputField
+            type="text"
+            value={formData.description}
+            onChange={handleChange}
+            name="description"
+            placeholder="Descrição"
+            className={styles.inputField}
+          />
+        </div>
         <InputField
           type="text"
           value={formatCurrency(formData.price)}
