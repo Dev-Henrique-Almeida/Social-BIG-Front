@@ -27,7 +27,7 @@ const CardUsers: React.FC<IFormEditProps> = ({ user, token }) => {
     };
 
     fetchUsers();
-  }, [token, user.id]);
+  }, [token, user!.id]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
