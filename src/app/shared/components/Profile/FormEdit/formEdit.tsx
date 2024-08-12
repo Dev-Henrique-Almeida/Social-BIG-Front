@@ -25,9 +25,12 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
     event.preventDefault();
 
     try {
-      // Remova o campo 'image' se não houver uma imagem
-      const { image, ...otherData } = formData;
-      const dataToUpdate = image ? formData : otherData;
+      let dataToUpdate = { ...formData };
+
+      // Se a imagem foi removida, envie 'null' ou remova o campo 'image'
+      if (imagePreview === null) {
+        dataToUpdate = { ...dataToUpdate, image: "null" }; // ou delete dataToUpdate.image;
+      }
 
       const updatedUser = await updateUser(dataToUpdate, user.id!, token);
       console.log(updatedUser);
@@ -160,7 +163,7 @@ export default function FormEdit({ user, token, onClose }: IFormEditProps) {
           >
             Escolher Imagem
           </Button>
-          {imagePreview && (
+          {imagePreview && imagePreview !== "null" && (
             <div className={styles.imagePreviewContainer}>
               <img
                 src={imagePreview}

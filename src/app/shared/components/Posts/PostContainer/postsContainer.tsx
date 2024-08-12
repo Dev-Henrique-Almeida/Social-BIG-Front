@@ -3,6 +3,7 @@ import { IPostData, IPostsContainerProps } from "@/app/shared/@types";
 
 import Posts from "../posts";
 import { getAllPosts, getAllPostsByUser } from "@/app/shared/services";
+import { useAuthContext } from "@/app/shared/contexts";
 
 const PostsContainer: React.FC<IPostsContainerProps> = ({
   token,
@@ -11,6 +12,7 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({
   isButton = false,
 }) => {
   const [posts, setPosts] = useState<IPostData[]>([]);
+  const { user } = useAuthContext();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -23,6 +25,7 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
+
         setPosts(sortedPosts);
       } catch (error) {
         console.error("Erro ao buscar posts:", error);
@@ -30,7 +33,7 @@ const PostsContainer: React.FC<IPostsContainerProps> = ({
     };
 
     fetchPosts();
-  }, [refreshPosts]); /* , userId, token */
+  }, [refreshPosts, user?.image]); /* , userId, token */
 
   return <Posts posts={posts} isButton={isButton} />;
 };
