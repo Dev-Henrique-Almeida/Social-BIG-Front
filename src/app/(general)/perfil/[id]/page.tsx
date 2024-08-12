@@ -11,12 +11,12 @@ import FormatDateToBRFull from "@/app/shared/utils/ConvertDates/convertDate";
 import ConvertSex from "@/app/shared/utils/ConvertSex/convertSex";
 import bannerImage from "../../../assets/banner-perfil.png";
 import bannerImageMobile from "../../../assets/banner-perfil-mobile.png";
-import styles from "./perfil.module.scss";
+import styles from "./perfilDetails.module.scss";
 import { usePathname } from "next/navigation";
 import { IUserData } from "@/app/shared/@types";
 import { getByUser } from "@/app/shared/services";
 
-export default function Perfil() {
+export default function PerfilDetails() {
   const { user: userLogado, token } = useAuthContext();
   const theme = useTheme();
   const mdDown = theme.breakpoints.down("md");
