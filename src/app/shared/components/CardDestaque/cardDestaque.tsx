@@ -6,7 +6,6 @@ import { getAllMarket } from "../../services";
 import { Avatar } from "@mui/material";
 import styles from "./cardDestaque.module.scss";
 import useThemeStyles from "../../hooks/ThemeStyles/useThemeStyles";
-import useFirstAndLastName from "../../hooks/FirstAndLastName/useFirstAndLastName";
 import useMarketNavigation from "../../hooks/MarketNavigation/useMarketNavigation";
 import useCurrency from "../../hooks/RealCurrency/useCurrency";
 
@@ -64,10 +63,7 @@ const CardDestaque: React.FC<ICardDestaqueProps> = ({ token }) => {
               }}
             />
             <div className={styles.friendName}>
-              <div className={styles.name}>
-                {/*                 {useFirstAndLastName(market.name)}*/}
-                {market.name}
-              </div>
+              <div className={styles.name}>{market.name}</div>
               <div className={styles.price}>{formatCurrency(market.price)}</div>
             </div>
           </div>

@@ -20,6 +20,9 @@
 
 .avatarStyle {
   border: 1px solid #d32f2f;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 
 .title {
@@ -38,7 +41,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
   max-height: 0;
   overflow: hidden;
@@ -49,13 +52,19 @@
 }
 
 .friendList.open {
-  max-height: 220px;
+  max-height: 230px; /* Ajustado para mostrar 4 itens */
   padding-top: 10px;
   padding-bottom: 10px;
+  overflow-y: auto; /* Habilitar scroll */
 }
 
-.friendList::-webkit-scrollbar {
-  display: none;
+.friendList.open::-webkit-scrollbar {
+  width: 4px;
+}
+
+.friendList.open::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 .friendItem {
@@ -65,6 +74,7 @@
   padding: 0px;
   gap: 16px;
   width: 100%;
+  height: 48px; /* Ajustado para altura apropriada */
 }
 
 .friendName {
