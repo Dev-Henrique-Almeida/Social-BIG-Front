@@ -52,10 +52,10 @@
 }
 
 .friendList.open {
-  max-height: 230px; /* Ajustado para mostrar 4 itens */
+  max-height: 230px;
   padding-top: 10px;
   padding-bottom: 10px;
-  overflow-y: auto; /* Habilitar scroll */
+  overflow-y: auto;
 }
 
 .friendList.open::-webkit-scrollbar {
