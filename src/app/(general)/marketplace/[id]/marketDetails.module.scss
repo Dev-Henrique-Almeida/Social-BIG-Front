@@ -173,6 +173,16 @@
   }
 }
 
+.disabledBuyButton {
+  background: #d32f2f;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.disabledBuyButton:hover {
+  background: #d32f2f;
+}
+
 .infoRow {
   display: flex;
   flex-direction: row;

@@ -1,4 +1,3 @@
-// MarketDetails.tsx
 "use client";
 import { IMarketData, IUserData } from "@/app/shared/@types";
 import { useAuthContext } from "@/app/shared/contexts";
@@ -45,7 +44,6 @@ const MarketDetails = () => {
           const fetchedSeller = await getByUser(fetchedMarket.sellerId, token);
           setMarket(fetchedMarket);
           setSeller(fetchedSeller);
-          console.log(fetchedMarket);
 
           if (fetchedMarket.buyerId) {
             const fetchedBuyer = await getByUser(fetchedMarket.buyerId, token);
@@ -68,11 +66,6 @@ const MarketDetails = () => {
   const handleBuyItem = async () => {
     if (!userLogado || !userLogado.id) {
       alert("Usuário não autenticado ou ID de usuário não encontrado.");
-      return;
-    }
-
-    if (userLogado.id === seller.id) {
-      alert("Você não pode comprar seu próprio produto.");
       return;
     }
 
@@ -140,6 +133,8 @@ const MarketDetails = () => {
     setIsEditing(false);
   };
 
+  const isSeller = userLogado?.id === seller.id;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -191,7 +186,14 @@ const MarketDetails = () => {
             {formatCurrency(marketWithTimeElapsed.price)}
           </p>
           {!marketWithTimeElapsed.vendido && (
-            <button className={styles.buyButton} onClick={handleBuyItem}>
+            <button
+              className={`${styles.buyButton} ${
+                isSeller ? styles.disabledBuyButton : ""
+              }`}
+              onClick={handleBuyItem}
+              disabled={isSeller}
+              title={isSeller ? "Este item é seu." : ""}
+            >
               Comprar Item
             </button>
           )}
